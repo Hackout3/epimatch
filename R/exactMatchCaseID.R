@@ -6,7 +6,7 @@ exactMatchCaseIDIntraDataset <- function(caseIDVector){
   caseIDVector <- gsub("[[:punct:]][[:blank:]]+", "_", caseIDVector)
   #make all characters lowercase
   caseIDVector <- tolower(caseIDVector)
-  return(adist(caseIDVector, caseIDVector))
+  return(adist(caseIDVector))
 }
 
 #input: two vectors of case IDs
