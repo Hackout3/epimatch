@@ -2,7 +2,7 @@
 #note: assumes that the gender dictionary contains all possible string values
 #found in this dataset. That's because we force the user to do this through
 #the shiny app.
-normalizeGender(genderDictionary, dataset,
+normalizeGender <- function(genderDictionary, dataset,
                 datasetGenderString = "Gender",
                 genderDictionaryString = "originalGender"){
   dataset <- merge(dataset, genderDictionary, by.x = datasetGenderString,
