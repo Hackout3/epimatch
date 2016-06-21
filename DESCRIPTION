@@ -1,13 +1,15 @@
 Package: epimatch
 Title: Tools for finding close matches in epi data
 Version: 0.0.0.9000
-Authors@R: c(
-person("Katie", "Planey", role = c("aut", "cre")),
-person("John", "Lees", role = c("aut", "cre")),
-person(c("Zhian","N."), "Kamvar", role = c("aut", "cre")),
-person(c("Ilana", "Schafer", role = c("aut", "cre")))
+Authors@R: c(person("Katie", "Planey", email = "katherine.planey@gmail.com", role = c("aut")),
+  person("John", "Lees", email = "lees.john6@gmail.com", role = c("aut")),
+  person(c("Zhian","N."), "Kamvar", email = "zkamvar@gmail", role = c("aut", "cre"), comment = c("affiliations: Grunwald Lab, USDA-ARS, Oregon State University")),
+  person("Ilana", "Schafer", email = "wii3@cdc.gov", role = c("aut")))
+Maintainer: Zhian N. Kamvar <zkamvar@gmail.com>
 Description: Matches names within a single database and across databases.
-Depends: R (>= 3.3.0)
+Depends:
+    R (>= 3.3.0)
 License: MIT
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 5.0.1
