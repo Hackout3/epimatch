@@ -5,7 +5,7 @@ buildGenderDictionary(dataset, genderFieldName = "Gender"){
   genderDictionary <- c()
   for(g in 1:length(uniqueGenderFields)){
     #using paste inside readline didn't work well:
-    input <- readline(prompt = paste("\nString 1:", uniqueGenderFields[g], " - specify m, f or NA:"))
+    input <- readline(prompt = paste("String 1:", uniqueGenderFields[g], " - specify m, f or NA:"))
     if(input != "m" && input != "f" && input != "NA"){
       input <- readline(paste("Let's try that again - please specify only m, f or NA for string 1:", uniqueGenderFields[g], ":"))
       if(input == "NA"){
