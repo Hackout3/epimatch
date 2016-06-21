@@ -3,7 +3,7 @@
 #'
 #' @param dat a vector or data frame
 #'
-#' @return
+#' @return a distance matrix giving the number of mismatches in names.
 #' @export
 #'
 #' @examples
