@@ -3,7 +3,7 @@
 #test: caseIDVector <- c("AB-10-1", "AB-10-5", "AB-10_1")
 exactMatchCaseIDIntraDataset <- function(caseIDVector){
   #replace all puncutation with a lowercase character.
-  caseIDVector <- gsub("[[:punct:]]", "_", caseIDVector)
+  caseIDVector <- gsub("[[:punct:]][[:blank:]]+", "_", caseIDVector)
   #make all characters lowercase
   caseIDVector <- tolower(caseIDVector)
   return(adist(caseIDVector, caseIDVector))
