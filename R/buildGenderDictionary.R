@@ -1,5 +1,5 @@
 
-buildGenderDictionary(dataset, genderFieldName = "Gender"){
+buildGenderDictionary <- function(dataset, genderFieldName = "Gender"){
   uniqueGenderFields <- as.character(unique(dataset[, genderFieldName]))
   cat("\nPlease identify whether each string for gender found is m (male), f (female), or neither (NA)")
   genderDictionary <- c()

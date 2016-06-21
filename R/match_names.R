@@ -18,5 +18,7 @@ match_names <- function(dat){
   # replace all punctuation and spaces with a single space
   dat <- gsub("[[:punct:][:blank:]]+", "_", dat)
   dat <- tolower(dat)
-  return(adist(dat))
+  datdist <- adist(dat)
+  res <- datdist/max(datdist)
+  return(res)
 }
