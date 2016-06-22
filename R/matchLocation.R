@@ -6,8 +6,8 @@
 # Returns a distance matrix with proportion of matched fields
 #' Compare locations
 #'
-#' @param a data frame containing location information
-#' @param b data frame containing location information
+#' @param dat1 data frame containing location information
+#' @param dat2 data frame containing location information
 #'
 #' @return a distance matrix
 #' @export
@@ -17,29 +17,37 @@
 #'                    city=c("Kampala", "Kampala", "Kilifi"), stringsAsFactors = F)
 #' test2 <- data.frame(location=c("uganda,kampala", "uganda,kampala", "kenya"),
 #' stringsAsFactors = F)
-locationDists <- function(a, b){
+locationDists <- function(dat1, dat2 = NULL){
   # split commas
-  split_a <- splitComma(a)
-  split_b <- splitComma(b)
+  split_a <- splitComma(dat1)
 
   # convert to lower case, remove whitespace
   clean_a <- cleanString(split_a)
-  clean_b <- cleanString(split_b)
 
   # Combine data frames
-  if (ncol(clean_a) > ncol(clean_b))
+  if (!is.null(dat2))
   {
-    padding <- matrix(nrow = nrow(clean_b), ncol = ncol(clean_a) - ncol(clean_b))
-    clean_b <- cbind(clean_b, padding)
-  }
-  else if (ncol(clean_a) < ncol(clean_b))
-  {
-    padding <- matrix(nrow = nrow(clean_a), ncol = ncol(clean_b) - ncol(clean_a))
-    clean_a <- cbind(clean_a, padding)
-  }
+    # Cleaning of set 2
+    split_b <- splitComma(dat2)
+    clean_b <- cleanString(split_b)
 
-  colnames(clean_a) <- colnames(clean_b)
-  combined <- rbind(clean_a, clean_b)
+    if (ncol(clean_a) > ncol(clean_b))
+    {
+      padding <- matrix(nrow = nrow(clean_b), ncol = ncol(clean_a) - ncol(clean_b))
+      clean_b <- cbind(clean_b, padding)
+    }
+    else if (ncol(clean_a) < ncol(clean_b))
+    {
+      padding <- matrix(nrow = nrow(clean_a), ncol = ncol(clean_b) - ncol(clean_a))
+      clean_a <- cbind(clean_a, padding)
+    }
+    colnames(clean_a) <- colnames(clean_b)
+    combined <- rbind(clean_a, clean_b)
+  }
+  else
+  {
+    combined <- clean_a
+  }
 
   # This returns a matrix with rowwise comparisons,
   # elements are the fraction of matching fields
