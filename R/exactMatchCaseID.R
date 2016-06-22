@@ -14,7 +14,9 @@
 #' exactMatchCaseIDIntraDataset(caseIDVector)
 exactMatchCaseIDIntraDataset <- function(caseIDVector){
   #replace all punctuation with a lowercase character.
-  caseIDVector <- gsub("[[:punct:]][[:blank:]]+", "_", caseIDVector)
+  #note: adding [[:blank:]] resulted it it not finding all of the
+  #special punctuation
+  caseIDVector <- gsub("[[:punct:]]+", "_", caseIDVector)
   #make all characters lowercase
   caseIDVector <- tolower(caseIDVector)
   return(adist(caseIDVector))
