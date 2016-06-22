@@ -28,5 +28,5 @@ generic_match <- function(dat1, dat2=NULL, strings=F){
     dists <- matrix(rowSums(dat1[id[,1],] == dat1[id[,2],]), ncol=length(n))
     diag(dists) <- 0
   }
-  return(dists)
+  return(dists/max(dists))
 }
