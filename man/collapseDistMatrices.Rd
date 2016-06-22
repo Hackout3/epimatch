@@ -4,11 +4,14 @@
 \alias{collapseDistMatrices}
 \title{Collapse/sum matrices using weights}
 \usage{
-collapseDistMatrices(d1, d2, weightVector = c(0.5, 0.5))
+collapseDistMatrices(distMatrixList, weightVector = NULL)
 }
 \arguments{
-\item{list}{of distances matrices and a vector of corresponding weights
-default: all equal weights for each input matrix}
+\item{distMatrixList}{list of distances matrices and a vector of
+corresponding weights default: all equal weights for each input matrix}
+
+\item{weightVector}{a vector of weights for each matrix. If \code{NULL}, then
+each matrix will be weighted equally.}
 }
 \value{
 a single weighted distance matrix
@@ -17,10 +20,10 @@ a single weighted distance matrix
 Collapse/sum matrices using weights
 }
 \examples{
-just sum two of the same matrices:
+# just sum two of the same matrices:
 caseIDVector <- c("AB-10-1", "AB-10-5", "AB-10_1")
-d1 <- exactMatchCaseIDIntraDataset(caseIDVector)
-d2 <- exactMatchCaseIDIntraDataset(caseIDVector)
-summedDistMatrix <- collapseDistMatrices(d1, d2, c(0.5, 0.5))
+m1 <- exactMatchCaseIDIntraDataset(caseIDVector)
+m2 <- exactMatchCaseIDIntraDataset(caseIDVector)
+summedDistMatrix <- collapseDistMatrices(list(m1, m2), c(0.5, 0.5))
 }
 
