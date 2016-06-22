@@ -9,7 +9,7 @@
 #' @param a data frame containing location information
 #' @param b data frame containing location information
 #'
-#' @return a disttance matrix
+#' @return a distance matrix
 #' @export
 #'
 #' @examples
@@ -26,16 +26,42 @@ locationDists <- function(a, b){
   clean_a <- cleanString(split_a)
   clean_b <- cleanString(split_b)
 
+  # Combine data frames
+  if (ncol(clean_a) > ncol(clean_b))
+  {
+    padding <- matrix(nrow = nrow(clean_b), ncol = ncol(clean_a) - ncol(clean_b))
+    clean_b <- cbind(clean_b, padding)
+  }
+  else if (ncol(clean_a) < ncol(clean_b))
+  {
+    padding <- matrix(nrow = nrow(clean_a), ncol = ncol(clean_b) - ncol(clean_a))
+    clean_a <- cbind(clean_a, padding)
+  }
+
+  colnames(clean_a) <- colnames(clean_b)
+  combined <- rbind(clean_a, clean_b)
+
   # This returns a matrix with rowwise comparisons,
   # elements are the fraction of matching fields
   # No longer vectorised, sorry
-  mat <- matrix(0, nrow=nrow(clean_a), ncol=nrow(clean_b))
+  mat <- matrix(0, nrow=nrow(combined), ncol=nrow(combined))
   poss <- min(ncol(clean_a), ncol(clean_b))
-  for (i in 1:(nrow(clean_a)-1))
+  for (i in 1:(nrow(combined)-1))
   {
-    for (j in (i+1):nrow(clean_b))
+    for (j in (i+1):nrow(combined))
     {
-      mat[i,j] <- sum(clean_a[i,] %in% clean_b[j,])/poss
+      dists <- adist(combined[i,], combined[j,]) # Distances between all columns
+      dists <- dists[rowSums(is.na(dists))!=ncol(dists),] # Remove NAs
+
+      # Return the closest match
+      if (!is.null(nrow(dists))) # This happens when only one row is left
+      {
+        mat[i,j] <- sum(apply(dists, 1, min, na.rm=T))/poss
+      }
+      else
+      {
+        mat[i,j] <- sum(min(dists))/poss
+      }
       mat[j,i] <- mat[i,j]
     }
   }
@@ -43,12 +69,22 @@ locationDists <- function(a, b){
   return(mat)
 }
 
+# locationDists(test, test2)
+#[,1] [,2] [,3] [,4] [,5] [,6] [,7]
+#[1,]  0.0  0.0  4.5  0.0  0.0  4.5    0
+#[2,]  0.0  0.0  4.5  0.0  0.0  4.5    0
+#[3,]  4.5  4.5  0.0  5.0  5.0  2.5    5
+#[4,]  0.0  0.0  5.0  0.0  0.0  4.5    0
+#[5,]  0.0  0.0  5.0  0.0  0.0  4.5    0
+#[6,]  4.5  4.5  2.5  4.5  4.5  0.0    2
+#[7,]  0.0  0.0  5.0  0.0  0.0  2.0    0
+
 # Lower case and whitespace trimmed strings
 cleanString <- function(dat)
 {
   clean_dat <- apply(dat, 2, tolower)
   clean_dat <- apply(clean_dat, 2, trimws)
-  return(clean_dat)
+  return(data.frame(clean_dat, stringsAsFactors = F))
 }
 
 # Split a single column with commas into a matrix with multiple columns
