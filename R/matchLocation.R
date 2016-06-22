@@ -89,14 +89,6 @@ locationDists <- function(dat1, dat2 = NULL){
 #[6,]  4.5  4.5  2.5  4.5  4.5  0.0    2
 #[7,]  0.0  0.0  5.0  0.0  0.0  2.0    0
 
-# Lower case and whitespace trimmed strings
-cleanString <- function(dat)
-{
-  clean_dat <- apply(dat, 2, tolower)
-  clean_dat <- apply(clean_dat, 2, trimws)
-  return(data.frame(clean_dat, stringsAsFactors = F))
-}
-
 # Split a single column with commas into a matrix with multiple columns
 splitComma <- function(dat)
 {
