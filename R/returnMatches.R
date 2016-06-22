@@ -2,8 +2,8 @@
 #'
 #' @param the number of rows for both datasets (ordered as they have been for all functions) and a distance matrix
 #'  thresh: distance threshold (smaller means more conservative matches)
-#' @return list where each index are the row indices for data rows in that cluster,
-#' and clusters are ordered from the highest to lowest match ranking
+#' @return list where each index are the row indices for data rows in dataset 1 (d1),
+#' and 2 (d2) that correspond to the same person
 #' @export
 #'
 #' @examples
