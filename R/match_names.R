@@ -26,4 +26,5 @@ clean_names <- function(dat){
   # replace all punctuation and spaces with a single space
   dat <- gsub("[[:punct:][:blank:]]+", "_", dat)
   dat <- tolower(dat)
+  return(dat)
 }
