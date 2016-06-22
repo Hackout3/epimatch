@@ -26,5 +26,4 @@ collapseDistMatrices <- function(distMatrixList, weightVector = rep.int(1/(lengt
     }
   }
   return(finalMatrix)
-
 }
