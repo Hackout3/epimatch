@@ -15,7 +15,7 @@
 match_names <- function(dat1, dat2 = NULL){
   if (!is.null(dat2))
   {
-    combined <- rbind(clean_names(dat1), clean_names(dat2))
+    combined <- c(clean_names(dat1), clean_names(dat2))
   }
   else
   {
@@ -27,9 +27,12 @@ match_names <- function(dat1, dat2 = NULL){
   return(res)
 }
 
+# returns a vector of names
 clean_names <- function(dat){
-  if (!is.vector(dat)){
+  if (ncol(dat) > 1){
     dat <- apply(x, 1, paste, collapse = " ")
+  } else {
+    dat <- dat[[1]]
   }
   # replace all punctuation and spaces with a single space
   dat <- gsub("[[:punct:][:blank:]]+", "_", dat)

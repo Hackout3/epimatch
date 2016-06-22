@@ -22,18 +22,34 @@
 #' indata <- system.file("data", package = "epimatch")
 #' indata <- dir(indata, full.names = TRUE)
 #' x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
+#'
+#' process_matching(dat1 = x[[1]],
+#'                  dat2 = NULL,
+#'                  funlist = list(
+#'                    ID = list(d1vars = "Outbreak.ID.",
+#'                                    d2vars = NULL,
+#'                                    fun = "match_names",
+#'                                    extraparams = NULL),
+#'                    names = list(d1vars = "Name..as.given.",
+#'                                    d2vars = NULL,
+#'                                    fun = "match_names",
+#'                                    extraparams = NULL)
+#'                    )
+#'                  )
+#'
 process_matching <- function(dat1, dat2 = NULL, funlist = list()){
   if (length(funlist) == 0){
     stop("Please provide a list for the funlist parameter")
   }
-  if (!is.data.frame(dat1) || !is.data.frame(dat2)){
+  if (!is.data.frame(dat1)){
     stop("input datasets must be data frames")
   }
   out_matrices <- vector(mode = "list", length = length(funlist))
   for (i in seq(funlist)){
-    param_list <- funlist[[i]]
-    d1 <- dat1[paramlist$d1vars, drop = FALSE]
-    d2 <- if (!is.null(dat2)) dat2[paramlist$d2vars, drop = FALSE] else NULL
+    paramlist <- funlist[[i]]
+    fun       <- paramlist$fun
+    d1 <- dat1[, paramlist$d1vars, drop = FALSE]
+    d2 <- if (!is.null(dat2)) dat2[, paramlist$d2vars, drop = FALSE] else NULL
     out_matrices[[i]] <- do.call(fun, c(list(d1, d2), paramlist$extraparams))
   }
   if (!is.null(names(funlist))){
