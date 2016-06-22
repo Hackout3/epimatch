@@ -14,10 +14,12 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
   matchIndices <- list()
   numDistRow <- nrow(distMatrix)
   while(any(distMatrix < thresh) && rowCount <= numDistRow){
-    indices <- which(distMatrix[, rowCount] < thresh)
+    indices <- na.omit(which(distMatrix[, rowCount] < thresh))
+    score <- sum(distMatrix[indices, rowCount])
     if(length(indices) >= 1){
       numMatchClust <- numMatchClust + 1
       matchIndices[[numMatchClust]] <- list()
+      names(matchIndices) <- score
       if(!missing(nRowD2)){ #dealing with 2 datasets?
           indices1 <- indices[which(indices <= nRowD1)]
           indices2 <- indices[which(indices > nRowD1)]
