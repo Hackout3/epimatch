@@ -8,6 +8,11 @@
 #'
 #' @examples
 
-clusterDistMatrix(dist(distMatrix)){
-
+clusterDistMatrix(distMatrix, numClust = 5){
+  #number of clusters must be >= number of rows in dataset
+  if(numClust > nrow(distMatrix)){
+    numClust <- nrow(distMatrix)
+  }
+  hclustOut <- hclust(dist(distMatrix), method = "ward.D2")
+  clustIDs <- cutree(hclustOut, k=numClust)
 }
