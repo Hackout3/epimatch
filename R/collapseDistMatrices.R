@@ -23,7 +23,6 @@ collapseDistMatrices <- function(distMatrixList, weightVector = rep.int(1/(lengt
       finalMatrix <- distMatrixList[[m]]*(1-weightVector[m])
     }else{
       finalMatrix <- finalMatrix + distMatrixList[[m]]*(1-weightVector[m])
-
     }
   }
   return(finalMatrix)
