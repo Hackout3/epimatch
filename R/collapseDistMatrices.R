@@ -12,8 +12,7 @@
 #' d2 <- exactMatchCaseIDIntraDataset(caseIDVector)
 #' summedDistMatrix <- collapseDistMatrices(d1, d2, c(0.5, 0.5))
 
-collapseDistMatrices <- function(d1, d2, weightVector = rep.int(1/(nrow(d1) + nrow(d2))),
-                                                            times = (nrow(d1) + nrow(d2))){
+collapseDistMatrices <- function(d1, d2, weightVector = c(0.5, 0.5)){
 
     if(any(is.na(d1))){
       d1[is.na(d1)] <- 0
@@ -21,6 +20,6 @@ collapseDistMatrices <- function(d1, d2, weightVector = rep.int(1/(nrow(d1) + nr
      if(any(is.na(d2))){
       d2[is.na(d2)] <- 0
      }
-    d1 <- d1 + d2
+    d1 <- d1*(1-weightVector[1]) + d2*(1-weightVector[2])
   return(d1)
 }
