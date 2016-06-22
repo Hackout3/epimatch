@@ -19,7 +19,7 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
     if(length(indices) >= 1){
       numMatchClust <- numMatchClust + 1
       matchIndices[[numMatchClust]] <- list()
-      names(matchIndices) <- score
+      names(matchIndices)[numMatchClust] <- score
       if(!missing(nRowD2)){ #dealing with 2 datasets?
           indices1 <- indices[which(indices <= nRowD1)]
           indices2 <- indices[which(indices > nRowD1)]
