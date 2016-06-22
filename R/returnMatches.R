@@ -6,32 +6,38 @@
 #'  #padded with NAs to make this match)
 #' @return list where each index are the row indices for data rows in that cluster,
 #' and clusters are ordered from the highest to lowest match ranking
-#' @export
+#' @export index list of matches
 #'
 #' @examples
 
 returnMatches <- function(d1, d2, distMatrix, thresh){
   rowCount <- 1
+  numMatchClust <- 1
   distMatrix[upper.tri(distMatrix, diag= TRUE)] <- NA
+  matchIndices <- list()
   while(any(distMatrix) < thresh){
     indices <- which(distMatrix[, 1] > thresh)
     if(length(indices) > 1){
+      numMatchClust <- numMatchClust + 1
       if(!is.missing(d2)){
         if(rowCount <= nrow(d1)){
           indices1 <- indices[which(indices <= nrow(d1))]
           indices2 <- indices[which(indices > nrow(d1))]
-          matches <- rbind(d1[c(rowCount, indices1), ], d2[indices2, ] )
+         # matches <- rbind(d1[c(rowCount, indices1), ], d2[indices2, ])
+          matchIndices[[numMatchClust]]$d1 <- indices1
+          matchIndices[[numMatchClust]]$d2 <- indices2
         }else{
-
+          #matches <- d2[c(rowCount, indices), ]
+          matchIndices[[numMatchClust]] <- indices
         }
       }else{
-        matches <- rbind(d1[c(rowCount, indices)])
+        #matches <- d2[c(rowCount, indices), ]
+        matchIndices[[numMatchClust]] <- indices
       }
-    }else{
-      #NA out first row
-      distMatrix[, 1] <- NA
+      #NA these out so that we don't compare them again
+      distMatrix[indices, indices] <- NA
     }
     rowCount <- rowCount + 1
  }
-
+  return(matchIndices)
 }
