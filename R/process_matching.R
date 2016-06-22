@@ -19,7 +19,9 @@
 #' @export
 #'
 #' @examples
-#'
+#' indata <- system.file("data", package = "epimatch")
+#' indata <- dir(indata, full.names = TRUE)
+#' x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
 process_matching <- function(dat1, dat2 = NULL, funlist = list()){
   if (length(funlist) == 0){
     stop("Please provide a list for the funlist parameter")
