@@ -11,8 +11,8 @@
 #' set.seed(9)
 #' x <- data.frame(x = letters, y = LETTERS, z = 1:26)
 #' x <- sample(nrow(x), 10, replace = TRUE)
-#' match_names(x)
-match_names <- function(dat1, dat2 = NULL){
+#' nameDists(x)
+nameDists <- function(dat1, dat2 = NULL){
   if (!is.null(dat2))
   {
     combined <- c(clean_names(dat1), clean_names(dat2))

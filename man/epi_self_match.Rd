@@ -4,7 +4,7 @@
 \alias{epi_self_match}
 \title{Find duplicates in single data set}
 \usage{
-epi_self_match(dat1, dat2 = NULL, funlist = list())
+epi_self_match(dat1, dat2 = NULL, funlist = list(), thresh = 0.05)
 }
 \arguments{
 \item{dat1}{An input linelist}
@@ -30,6 +30,24 @@ Find duplicates in single data set
 this function will take in one or two data sets and also a
 }
 \examples{
-rnorm(10)
+indata <- system.file("data", package = "epimatch")
+indata <- dir(indata, full.names = TRUE)
+x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
+
+epi_self_match(dat1 = x[[1]],
+                 dat2 = NULL,
+                 funlist = list(
+                   ID = list(d1vars = "Outbreak.ID.",
+                                   d2vars = NULL,
+                                   fun = "nameDists",
+                                   extraparams = NULL,
+                                   weight = 0.5),
+                   names = list(d1vars = "Name..as.given.",
+                                   d2vars = NULL,
+                                   fun = "nameDists",
+                                   extraparams = NULL,
+                                   weight = 0.5)
+                   )
+                 )
 }
 

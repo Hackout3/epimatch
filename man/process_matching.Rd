@@ -38,12 +38,12 @@ process_matching(dat1 = x[[1]],
                  funlist = list(
                    ID = list(d1vars = "Outbreak.ID.",
                                    d2vars = NULL,
-                                   fun = "match_names",
+                                   fun = "nameDists",
                                    extraparams = NULL,
                                    weight = 0.5),
                    names = list(d1vars = "Name..as.given.",
                                    d2vars = NULL,
-                                   fun = "match_names",
+                                   fun = "nameDists",
                                    extraparams = NULL,
                                    weight = 0.5)
                    )
