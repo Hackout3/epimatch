@@ -12,6 +12,7 @@
 #'  \item d2vars - variable names for dataset 2
 #'  \item fun - function name to process on these variables
 #'  \item extraparams - extra parameters that need to be applied with the function.
+#'  \item weights - a weight vector to scale each matrix (not used in process_matching).
 #' }
 #'
 #' @return a list of distance matrices scaled by weight
@@ -29,11 +30,13 @@
 #'                    ID = list(d1vars = "Outbreak.ID.",
 #'                                    d2vars = NULL,
 #'                                    fun = "match_names",
-#'                                    extraparams = NULL),
+#'                                    extraparams = NULL,
+#'                                    weight = 0.5),
 #'                    names = list(d1vars = "Name..as.given.",
 #'                                    d2vars = NULL,
 #'                                    fun = "match_names",
-#'                                    extraparams = NULL)
+#'                                    extraparams = NULL,
+#'                                    weight = 0.5)
 #'                    )
 #'                  )
 #'
