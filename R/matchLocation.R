@@ -4,6 +4,19 @@
 #stringsAsFactors = F)
 
 # Returns a distance matrix with proportion of matched fields
+#' Compare locations
+#'
+#' @param a data frame containing location information
+#' @param b data frame containing location information
+#'
+#' @return a disttance matrix
+#' @export
+#'
+#' @examples
+#' test <- data.frame(country=c("Uganda", "Uganda", "Kenya"),
+#'                    city=c("Kampala", "Kampala", "Kilifi"), stringsAsFactors = F)
+#' test2 <- data.frame(location=c("uganda,kampala", "uganda,kampala", "kenya"),
+#' stringsAsFactors = F)
 locationDists <- function(a, b){
   # split commas
   split_a <- splitComma(a)
@@ -52,6 +65,9 @@ splitComma <- function(dat)
         new_dat[i,which(duplicated(new_dat[i,]))] <- NA
       }
     }
+  } else
+  {
+    return(dat)
   }
   return(new_dat)
 }
