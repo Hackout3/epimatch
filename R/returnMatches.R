@@ -13,7 +13,7 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
   distMatrix[upper.tri(distMatrix, diag= TRUE)] <- NA
   matchIndices <- list()
   numDistRow <- nrow(distMatrix)
-  while(any(distMatrix < thresh) && rowCount <= numDistRow){
+  while(any(distMatrix < thresh, na.rm = TRUE) && rowCount <= numDistRow){
     indices <- which(distMatrix[, rowCount] < thresh)
     score <- sum(distMatrix[indices, rowCount])
     if(length(indices) >= 1){
