@@ -4,10 +4,12 @@
 \alias{exactMatchCaseIDIntraDataset}
 \title{match case ID given a vector of caseIDs}
 \usage{
-exactMatchCaseIDIntraDataset(caseIDVector)
+exactMatchCaseIDIntraDataset(dat1, dat2 = NULL)
 }
 \arguments{
-\item{caseIDVector}{a vector of caseIDs}
+\item{dat1}{a vector of caseIDs}
+
+\item{dat2}{a vector of caseIDs}
 }
 \value{
 a distance matrix

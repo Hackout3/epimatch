@@ -4,15 +4,15 @@
 \alias{locationDists}
 \title{Compare locations}
 \usage{
-locationDists(a, b)
+locationDists(dat1, dat2 = NULL)
 }
 \arguments{
-\item{a}{data frame containing location information}
+\item{dat1}{data frame containing location information}
 
-\item{b}{data frame containing location information}
+\item{dat2}{data frame containing location information}
 }
 \value{
-a disttance matrix
+a distance matrix
 }
 \description{
 Compare locations
