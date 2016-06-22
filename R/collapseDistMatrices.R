@@ -8,22 +8,18 @@
 #' @examples
 #' just sum two of the same matrices:
 #' caseIDVector <- c("AB-10-1", "AB-10-5", "AB-10_1")
-#' m1 <- exactMatchCaseIDIntraDataset(caseIDVector)
-#' m2 <- exactMatchCaseIDIntraDataset(caseIDVector)
-#' summedDistMatrix <- collapseDistMatrices(list(m1, m2), c(0.5, 0.5))
+#' d1 <- exactMatchCaseIDIntraDataset(caseIDVector)
+#' d2 <- exactMatchCaseIDIntraDataset(caseIDVector)
+#' summedDistMatrix <- collapseDistMatrices(d1, d2, c(0.5, 0.5))
 
-collapseDistMatrices <- function(distMatrixList, weightVector = rep.int(1/(length(distMatrixList)),
-                                                            times = length(distMatrixList))){
-  for(m in 1:length(distMatrixList)){
-    #replace NAs with zeros
-    if(any(is.na(distMatrixList[[m]]))){
-      distMatrixList[[m]][is.na(distMatrixList[[m]])] <- 0
+collapseDistMatrices <- function(d1, d2, weightVector = c(0.5, 0.5)){
+
+    if(any(is.na(d1))){
+      d1[is.na(d1)] <- 0
     }
-    if(m==1){
-      finalMatrix <- distMatrixList[[m]]*(1-weightVector[m])
-    }else{
-      finalMatrix <- finalMatrix + distMatrixList[[m]]*(1-weightVector[m])
-    }
-  }
-  return(finalMatrix)
+     if(any(is.na(d2))){
+      d2[is.na(d2)] <- 0
+     }
+    d1 <- d1*(1-weightVector[1]) + d2*(1-weightVector[2])
+  return(d1)
 }
