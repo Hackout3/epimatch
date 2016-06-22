@@ -8,7 +8,7 @@
 #'
 #' @examples
 
-clusterDistMatrix(distMatrix, numClust = 5){
+clusterDistMatrix <- function(distMatrix, numClust = 5){
   #number of clusters must be >= number of rows in dataset
   if(numClust > nrow(distMatrix)){
     numClust <- nrow(distMatrix)

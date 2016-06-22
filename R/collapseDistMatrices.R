@@ -12,7 +12,7 @@
 #' m2 <- exactMatchCaseIDIntraDataset(caseIDVector)
 #' summedDistMatrix <- collapseDistMatrices(list(m1, m2), c(0.5, 0.5))
 
-collapseDistMatrices(distMatrixList, weightVector = rep.int(1/(length(distMatrixList)),
+collapseDistMatrices <- function(distMatrixList, weightVector = rep.int(1/(length(distMatrixList)),
                                                             times = length(distMatrixList))){
   for(m in 1:length(distMatrixList)){
     if(m==1){
