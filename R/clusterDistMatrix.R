@@ -15,4 +15,5 @@ clusterDistMatrix <- function(distMatrix, numClust = 5){
   }
   hclustOut <- hclust(dist(distMatrix), method = "ward.D2")
   clustIDs <- cutree(hclustOut, k=numClust)
+  return(clustIDs)
 }
