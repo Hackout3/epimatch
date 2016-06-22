@@ -1,24 +1,36 @@
 #' Collapse/sum matrices using weights
 #'
-#' @param distance matrices 1 and 2 and a vector of corresponding weights
-#' default: all equal weights for each input matrix
+#' @param distMatrixList list of distances matrices and a vector of
+#'   corresponding weights default: all equal weights for each input matrix
+#' @param weightVector a vector of weights for each matrix. If \code{NULL}, then
+#'   each matrix will be weighted equally.
 #' @return a single weighted distance matrix
 #' @export
 #'
 #' @examples
-#' just sum two of the same matrices:
+#' # just sum two of the same matrices:
 #' caseIDVector <- c("AB-10-1", "AB-10-5", "AB-10_1")
-#' dist1 <- exactMatchCaseIDIntraDataset(caseIDVector)
-#' dist2 <- exactMatchCaseIDIntraDataset(caseIDVector)
-#' summedDistMatrix <- collapseDistMatrices(dist1, dist2, c(0.5, 0.5))
+#' m1 <- exactMatchCaseIDIntraDataset(caseIDVector)
+#' m2 <- exactMatchCaseIDIntraDataset(caseIDVector)
+#' summedDistMatrix <- collapseDistMatrices(list(m1, m2), c(0.5, 0.5))
 
-collapseDistMatrices <- function(dist1, dist2, weightVector = c(0.5, 0.5)){
-    if(any(is.na(dist1))){
-      dist1[is.na(dist1)] <- 0
+collapseDistMatrices <- function(distMatrixList,weightVector = NULL){
+  matlen <- length(distMatrixList)
+  if(is.null(weightVector) || length(weightVector != matlen)){
+    weightVector <- rep.int(1/(matlen), times = matlen)
+  }
+  weightVector <- 1 - weightVector
+  for(m in 1:matlen){
+    #replace NAs with zeros
+    missing_data <- is.na(distMatrixList[[m]])
+    if(any(missing_data)){
+      distMatrixList[[m]][missing_data] <- 0
     }
-     if(any(is.na(dist2))){
-      dist2[is.na(dist2)] <- 0
-     }
-    dist1 <- dist1*(1-weightVector[1]) + dist2*(1-weightVector[2])
-  return(dist1)
+    if (m == 1){
+      finalMatrix <- distMatrixList[[m]]*weightVector[m]
+    } else {
+      finalMatrix <- finalMatrix + (distMatrixList[[m]]*weightVector[m])
+    }
+  }
+  return(finalMatrix)
 }
