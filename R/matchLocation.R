@@ -17,6 +17,7 @@
 #'                    city=c("Kampala", "Kampala", "Kilifi"), stringsAsFactors = F)
 #' test2 <- data.frame(location=c("uganda,kampala", "uganda,kampala", "kenya"),
 #' stringsAsFactors = F)
+#' locationDists(test, test2)
 locationDists <- function(dat1, dat2 = NULL){
   # split commas
   split_a <- splitComma(dat1)
@@ -77,6 +78,7 @@ locationDists <- function(dat1, dat2 = NULL){
   return(mat)
 }
 
+# test result should be
 # locationDists(test, test2)
 #[,1] [,2] [,3] [,4] [,5] [,6] [,7]
 #[1,]  0.0  0.0  4.5  0.0  0.0  4.5    0
