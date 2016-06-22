@@ -15,7 +15,7 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
   numDistRow <- nrow(distMatrix)
   while(any(distMatrix < thresh, na.rm = TRUE) && rowCount <= numDistRow){
     indices <- which(distMatrix[, rowCount] < thresh)
-    score <- sum(distMatrix[indices, rowCount])
+    score <- sum(distMatrix[indices, rowCount], na.rm = TRUE)
     if(length(indices) >= 1){
       numMatchClust <- numMatchClust + 1
       matchIndices[[numMatchClust]] <- list()
