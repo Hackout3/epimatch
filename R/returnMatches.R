@@ -31,7 +31,7 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
             #must re-adjust indices to start at one for dataset 2
             matchIndices[[numMatchClust]]$d2 <- indices2 - nrow(nRowD2)
           }else{ #just have this be blank like indices2 is
-          matchIndices[[numMatchClust]]$d2 <- indices2
+            matchIndices[[numMatchClust]]$d2 <- indices2
         }
       }else{
         matchIndices[[numMatchClust]]$d1 <- c(rowCount, indices)
