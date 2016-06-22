@@ -15,6 +15,10 @@
 collapseDistMatrices <- function(distMatrixList, weightVector = rep.int(1/(length(distMatrixList)),
                                                             times = length(distMatrixList))){
   for(m in 1:length(distMatrixList)){
+    #replace NAs with zeros
+    if(any(is.na(distMatrixList[[m]]))){
+      distMatrixList[[m]][is.na(distMatrixList[[m]])] <- 0
+    }
     if(m==1){
       finalMatrix <- distMatrixList[[m]]*(1-weightVector[m])
     }else{
@@ -22,5 +26,4 @@ collapseDistMatrices <- function(distMatrixList, weightVector = rep.int(1/(lengt
     }
   }
   return(finalMatrix)
-
 }
