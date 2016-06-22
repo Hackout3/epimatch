@@ -13,21 +13,28 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
   distMatrix[upper.tri(distMatrix, diag= TRUE)] <- NA
   matchIndices <- list()
   while(any(distMatrix < thresh)){
-    indices <- which(distMatrix[, rowCount] > thresh)
+    indices <- which(distMatrix[, rowCount] < thresh)
     if(length(indices) > 1){
       numMatchClust <- numMatchClust + 1
+      matchIndices[[numMatchClust]] <- list()
       if(!is.missing(nRowD2)){
           indices1 <- indices[which(indices <= nRowD1)]
           indices2 <- indices[which(indices > nRowD1)]
+          #must also "tack on" the row index for this while loop:
+          if(rowCount <= nRowD1){
+            indices1 <- c(rowCount, indices1)
+          }else{
+            indices2 <- c(rowCount, indices2)
+          }
           matchIndices[[numMatchClust]]$d1 <- indices1
           if(length(indices2 > 0)){
             #must re-adjust indices to start at one for dataset 2
             matchIndices[[numMatchClust]]$d2 <- indices2 - nrow(nRowD2)
           }else{ #just have this be blank like indices2 is
-          matchIndices[[numMatchClust]]$d2 <- indices2
+            matchIndices[[numMatchClust]]$d2 <- indices2
         }
       }else{
-        matchIndices[[numMatchClust]]$d1 <- indices
+        matchIndices[[numMatchClust]]$d1 <- c(rowCount, indices)
       }
       #NA these out so that we don't compare them again
       distMatrix[indices, indices] <- NA
