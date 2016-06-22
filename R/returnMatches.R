@@ -9,25 +9,25 @@
 #' @examples
 returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
   rowCount <- 1
-  numMatchClust <- 1
+  numMatchClust <- 0
   distMatrix[upper.tri(distMatrix, diag= TRUE)] <- NA
   matchIndices <- list()
-  while(any(distMatrix) < thresh){
+  while(any(distMatrix < thresh)){
     indices <- which(distMatrix[, rowCount] > thresh)
     if(length(indices) > 1){
       numMatchClust <- numMatchClust + 1
       if(!is.missing(nRowD2)){
-        if(rowCount <= nRowD1){
           indices1 <- indices[which(indices <= nRowD1)]
           indices2 <- indices[which(indices > nRowD1)]
-          matchIndices[[numMatchClust]]$nRowD1 <- indices1
-          #must re-adjust indices to start at one for dataset 2
-          matchIndices[[numMatchClust]]$nRowD2 <- indices2 - nrow(nRowD2)
-        }else{
-          matchIndices[[numMatchClust]] <- indices
+          matchIndices[[numMatchClust]]$d1 <- indices1
+          if(length(indices2 > 0)){
+            #must re-adjust indices to start at one for dataset 2
+            matchIndices[[numMatchClust]]$d2 <- indices2 - nrow(nRowD2)
+          }else{ #just have this be blank like indices2 is
+          matchIndices[[numMatchClust]]$d2 <- indices2
         }
       }else{
-        matchIndices[[numMatchClust]] <- indices
+        matchIndices[[numMatchClust]]$d1 <- indices
       }
       #NA these out so that we don't compare them again
       distMatrix[indices, indices] <- NA

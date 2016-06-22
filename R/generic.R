@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' generic_match(1:3)
-generic_match <- function(dat1, dat2=NULL, strings=F){
+genericMatch <- function(dat1, dat2=NULL, strings=F){
 	dat1 <- cleanString(dat1)
 
   if (!is.null(dat2))
