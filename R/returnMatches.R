@@ -10,10 +10,10 @@
 
 returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
   rowCount <- 1
-  numMatchClust <- 1
+  numMatchClust <- 0
   distMatrix[upper.tri(distMatrix, diag= TRUE)] <- NA
   matchIndices <- list()
-  while(any(distMatrix) < thresh){
+  while(any(distMatrix < thresh)){
     indices <- which(distMatrix[, rowCount] > thresh)
     if(length(indices) > 1){
       numMatchClust <- numMatchClust + 1
