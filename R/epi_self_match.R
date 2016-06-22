@@ -1,27 +1,13 @@
 #' Find duplicates in single data set
 #'
-#' @param dat a linelist
-#' @param funlist a list of functions and arguments to use to evaluate columns of dat.
+#'
+#' @inheritParams process_matching
+#' @details this function will take in one or two data sets and also a
 #'
 #' @return
 #' @export
 #'
 #' @examples
-epi_self_match <- function(dat,
-                           funlist = list(name = "match_names",
-                                          age = list("age_list", extra_column = c(mo = "months", yr = "years")),
-                                          CaseID = "exactMatchCaseIDIntraDataset")
-                           ){
-  datlist <- funlist
-  for (i in seq(funlist)){
-    fun <- funlist[[i]]
-    fname <- names(funlist)[i]
-    if (!is.list(fun)){
-      datlist[[i]] <- do.call(fun, list(dat[[fname]]))
-    } else {
-      FUN <- fun[[1]]
-      datlist[[i]] <- do.call(FUN, c(list(dat[[fname]]), fun[-1]))
-    }
-  }
-  return(datlist)
+epi_self_match <- function(dat1, dat2 = NULL, funlist = list()){
+  the_matrices <- process_matching(dat1, dat2, funlist)
 }

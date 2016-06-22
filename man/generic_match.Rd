@@ -2,20 +2,22 @@
 % Please edit documentation in R/generic.R
 \name{generic_match}
 \alias{generic_match}
-\title{generic function for matching}
+\title{generic function for exact matching single columns}
 \usage{
-generic_match(dat, ...)
+generic_match(dat1, dat2 = NULL, strings = F)
 }
 \arguments{
-\item{dat}{a vector of data to determine matching}
+\item{dat1}{a vector of data to determine matching}
 
-\item{...condiditions}{to apply}
+\item{dat2}{a vector of data to determine matching}
+
+\item{strings}{whether to use the edit distance rather than exact matches}
 }
 \value{
 a pairwise matrix of scores from 0 (exact match) to 1 (no match)
 }
 \description{
-generic function for matching
+generic function for exact matching single columns
 }
 \examples{
 generic_match(1:3)
