@@ -28,3 +28,14 @@ library('epimatch')
 launch()
 ```
 
+Datasets
+=======
+Original fake datasets, i.e. before errors were induced, contain exact patient matches in terms of name, age, date of onset, etc. There are three such datasets that you could feed in pairwise into epimatch to find suggested matches:
+
+CaseInformationForm.csv:  case ID here links to the case ID in the laboratory form. 
+
+LaboratoryResultsForm7.csv:  will have multiple rows per patient (patients had multiple labs). All of these patients will be found in CaseInformationForm.csv. The case id here links to the caseInformationForm case ID.
+
+ContactEntryForm8.csv: one row per patient. Some, but not all patients in this file will also appear in CaseInformationForm.csv. There is no type of id to link the patients to the LaboratoryResultsForm7.csv and CaseInformationForm.csv files.
+
+The global record id will be different for the same person in the case, laboratory and contact forms, because the id is created for each form type.
