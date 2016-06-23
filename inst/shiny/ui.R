@@ -113,5 +113,7 @@ fixedPage(
 
   hidden(
     actionButton("findMatchesBtn", strong("4. Find matches"), class = "btn-primary btn-lg")
-  )
+  ),
+
+  uiOutput("results")
 )

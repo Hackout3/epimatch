@@ -1,3 +1,34 @@
+#TODO
+# date format data1
+# date format data2
+# errors when any params are NULL
+# age fuziness/date fuziness names
+# helper texts
+
+#
+# indata <- system.file("data", package = "epimatch")
+# indata <- dir(indata, full.names = TRUE)
+# x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
+#
+# kkk<-matchEpiData(dat1 = x[[1]],
+#              dat2 = NULL,
+#              funlist = list(
+#                ID = list(d1vars = "Outbreak.ID.",
+#                          d2vars = NULL,
+#                          fun = "nameDists",
+#                          extraparams = NULL,
+#                          weight = 0.5),
+#                names = list(d1vars = "Name..as.given.",
+#                             d2vars = NULL,
+#                             fun = "nameDists",
+#                             extraparams = NULL,
+#                             weight = 0.5)
+#              ),
+#              thresh = 0.5)
+#
+
+
+
 library(shinyjs)
 
 function(input, output, session) {
@@ -5,7 +36,8 @@ function(input, output, session) {
   values <- reactiveValues(
     data1 = NULL, data2 = NULL,  # the datasets
     twodatas = FALSE,  # whether or not the user is loading two datasets
-    numMatchRules = 0
+    numMatchRules = 0,
+    results = NULL     # the results from epimatch
   )
 
   # Store a dataset when a file is chosen
@@ -61,29 +93,29 @@ function(input, output, session) {
   observeEvent(input$datasetSelectToggle, ignoreNULL = FALSE, {
     if (input$datasetSelectToggle %% 2 == 0) {
       shinyjs::html("datasetSelectToggle", "[-]")
-      shinyjs::show("datasetSelectInner")
     } else {
       shinyjs::html("datasetSelectToggle", "[+]")
-      shinyjs::hide("datasetSelectInner")
     }
+    shinyjs::toggle("datasetSelectInner", anim = TRUE, time = 0.25,
+                    condition = input$datasetSelectToggle %% 2 == 0)
   })
   observeEvent(input$matchParamsToggle, ignoreNULL = FALSE, {
     if (input$matchParamsToggle %% 2 == 0) {
       shinyjs::html("matchParamsToggle", "[-]")
-      shinyjs::show("matchParamsInner")
     } else {
       shinyjs::html("matchParamsToggle", "[+]")
-      shinyjs::hide("matchParamsInner")
     }
+    shinyjs::toggle("matchParamsInner", anim = TRUE, time = 0.25,
+                    condition = input$matchParamsToggle %% 2 == 0)
   })
   observeEvent(input$extraParamsToggle, ignoreNULL = FALSE, {
     if (input$extraParamsToggle %% 2 == 0) {
       shinyjs::html("extraParamsToggle", "[-]")
-      shinyjs::show("extraParamsInner")
     } else {
       shinyjs::html("extraParamsToggle", "[+]")
-      shinyjs::hide("extraParamsInner")
     }
+    shinyjs::toggle("extraParamsInner", anim = TRUE, time = 0.25,
+                    condition = input$extraParamsToggle %% 2 == 0)
   })
 
   # Show the "show dataset" links
@@ -191,11 +223,16 @@ function(input, output, session) {
         ret
       })
 
-    # gg<<-epimatch::matchEpiData(
-    #   dat1 = values$data1, dat2 = values$data2,
-    #   funlist = funlist,
-    #   thresh = input$threshold
-    # )
+    epimatch::matchEpiData(
+      dat1 = values$data1, dat2 = values$data2,
+      funlist = funlist,
+      thresh = input$threshold
+    )
+  })
+
+  output$results <- renderUI({
+    values$results
+
   })
 
   hide("loading-content", TRUE, "fade")
