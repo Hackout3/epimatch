@@ -57,7 +57,8 @@ fixedPage(
       conditionalPanel(
         "input.dataset1Toggle % 2 == 1",
         h3("Dataset 1", class = "datasetTableTitle"),
-        DT::dataTableOutput("dataset1Table")
+        fixedRow(column(12,
+        DT::dataTableOutput("dataset1Table")))
       ),
       conditionalPanel(
         "input.dataset2Toggle % 2 == 1",
@@ -105,8 +106,8 @@ fixedPage(
     actionLink("extraParamsToggle", ""),
     div(
       id = "extraParamsInner",
-      sliderInput("threshold", "Threshold", min = 0, max = 1, 0.8),
-      sliderInput("ageThreshold", "Age fuzziness", min = 0, max = 50, 1),
+      sliderInput("threshold", "Threshold", min = 0, max = 1, 0.5),
+      sliderInput("ageThreshold", "Age fuzziness", min = 0, max = 50, 0),
       sliderInput("dateThreshold", "Date fuzziness", min = 0, max = 365, 0)
     )
   )),
@@ -115,5 +116,8 @@ fixedPage(
     actionButton("findMatchesBtn", strong("4. Find matches"), class = "btn-primary btn-lg")
   ),
 
-  uiOutput("results")
+  div(id = "resultsSection",
+      h2(id = "resultsTitle", "Results"),
+      uiOutput("results")
+  )
 )

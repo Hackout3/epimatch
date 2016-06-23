@@ -181,3 +181,26 @@ body > .container {
 #extraParamsInner {
   margin-bottom: -15px;
 }
+
+#findMatchesBtn {
+  margin-bottom: 40px;
+}
+
+/* Results section */
+
+#resultsTitle {
+  font-weight: bold;
+  border-top: 1px solid #aaa;
+  margin: 0 -25px;
+  padding: 20px 25px;
+}
+
+.results-one-section {
+  margin-bottom: 30px;
+  padding: 15px 15px 0;
+  border: 1px solid #999;
+}
+
+.results-one-section:hover {
+  background: #FCFCFC;
+}

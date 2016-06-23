@@ -5,27 +5,27 @@
 # age fuziness/date fuziness names
 # helper texts
 
-#
+
 # indata <- system.file("data", package = "epimatch")
 # indata <- dir(indata, full.names = TRUE)
 # x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
 #
 # kkk<-matchEpiData(dat1 = x[[1]],
-#              dat2 = NULL,
+#              dat2 = x[[1]],
 #              funlist = list(
 #                ID = list(d1vars = "Outbreak.ID.",
-#                          d2vars = NULL,
+#                          d2vars = "Outbreak.ID.",
 #                          fun = "nameDists",
 #                          extraparams = NULL,
 #                          weight = 0.5),
 #                names = list(d1vars = "Name..as.given.",
-#                             d2vars = NULL,
+#                             d2vars = "Name..as.given.",
 #                             fun = "nameDists",
 #                             extraparams = NULL,
 #                             weight = 0.5)
 #              ),
 #              thresh = 0.5)
-#
+# kkk <- kkk[5:6]
 
 
 
@@ -131,8 +131,10 @@ function(input, output, session) {
       selection = "none",
       class = 'stripe',
       options = list(
-        dom = "iftlp"
+        dom = "iftlp",
+        list(scrollX = TRUE)
       )
+
     )
   })
   output$dataset2Table <- DT::renderDataTable({
@@ -231,8 +233,35 @@ function(input, output, session) {
   })
 
   output$results <- renderUI({
-    values$results
+    values$results <- kkk
+    resultHtml <- ""
 
+    for (result in values$results) {
+      resultHtml <- paste0(resultHtml, "<div class='results-one-section'>")
+
+      if (length(result$d1) > 0) {
+        resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 1</strong></h4>")
+        tableHtml <- print(
+          xtable::xtable(x[[1]][result$d1, ]),
+          type = "html",
+          html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
+        )
+        resultHtml <- paste0(resultHtml, tableHtml)
+      }
+      if (length(result$d2) > 0) {
+        resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 2</strong></h4>")
+        tableHtml <- print(
+          xtable::xtable(x[[1]][result$d2, ]),
+          type = "html",
+
+          html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
+        )
+        resultHtml <- paste0(resultHtml, tableHtml)
+      }
+      resultHtml <- paste0(resultHtml, "</div>")
+    }
+
+    HTML(resultHtml)
   })
 
   hide("loading-content", TRUE, "fade")
