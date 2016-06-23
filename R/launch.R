@@ -1,5 +1,6 @@
 #' Launch a shiny app that lets you do the data matching interactively
 #' @export
+#' @importFrom shiny runApp
 launch <- function() {
   if (!requireNamespace("shiny", quietly = TRUE)) {
     stop("Install 'shiny' via 'install.packages(\"shiny\")' to run this function.",

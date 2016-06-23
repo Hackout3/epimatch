@@ -8,31 +8,37 @@
 #'
 #' @return a pairwise matrix of scores from 0 (exact match) to 1 (no match)
 #' @export
+#' @importFrom lubridate parse_date_time
 #'
 #' @examples
 #' test <- data.frame(c("21-Jan-01", "25-Jan-02", "21-Jan-01"), stringsAsFactors = F)
 #' dateDists(test)
-dateDists <- function(dat1, dat2=NULL,
-                      dat1Format="%d-%b-%y", dat2Format="%d-%b-%y",
+dateDists <- function(dat1, dat2=NULL, dat1Format="mdy", dat2Format="mdy",
                       threshold=NULL)
 {
+
+  date_col <- lubridate::parse_date_time(dat1[[1]], dat1Format)
   # Read in a column, with defined format. If necessary combine with dat2
-  date_col = as.Date(dat1[,1],dat1Format)
   if (!is.null(dat2))
   {
-    dat1 <- c(date_col, as.Date(dat2[,1],dat2Format))
+    dat2 <- lubridate::parse_date_time(dat2[[1]], dat2Format)
+    date_col <- c(date_col, dat2)
   }
 
   # Threshold distances if asked
   dists <- as.matrix(dist(date_col))
-  if(!is.null(threshold))
+  diststime <- as.difftime(m, units = "secs")
+
+  if (!is.null(threshold))
   {
-    dists[dists < threshold] <- 0
-    dists[dists >= threshold] <- 1
+    dists <- diststime >= as.difftime(threshold, units = "hours")
+    mode(dists) <- "integer"
   }
   else
   {
-    dists <- dists/max(dists)
+    out <- matrix(0.0, nrow = nrow(dists), ncol = ncol(dists))
+    out[] <- as.double(dists/as.integer(max(dists)))
+    dists <- out
   }
 
   return(dists)

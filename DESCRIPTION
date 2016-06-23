@@ -10,7 +10,8 @@ Maintainer: Zhian N. Kamvar <zkamvar@gmail.com>
 Description: Matches names within a single database and across databases.
 Depends:
     R (>= 3.3.0)
-Suggests:
+Imports:
+    lubridate,
     DT,
     shiny (>= 0.13.2.9001),
     shinyjs
