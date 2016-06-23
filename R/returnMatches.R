@@ -17,31 +17,40 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
   matchIndices <- vector("list", numDistRow)
   while(any(distMatrix < thresh, na.rm = TRUE) && rowCount <= numDistRow){
     indices <- which(distMatrix[, rowCount] < thresh)
-    score <- sum(distMatrix[indices, rowCount], na.rm = TRUE)
+    scoreSum <- sum(distMatrix[indices, rowCount], na.rm = TRUE)
     if(length(indices) >= 1){
       if(!missing(nRowD2)){ #dealing with 2 datasets?
           matchIndices[[rowCount]] <- vector("list",2)
           names(matchIndices[[rowCount]]) <- c("d1", "d2")
-          names(matchIndices)[rowCount] <- score
+          names(matchIndices)[rowCount] <- scoreSum
           indices1 <- indices[which(indices <= nRowD1)]
+          scores1 <- distMatrix[indices1, rowCount]
           indices2 <- indices[which(indices > nRowD1)]
+          scores2 <- distMatrix[indices2, rowCount]
           #must also "tack on" the row index for this while loop:
           if(rowCount <= nRowD1){
             indices1 <- c(rowCount, indices1)
+            scores1 <- c(0, scores1)
           }else{
             indices2 <- c(rowCount, indices2)
+            scores2 <- c(0, scores2)
           }
-          matchIndices[[rowCount]][[1]] <- indices1
+          names(scores1) <- indices1
+          matchIndices[[rowCount]][[1]] <- scores1
           if(length(indices2) > 0){
             #must re-adjust indices to start at one for dataset 2
-            matchIndices[[rowCount]][[2]] <- indices2 - nRowD2
+            names(scores2) <- indices2 - nRowD2
+            matchIndices[[rowCount]][[2]] <- scores2
           }else{ #just have this be blank like indices2 is
-            matchIndices[[rowCount]][[2]] <- indices2
+            names(scores2) <- indices2
+            matchIndices[[rowCount]][[2]] <- scores2
         }
       }else{
+        scores <- c(0, distMatrix[indices, rowCount])
         matchIndices[[rowCount]] <- vector("list",1)
-        names(matchIndices)[rowCount] <- score
-        matchIndices[[rowCount]][[1]] <- c(rowCount, indices)
+        names(matchIndices)[rowCount] <- scoreSum
+        names(scores) <-  c(rowCount, indices)
+        matchIndices[[rowCount]][[1]] <- scores
         names(matchIndices[[rowCount]]) <- c("d1")
       }
       #NA these out so that we don't compare them again
@@ -50,7 +59,7 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
     rowCount <- rowCount + 1
   }
   matchIndices <- matchIndices[!is.na(names(matchIndices))]
-  #order with lowest score (closest match) first
+  #order with lowest scoreSum (closest match) first
   matchIndices <- matchIndices[sort.int(as.numeric(names(matchIndices)),
                                                    decreasing = FALSE,
                                                    index.return= TRUE)$ix]
