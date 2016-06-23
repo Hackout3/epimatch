@@ -45,7 +45,12 @@ processFunctionList(dat1 = x[[1]],
                                 d2vars = NULL,
                                 fun = "nameDists",
                                 extraparams = NULL,
-                                weight = 0.5)
+                                weight = 0.5),
+                   list(d1vars = c("Age", "AgeUnit"),
+                        d2vars = NULL,
+                        fun = "ageDists",
+                        extraparams = list(e = 5),
+                        weight = 0.5)
                    )
                  )
 

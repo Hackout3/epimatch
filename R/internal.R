@@ -1,6 +1,6 @@
-clean_age <- function(dat, extra_column = c(mo = "months", yr = "years")){
+clean_age <- function(dat, extra_column = c(mo = c("months", "MO", "m"), yr = c("years"))){
   if (ncol(dat) > 1 && !is.null(extra_column)){
-    ages <- ifelse(dat[[2]] == extra_column["mo"], dat[[1]]*(1/12), dat[[1]])
+    ages <- ifelse(dat[[2]] %in% extra_column["mo"], dat[[1]]*(1/12), dat[[1]])
   } else {
     ages <- dat[[1]]
   }
@@ -29,21 +29,8 @@ cleanString <- function(dat)
 {
   clean_dat <- apply(dat, 2, tolower)
   clean_dat <- apply(clean_dat, 2, trimws)
-  return(data.frame(clean_dat, stringsAsFactors = F))
+  return(data.frame(clean_dat, stringsAsFactors = FALSE))
 }
-
-#note: assumes that the gender dictionary contains all possible string values
-#found in this dataset. That's because we force the user to do this through
-#the shiny app.
-normalizeGender <- function(genderDictionary, dataset,
-                datasetGenderString = "Gender",
-                genderDictionaryString = "originalGender"){
-  dataset <- merge(dataset, genderDictionary, by.x = datasetGenderString,
-                   by.y = genderDictionaryString,
-                   all = TRUE)
-  #"correct" gender is the "finalGender" column from the gender dictionary now
-  return(dataset)
-  }
 
 # Split a single column with commas into a matrix with multiple columns
 splitComma <- function(dat)
