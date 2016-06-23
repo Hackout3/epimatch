@@ -18,10 +18,16 @@ and 2 (d2) that correspond to the same person
 return matching indices
 }
 \examples{
+# in this example, we will match one data set with the name distances
 set.seed(9)
 x <- data.frame(x = letters, y = LETTERS, z = 1:26)
 x <- x[sample(nrow(x), 10, replace = TRUE), ]
 y <- nameDists(x)
 returnMatches(nrow(x), NULL, y, 0.8)
+
+#in this example, the same row numbers in both datasets match
+caseIDVector <- c("AB-10-1", "AB-10-5", "AB-10_1")
+distMatrix <- adist(c(caseIDVector, caseIDVector), c(caseIDVector, caseIDVector))
+returnMatches(3, 3, distMatrix, thresh = 0.5)
 }
 
