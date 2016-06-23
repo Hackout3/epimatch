@@ -20,14 +20,16 @@ genericDists <- function(dat1, dat2 = NULL, strings = FALSE){
   # String distance matching
   if (strings)
   {
-    dists <- adist(dat1)
+    dists <- adist(dat1[[1]])
   }
   # General exact matches
   else
   {
     n <- seq_len(nrow(dat1))
     id <- expand.grid(n, n)
-    dists <- matrix(rowSums(dat1[id[,1], ,drop = FALSE] != dat1[id[,2], ,drop = FALSE]), ncol=length(n))
+    compare1 <- dat1[id[, 1], ,drop = FALSE]
+    compare2 <- dat1[id[, 2], ,drop = FALSE]
+    dists <- matrix(rowSums(compare1 != compare2), ncol=length(n))
     diag(dists) <- 0
   }
   return(dists/max(dists))
