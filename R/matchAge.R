@@ -17,10 +17,10 @@
 #' x <- data.frame(age = rpois(5, 30), age_class = "YEAR")
 #' y <- data.frame(age = rpois(5, 18), age_class = "MONTH")
 #' dat <- rbind(x, y)
-#' age_dist(dat[1])
-#' age_dist(dat, extra_column = c(mo = "MONTH", yr = "YEAR"))
-#' age_dist(x[1], y, extra_column = c(mo = "MONTH", yr = "YEAR"))
-age_dist <- function(dat1, dat2 = NULL, e = 1,
+#' ageDists(dat[1])
+#' ageDists(dat, extra_column = c(mo = "MONTH", yr = "YEAR"))
+#' ageDists(x[1], y, extra_column = c(mo = "MONTH", yr = "YEAR"))
+ageDists <- function(dat1, dat2 = NULL, e = 1,
                      extra_column = c(mo = "months", yr = "years")){
   dat <- clean_age(dat1, extra_column)
   if (!is.null(dat2)){
