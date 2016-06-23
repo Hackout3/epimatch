@@ -7,6 +7,7 @@ function(input, output, session) {
     twodatas = NULL  # whether or not the user is loading two datasets
   )
 
+  # Store a dataset when a file is chosen
   observeEvent(input$dataset1Input, {
     datasetSelected(1)
   })
@@ -33,15 +34,21 @@ function(input, output, session) {
       inputName <- sprintf("dataset%sInput", num)
       value <- read.csv(input[[inputName]]$datapath)
       show(selector = doneEl)
-      delay(2000, hide(selector = doneEl, anim = TRUE, animType = "fade",
+      delay(3000, hide(selector = doneEl, anim = TRUE, animType = "fade",
                        time = 0.5))
       values[[sprintf("data%s", num)]] <- value
+
+      # show the next step
+      show("datasetSelectToggle")
+      show("matchParamsArea", anim = TRUE, animType = "fade")
+      show("findMatchesBtn")
     }, error = function(err) {
       html(html = err$message, selector = errMsgEl)
       show(selector = errEl, anim = TRUE, animType = "fade")
     })
   }
 
+  # Minimize/maximize UI sections
   observeEvent(input$datasetSelectToggle, ignoreNULL = FALSE, {
     if (input$datasetSelectToggle %% 2 == 0) {
       shinyjs::html("datasetSelectToggle", "[-]")
@@ -51,12 +58,23 @@ function(input, output, session) {
       shinyjs::hide("datasetSelectInner")
     }
   })
+  observeEvent(input$matchParamsToggle, ignoreNULL = FALSE, {
+    if (input$matchParamsToggle %% 2 == 0) {
+      shinyjs::html("matchParamsToggle", "[-]")
+      shinyjs::show("matchParamsInner")
+    } else {
+      shinyjs::html("matchParamsToggle", "[+]")
+      shinyjs::hide("matchParamsInner")
+    }
+  })
 
+  # Show the "show dataset" links
   observe({
     toggle("dataset1Toggle", condition = !is.null(values$data1))
     toggle("dataset2Toggle", condition = !is.null(values$data2))
   })
 
+  # Show the input tables
   output$dataset1Table <- DT::renderDataTable({
     DT::datatable(
       values$data1,
@@ -67,7 +85,6 @@ function(input, output, session) {
       )
     )
   })
-
   output$dataset2Table <- DT::renderDataTable({
     DT::datatable(
       values$data2,
@@ -79,9 +96,6 @@ function(input, output, session) {
     )
   })
 
-  observeEvent(input$findMatchesBtn, {
-    shinyjs::info("f")
-  })
 
   output$matchingVarsOutput <- renderUI({
     tagList(
@@ -106,5 +120,10 @@ function(input, output, session) {
         )
       )
     )
+  })
+
+  # "Find matches" button is clicked
+  observeEvent(input$findMatchesBtn, {
+    shinyjs::info("f")
   })
 }

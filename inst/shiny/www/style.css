@@ -66,14 +66,16 @@ body > .container {
 
 /* Dataset selection */
 
-#datasetSelectArea {
+#datasetSelectArea,
+#matchParamsArea {
   margin-bottom: 20px;
   border: 1px solid #e0e0e0;
   background: #fafafa;
   position: relative;
 }
 
-#datasetSelectToggle {
+#datasetSelectToggle,
+#matchParamsToggle {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -81,11 +83,13 @@ body > .container {
   text-decoration: none;
 }
 
-#datasetSelectToggle:hover {
+#datasetSelectToggle:hover,
+#matchParamsToggle:hover{
   font-weight: bold;
 }
 
-#datasetSelectTitle {
+#datasetSelectTitle,
+#matchParamsTitle {
   background: #f0f0f0;
   margin: 0;
   padding: 10px 15px;
@@ -97,7 +101,8 @@ body > .container {
   margin-bottom: 0;
 }
 
-#datasetSelectInner {
+#datasetSelectInner,
+#matchParamsInner {
   border-top: 1px solid #e0e0e0;
   padding: 15px 15px 10px;
 }
