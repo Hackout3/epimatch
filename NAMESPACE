@@ -3,6 +3,7 @@
 export(ageDists)
 export(collapseDistMatrices)
 export(dateDists)
+export(distFuns)
 export(genderDists)
 export(genericDists)
 export(launch)
