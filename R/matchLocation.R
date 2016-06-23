@@ -75,7 +75,7 @@ locationDists <- function(dat1, dat2 = NULL){
     }
   }
 
-  return(mat)
+  return(mat/max(mat))
 }
 
 # test result should be
@@ -89,23 +89,3 @@ locationDists <- function(dat1, dat2 = NULL){
 #[6,]  4.5  4.5  2.5  4.5  4.5  0.0    2
 #[7,]  0.0  0.0  5.0  0.0  0.0  2.0    0
 
-# Split a single column with commas into a matrix with multiple columns
-splitComma <- function(dat)
-{
-  if(ncol(dat) == 1)
-  {
-    new_dat <- strsplit(dat[,1], ",")
-    new_dat <- do.call(rbind, new_dat)
-    for(i in 1:nrow(new_dat))
-    {
-      if(any(duplicated(new_dat[i,])))
-      {
-        new_dat[i,which(duplicated(new_dat[i,]))] <- NA
-      }
-    }
-  } else
-  {
-    return(dat)
-  }
-  return(new_dat)
-}

@@ -32,12 +32,3 @@ ageDists <- function(dat1, dat2 = NULL, e = 1,
   age_diff <- age_diff/max(age_diff)
   return(age_diff)
 }
-
-clean_age <- function(dat, extra_column = c(mo = "months", yr = "years")){
-  if (ncol(dat) > 1 && !is.null(extra_column)){
-    ages <- ifelse(dat[[2]] == extra_column["mo"], dat[[1]]*(1/12), dat[[1]])
-  } else {
-    ages <- dat[[1]]
-  }
-  return(ages)
-}

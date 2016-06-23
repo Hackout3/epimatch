@@ -26,16 +26,3 @@ nameDists <- function(dat1, dat2 = NULL){
   res <- datdist/max(datdist)
   return(res)
 }
-
-# returns a vector of names
-clean_names <- function(dat){
-  if (ncol(dat) > 1){
-    dat <- apply(x, 1, paste, collapse = " ")
-  } else {
-    dat <- dat[[1]]
-  }
-  # replace all punctuation and spaces with a single space
-  dat <- gsub("[[:punct:][:blank:]]+", "_", dat)
-  dat <- tolower(dat)
-  return(dat)
-}

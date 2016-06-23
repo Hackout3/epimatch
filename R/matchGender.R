@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' test <- data.frame(c("male", "f", "m"), stringsAsFactors = F)
-#' dateDists(test)
+#' genderDists(test)
 genderDists <- function(dat1, dat2=NULL,
                       m=c("m", "male", "mal"), f=c("f", "female", "fem"))
 {
