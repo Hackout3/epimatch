@@ -4,7 +4,7 @@
 \alias{genericDists}
 \title{generic function for exact matching single columns}
 \usage{
-genericDists(dat1, dat2 = NULL, strings = F)
+genericDists(dat1, dat2 = NULL, strings = FALSE)
 }
 \arguments{
 \item{dat1}{a vector of data to determine matching}
@@ -20,6 +20,6 @@ a pairwise matrix of scores from 0 (exact match) to 1 (no match)
 generic function for exact matching single columns
 }
 \examples{
-generic_match(1:3)
+genericDists(1:3)
 }
 

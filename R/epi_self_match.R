@@ -1,8 +1,14 @@
-#' Find duplicates in single data set
-#'
+#' Find duplicates in one or two data sets
 #'
 #' @inheritParams processFunctionList
-#' @details this function will take in one or two data sets and also a
+#' @param giveWeight a logical parameter indicating whether or not the output
+#'   should be a list of weights or indices (default).
+#' @details this function will take in one or two data sets, a list of functions
+#'   to apply to specific columns of the data set, and a threshold to determine
+#'   what is a match. It will return a list from \code{\link{returnMatches}}
+#'   where each element represents a different potential match. Within each
+#'   element, there is a two-element list where each contains either indices or
+#'   weights for each sample that matched below the threshold.
 #'
 #' @return something
 #' @export
@@ -27,10 +33,16 @@
 #'                                 weight = 0.5)
 #'                    ),
 #'                  thresh = 0.5)
-matchEpiData <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05){
+matchEpiData <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05, giveWeight = FALSE){
   the_matrices <- processFunctionList(dat1, dat2, funlist)
   the_weights  <- unlist(lapply(funlist, function(i) i$weights))
   MASTER_MAT   <- collapseDistMatrices(the_matrices, the_weights)
   out          <- returnMatches(nrow(dat1), nrow(dat2), MASTER_MAT, thresh)
+  # For processing in the shiny app, it's useful to display either the weights
+  # as a named index vector or the indices themselves
+  if (!giveWeight){
+    names(out) <- NULL
+    out <- lapply(x, lapply, function(i) as.integer(names(i)))
+  }
   return(out)
 }

@@ -28,6 +28,6 @@ codes to binary
 }
 \examples{
 test <- data.frame(c("male", "f", "m"), stringsAsFactors = F)
-dateDists(test)
+genderDists(test)
 }
 

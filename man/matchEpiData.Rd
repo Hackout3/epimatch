@@ -2,9 +2,10 @@
 % Please edit documentation in R/epi_self_match.R
 \name{matchEpiData}
 \alias{matchEpiData}
-\title{Find duplicates in single data set}
+\title{Find duplicates in one or two data sets}
 \usage{
-matchEpiData(dat1, dat2 = NULL, funlist = list(), thresh = 0.05)
+matchEpiData(dat1, dat2 = NULL, funlist = list(), thresh = 0.05,
+  giveWeight = FALSE)
 }
 \arguments{
 \item{dat1}{An input linelist}
@@ -19,15 +20,23 @@ matchEpiData(dat1, dat2 = NULL, funlist = list(), thresh = 0.05)
  \item extraparams - extra parameters that need to be applied with the function.
  \item weights - a weight vector to scale each matrix (not used in processFunctionList).
 }}
+
+\item{giveWeight}{a logical parameter indicating whether or not the output
+should be a list of weights or indices (default).}
 }
 \value{
 something
 }
 \description{
-Find duplicates in single data set
+Find duplicates in one or two data sets
 }
 \details{
-this function will take in one or two data sets and also a
+this function will take in one or two data sets, a list of functions
+  to apply to specific columns of the data set, and a threshold to determine
+  what is a match. It will return a list from \code{\link{returnMatches}}
+  where each element represents a different potential match. Within each
+  element, there is a two-element list where each contains either indices or
+  weights for each sample that matched below the threshold.
 }
 \examples{
 indata <- system.file("data", package = "epimatch")
