@@ -4,17 +4,17 @@
 \alias{dateDists}
 \title{date function for matching}
 \usage{
-dateDists(dat1, dat2 = NULL, dat1Format = "\%d-\%b-\%y",
-  dat2Format = "\%d-\%b-\%y", threshold = NULL)
+dateDists(dat1, dat2 = NULL, dat1Format = "mdy", dat2Format = "mdy",
+  threshold = NULL)
 }
 \arguments{
 \item{dat1}{a vector of dates to match}
 
 \item{dat2}{a vector of dates to match}
 
-\item{dat1Format}{format of dat1 dates}
+\item{dat1Format}{format of dat1 dates to pass to \pkg{lubridate}}
 
-\item{dat2Format}{format of dat2 dates}
+\item{dat2Format}{format of dat2 dates to pass to \pkg{lubridate}}
 
 \item{threshold}{in days, otherwise returns scaled values}
 }
@@ -24,8 +24,16 @@ a pairwise matrix of scores from 0 (exact match) to 1 (no match)
 \description{
 date function for matching
 }
+\details{
+The formats for dates are passed to \pkg{lubridate}'s function
+  \code{\link{parse_date_time}}, so they need to be in the format "mdy" or
+  "ymd", etc.
+}
 \examples{
-test <- data.frame(c("21-Jan-01", "25-Jan-02", "21-Jan-01"), stringsAsFactors = F)
-dateDists(test)
+test <- c("Jan-21-01", "Jan-25-02", "Jan-21-01", "Jan-31-01")
+test <- data.frame(test, stringsAsFactors = FALSE)
+
+# match dates within 11 days of each other
+dateDists(test, threshold = 11)
 }
 
