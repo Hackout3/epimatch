@@ -57,20 +57,20 @@ processFunctionList <- function(dat1, dat2 = NULL, funlist = list()){
     badfun <- which(funs == "")
     badfunmsg <- paste("A function appears to be missing in the following fields:",
                        badfun, "\nPlease check your functions")
-    stop(badfunmsg)
+    stop(badfunmsg, call. = FALSE)
   }
   null_d1 <- vapply(funlist, function(i) is.null(i$d1vars), TRUE)
   if (any(null_d1)){
     msg <- paste("Please specify columns for the following fields for data set 1:",
                  which(null_d1))
-    stop(msg)
+    stop(msg, call. = FALSE)
   }
   if (!is.null(dat2)){
     null_d2 <- vapply(funlist, function(i) is.null(i$d2vars), TRUE)
     if (any(null_d2)){
       msg <- paste("Please specify columns for the following fields for data set 2:",
                    which(null_d2))
-      stop(msg)
+      stop(msg, call. = FALSE)
     }
   }
   out_matrices <- vector(mode = "list", length = length(funlist))
