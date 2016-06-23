@@ -9,8 +9,8 @@ fixedPage(
 
   div(
     id = "datasetSelectArea",
-    h3(id = "datasetSelectTitle", "Dataset selection"),
-    actionLink("datasetSelectToggle", ""),
+    h3(id = "datasetSelectTitle", "1. Dataset selection"),
+    hidden(actionLink("datasetSelectToggle", "")),
     div(
       id = "datasetSelectInner",
       fixedRow(
@@ -65,7 +65,17 @@ fixedPage(
     )
   ),
 
-  uiOutput("matchingVarsOutput"),
+  hidden(div(
+    id = "matchParamsArea",
+    h3(id = "matchParamsTitle", "2. Variables to match"),
+    actionLink("matchParamsToggle", ""),
+    div(
+      id = "matchParamsInner",
+      uiOutput("matchingVarsOutput")
+    )
+  )),
 
-  actionButton("findMatchesBtn", "Find matches", class = "btn-primary btn-lg")
+  hidden(
+    actionButton("findMatchesBtn", strong("3. Find matches"), class = "btn-primary btn-lg")
+  )
 )
