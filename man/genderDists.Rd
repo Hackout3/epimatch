@@ -6,8 +6,8 @@
 A thin wrapper around generic, which converts some known male and female
 codes to binary}
 \usage{
-genderDists(dat1, dat2 = NULL, m = c("m", "male", "mal"), f = c("f",
-  "female", "fem"))
+genderDists(dat1, dat2 = NULL, m = c("m", "male", "mal", "1"), f = c("f",
+  "female", "fem", "2"))
 }
 \arguments{
 \item{dat1}{a vector of genders to match}

@@ -7,8 +7,11 @@
 returnMatches(nRowD1, nRowD2, distMatrix, thresh)
 }
 \arguments{
-\item{the}{number of rows for both datasets (ordered as they have been for all functions) and a distance matrix
-thresh: distance threshold (smaller means more conservative matches)}
+\item{nRowD1, nRowD2}{the number of rows for both datasets (ordered as they have been for all functions)}
+
+\item{distMatrix}{a distance matrix}
+
+\item{thresh}{distance threshold (smaller means more conservative matches)}
 }
 \value{
 list where each index are the row indices for data rows in dataset 1 (d1),

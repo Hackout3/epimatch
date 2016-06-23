@@ -9,9 +9,9 @@
 #'
 #' @examples
 #' # just sum two of the same matrices:
-#' caseIDVector <- c("AB-10-1", "AB-10-5", "AB-10_1")
-#' m1 <- exactMatchCaseIDIntraDataset(caseIDVector)
-#' m2 <- exactMatchCaseIDIntraDataset(caseIDVector)
+#' caseIDVector <- data.frame(c("AB-10-1", "AB-10-5", "AB-10_1"))
+#' m1 <- nameDists(caseIDVector)
+#' m2 <- nameDists(caseIDVector)
 #' summedDistMatrix <- collapseDistMatrices(list(m1, m2), c(0.5, 0.5))
 
 collapseDistMatrices <- function(distMatrixList,weightVector = NULL){

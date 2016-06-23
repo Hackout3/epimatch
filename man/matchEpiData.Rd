@@ -21,6 +21,8 @@ matchEpiData(dat1, dat2 = NULL, funlist = list(), thresh = 0.05,
  \item weights - a weight vector to scale each matrix (not used in processFunctionList).
 }}
 
+\item{thresh}{a threshold below which to consider two rows nearly identical.}
+
 \item{giveWeight}{a logical parameter indicating whether or not the output
 should be a list of weights or indices (default).}
 }

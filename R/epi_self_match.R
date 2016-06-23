@@ -1,6 +1,7 @@
 #' Find duplicates in one or two data sets
 #'
 #' @inheritParams processFunctionList
+#' @param thresh a threshold below which to consider two rows nearly identical.
 #' @param giveWeight a logical parameter indicating whether or not the output
 #'   should be a list of weights or indices (default).
 #' @details this function will take in one or two data sets, a list of functions

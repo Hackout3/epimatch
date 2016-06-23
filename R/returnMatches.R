@@ -1,7 +1,9 @@
 #' return matching indices
 #'
-#' @param the number of rows for both datasets (ordered as they have been for all functions) and a distance matrix
-#'  thresh: distance threshold (smaller means more conservative matches)
+#' @param nRowD1,nRowD2 the number of rows for both datasets (ordered as they have been for all functions)
+#' @param distMatrix a distance matrix
+#' @param thresh distance threshold (smaller means more conservative matches)
+#'
 #' @return list where each index are the row indices for data rows in dataset 1 (d1),
 #' and 2 (d2) that correspond to the same person
 #' @export
