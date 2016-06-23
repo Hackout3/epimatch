@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' test <- data.frame(c("male", "f", "m"), stringsAsFactors = F)
+#' test <- data.frame(c("male", "f", "m"), stringsAsFactors = FALSE)
 #' genderDists(test)
 genderDists <- function(dat1, dat2=NULL,
                       m=c("m", "male", "mal", "1"), f=c("f", "female", "fem", "2"))
