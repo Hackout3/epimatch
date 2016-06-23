@@ -75,7 +75,7 @@ locationDists <- function(dat1, dat2 = NULL){
     }
   }
 
-  return(mat/max(mat))
+  return(mat/max(mat, na.rm = TRUE))
 }
 
 # test result should be

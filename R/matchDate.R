@@ -44,7 +44,7 @@ dateDists <- function(dat1, dat2=NULL, dat1Format="mdy", dat2Format="mdy",
   else
   {
     out <- matrix(0.0, nrow = nrow(dists), ncol = ncol(dists))
-    out[] <- as.double(dists/as.integer(max(dists)))
+    out[] <- as.double(dists/as.integer(max(dists, na.rm = TRUE)))
     dists <- out
   }
 

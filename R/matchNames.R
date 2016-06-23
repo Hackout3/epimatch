@@ -23,6 +23,6 @@ nameDists <- function(dat1, dat2 = NULL){
   }
 
   datdist <- adist(combined)
-  res <- datdist/max(datdist)
+  res <- datdist/max(datdist, na.rm = TRUE)
   return(res)
 }
