@@ -99,7 +99,19 @@ fixedPage(
     )
   )),
 
+  hidden(div(
+    id = "extraParamsArea",
+    h3(id = "extraParamsTitle", "3. Advanced options"),
+    actionLink("extraParamsToggle", ""),
+    div(
+      id = "extraParamsInner",
+      sliderInput("threshold", "Threshold", min = 0, max = 1, 0.8),
+      sliderInput("ageThreshold", "Age fuzziness", min = 0, max = 50, 1),
+      sliderInput("dateThreshold", "Date fuzziness", min = 0, max = 365, 0)
+    )
+  )),
+
   hidden(
-    actionButton("findMatchesBtn", strong("3. Find matches"), class = "btn-primary btn-lg")
+    actionButton("findMatchesBtn", strong("4. Find matches"), class = "btn-primary btn-lg")
   )
 )

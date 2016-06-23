@@ -41,13 +41,16 @@ function(input, output, session) {
 
       # show the next step
       if (num == 1) {
-        addMatchRuleRow()
         show("datasetSelectToggle")
         show("matchParamsArea", anim = TRUE, animType = "fade")
+        show("extraParamsArea", anim = TRUE, animType = "fade")
         show("findMatchesBtn")
       } else {
         values$twodatas <- TRUE
       }
+      removeUI(selector = ".matchParamsRow", multiple = TRUE)
+      values$numMatchRules <- 0
+      addMatchRuleRow()
     }, error = function(err) {
       html(html = err$message, selector = errMsgEl)
       show(selector = errEl, anim = TRUE, animType = "fade")
@@ -71,6 +74,15 @@ function(input, output, session) {
     } else {
       shinyjs::html("matchParamsToggle", "[+]")
       shinyjs::hide("matchParamsInner")
+    }
+  })
+  observeEvent(input$extraParamsToggle, ignoreNULL = FALSE, {
+    if (input$extraParamsToggle %% 2 == 0) {
+      shinyjs::html("extraParamsToggle", "[-]")
+      shinyjs::show("extraParamsInner")
+    } else {
+      shinyjs::html("extraParamsToggle", "[+]")
+      shinyjs::hide("extraParamsInner")
     }
   })
 
@@ -104,7 +116,6 @@ function(input, output, session) {
 
   # Add UI row for another matching rule
   addMatchRuleRow <- function() {
-    cat("ff")
     isolate({
       num <- values$numMatchRules + 1
       values$numMatchRules <- num
@@ -118,7 +129,7 @@ function(input, output, session) {
       }
     }
 
-    ui <- tagList(
+    ui <- div(class = "matchParamsRow",
       fluidRow(
         column(
           3,
@@ -129,17 +140,15 @@ function(input, output, session) {
         column(
           3,
           disableParams2(
-            div(class = "paramData2",
-              selectInput(paste0("matchData2Vars", num),
-                        NULL, colnames(values$data2), selected = NULL,
-                        multiple = TRUE)
-            )
+            selectInput(paste0("matchData2Vars", num),
+                      NULL, colnames(values$data2), selected = NULL,
+                      multiple = TRUE)
           )
         ),
         column(
           3,
           selectInput(paste0("matchFx", num),
-                      NULL, getMatchingFxChoices(), selected = NULL)
+                      NULL, c("", epimatch::distFuns()), selected = "")
         ),
         column(
           3,
@@ -151,10 +160,6 @@ function(input, output, session) {
     insertUI(selector = "#matchingVarsOutput", where = "beforeEnd", ui = ui)
   }
 
-  observe({
-    toggleState(selector = ".paramData2", condition = values$twodatas)
-  })
-
   # Add another row of matching parameters
   observeEvent(input$addMatchRowBtn, {
     addMatchRuleRow()
@@ -162,7 +167,35 @@ function(input, output, session) {
 
   # "Find matches" button is clicked
   observeEvent(input$findMatchesBtn, {
-    shinyjs::info("f")
+
+    # build the functions lits
+    funlist <-
+      lapply(seq(values$numMatchRules), function(num) {
+        fxn <- input[[paste0("matchFx", num)]]
+        ret <-
+          list(
+            d1vars = input[[paste0("matchData1Vars", num)]],
+            d2vars = input[[paste0("matchData2Vars", num)]],
+            fun = fxn,
+            weight = input[[paste0("matchWeight", num)]]
+          )
+        if (!values$twodatas) {
+          ret[['d2vars']] <- NULL
+        }
+        if (fxn == "ageDists") {
+          ret[['extraparams']] <- list(e = input$ageThreshold)
+        }
+        if (fxn == "dateDists") {
+          ret[['extraparams']] <- list(threshold = input$dateThreshold)
+        }
+        ret
+      })
+
+    # gg<<-epimatch::matchEpiData(
+    #   dat1 = values$data1, dat2 = values$data2,
+    #   funlist = funlist,
+    #   thresh = input$threshold
+    # )
   })
 
   hide("loading-content", TRUE, "fade")
