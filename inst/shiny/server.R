@@ -4,7 +4,8 @@ function(input, output, session) {
 
   values <- reactiveValues(
     data1 = NULL, data2 = NULL,  # the datasets
-    twodatas = NULL  # whether or not the user is loading two datasets
+    twodatas = FALSE,  # whether or not the user is loading two datasets
+    numMatchRules = 0
   )
 
   # Store a dataset when a file is chosen
@@ -39,9 +40,14 @@ function(input, output, session) {
       values[[sprintf("data%s", num)]] <- value
 
       # show the next step
-      show("datasetSelectToggle")
-      show("matchParamsArea", anim = TRUE, animType = "fade")
-      show("findMatchesBtn")
+      if (num == 1) {
+        addMatchRuleRow()
+        show("datasetSelectToggle")
+        show("matchParamsArea", anim = TRUE, animType = "fade")
+        show("findMatchesBtn")
+      } else {
+        values$twodatas <- TRUE
+      }
     }, error = function(err) {
       html(html = err$message, selector = errMsgEl)
       show(selector = errEl, anim = TRUE, animType = "fade")
@@ -96,34 +102,68 @@ function(input, output, session) {
     )
   })
 
+  # Add UI row for another matching rule
+  addMatchRuleRow <- function() {
+    cat("ff")
+    isolate({
+      num <- values$numMatchRules + 1
+      values$numMatchRules <- num
+    })
 
-  output$matchingVarsOutput <- renderUI({
-    tagList(
+    disableParams2 <- function(tag) {
+      if (values$twodatas) {
+        tag
+      } else {
+        disabled(tag)
+      }
+    }
+
+    ui <- tagList(
       fluidRow(
         column(
           3,
-          selectInput("matchData1Vars", NULL, colnames(values$data1), selected = NULL,
+          selectInput(paste0("matchData1Vars", num),
+                      NULL, colnames(values$data1), selected = NULL,
                       multiple = TRUE)
         ),
         column(
           3,
-          selectInput("matchData2Vars", NULL, colnames(values$data2), selected = NULL,
-                      multiple = TRUE)
+          disableParams2(
+            div(class = "paramData2",
+              selectInput(paste0("matchData2Vars", num),
+                        NULL, colnames(values$data2), selected = NULL,
+                        multiple = TRUE)
+            )
+          )
         ),
         column(
           3,
-          selectInput("matchFx", NULL, getMatchingFxChoices(), selected = NULL)
+          selectInput(paste0("matchFx", num),
+                      NULL, getMatchingFxChoices(), selected = NULL)
         ),
         column(
           3,
-          sliderInput("matchWeight", NULL, min = 0, max = 1, value = 1)
+          sliderInput(paste0("matchWeight", num),
+                      NULL, min = 0, max = 1, value = 1)
         )
       )
     )
+    insertUI(selector = "#matchingVarsOutput", where = "beforeEnd", ui = ui)
+  }
+
+  observe({
+    toggleState(selector = ".paramData2", condition = values$twodatas)
+  })
+
+  # Add another row of matching parameters
+  observeEvent(input$addMatchRowBtn, {
+    addMatchRuleRow()
   })
 
   # "Find matches" button is clicked
   observeEvent(input$findMatchesBtn, {
     shinyjs::info("f")
   })
+
+  hide("loading-content", TRUE, "fade")
 }

@@ -7,6 +7,8 @@ fixedPage(
   ),
   h1(id = "appTitle", "Find matching records in your data"),
 
+  div(id = "loading-content", "Loading...", icon("spinner", class = "fa-spin")),
+
   div(
     id = "datasetSelectArea",
     h3(id = "datasetSelectTitle", "1. Dataset selection"),
@@ -71,7 +73,29 @@ fixedPage(
     actionLink("matchParamsToggle", ""),
     div(
       id = "matchParamsInner",
-      uiOutput("matchingVarsOutput")
+      div(
+        id = "matchParamsHeader",
+        fixedRow(
+          column(
+            3,
+            div("Dataset 1 variable")
+          ),
+          column(
+            3,
+            div("Dataset 2 variable")
+          ),
+          column(
+            3,
+            div("Matching type")
+          ),
+          column(
+            3,
+            div("Weight")
+          )
+        )
+      ),
+      div(id = "matchingVarsOutput"),
+      actionButton("addMatchRowBtn", "Add another", icon = icon("plus"))
     )
   )),
 
