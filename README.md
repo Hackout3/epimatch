@@ -30,7 +30,7 @@ launch()
 
 Datasets
 =======
-Original fake datasets (before errors were induced):
+Original fake datasets, i.e. before errors were induced, contain exact patient matches in terms of name, age, date of onset, etc. There are three such datasets that you could feed in pairwise into epimatch to find suggested matches:
 
 CaseInformationForm.csv:  case ID here links to the case ID in the laboratory form. 
 
