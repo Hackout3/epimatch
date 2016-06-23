@@ -23,7 +23,7 @@
 returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
   rowCount <- 1
   distMatrix[upper.tri(distMatrix, diag= TRUE)] <- NA
-  numDistRow <- nrow(distMatrix)
+  numDistRow <- nrow(as.matrix(distMatrix))
   matchIndices <- vector("list", numDistRow)
   while(any(distMatrix < thresh, na.rm = TRUE) && rowCount <= numDistRow){
     indices <- which(distMatrix[, rowCount] < thresh)
