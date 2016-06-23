@@ -28,5 +28,5 @@ genderDists <- function(dat1, dat2=NULL,
     dat2[dat2[,1] %in% f,1] <- 1
   }
 
-  return(genericMatch(dat1, dat2))
+  return(genericDists(dat1, dat2))
 }
