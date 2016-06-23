@@ -7,6 +7,7 @@
 #' @export
 #'
 #' @examples
+#' #in this example, the same row numbers in both datasets match
 #' caseIDVector <- c("AB-10-1", "AB-10-5", "AB-10_1")
 #' distMatrix <- adist(c(caseIDVector, caseIDVector), c(caseIDVector, caseIDVector))
 #' returnMatches(3, 3, distMatrix, thresh = 0.5)
