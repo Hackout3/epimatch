@@ -11,8 +11,8 @@ returnMatches(nRowD1, nRowD2, distMatrix, thresh)
 thresh: distance threshold (smaller means more conservative matches)}
 }
 \value{
-list where each index are the row indices for data rows in that cluster,
-and clusters are ordered from the highest to lowest match ranking
+list where each index are the row indices for data rows in dataset 1 (d1),
+and 2 (d2) that correspond to the same person
 }
 \description{
 return matching indices

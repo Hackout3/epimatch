@@ -4,16 +4,50 @@
 \alias{epi_self_match}
 \title{Find duplicates in single data set}
 \usage{
-epi_self_match(dat, funlist = list(name = "match_names", age =
-  list("age_list", extra_column = c(mo = "months", yr = "years")), CaseID =
-  "exactMatchCaseIDIntraDataset"))
+epi_self_match(dat1, dat2 = NULL, funlist = list(), thresh = 0.05)
 }
 \arguments{
-\item{dat}{a linelist}
+\item{dat1}{An input linelist}
 
-\item{funlist}{a list of functions and arguments to use to evaluate columns of dat.}
+\item{dat2}{An optional extra linelist}
+
+\item{funlist}{A list containing lists containing:
+\itemize{
+ \item d1vars - variable names for dataset 1
+ \item d2vars - variable names for dataset 2
+ \item fun - function name to process on these variables
+ \item extraparams - extra parameters that need to be applied with the function.
+ \item weights - a weight vector to scale each matrix (not used in process_matching).
+}}
+}
+\value{
+something
 }
 \description{
 Find duplicates in single data set
+}
+\details{
+this function will take in one or two data sets and also a
+}
+\examples{
+indata <- system.file("data", package = "epimatch")
+indata <- dir(indata, full.names = TRUE)
+x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
+
+epi_self_match(dat1 = x[[1]],
+                 dat2 = NULL,
+                 funlist = list(
+                   ID = list(d1vars = "Outbreak.ID.",
+                             d2vars = NULL,
+                             fun = "nameDists",
+                             extraparams = NULL,
+                             weight = 0.5),
+                   names = list(d1vars = "Name..as.given.",
+                                d2vars = NULL,
+                                fun = "nameDists",
+                                extraparams = NULL,
+                                weight = 0.5)
+                   )
+                 )
 }
 

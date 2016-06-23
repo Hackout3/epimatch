@@ -16,15 +16,15 @@
 #'                  dat2 = NULL,
 #'                  funlist = list(
 #'                    ID = list(d1vars = "Outbreak.ID.",
-#'                                    d2vars = NULL,
-#'                                    fun = "nameDists",
-#'                                    extraparams = NULL,
-#'                                    weight = 0.5),
+#'                              d2vars = NULL,
+#'                              fun = "nameDists",
+#'                              extraparams = NULL,
+#'                              weight = 0.5),
 #'                    names = list(d1vars = "Name..as.given.",
-#'                                    d2vars = NULL,
-#'                                    fun = "nameDists",
-#'                                    extraparams = NULL,
-#'                                    weight = 0.5)
+#'                                 d2vars = NULL,
+#'                                 fun = "nameDists",
+#'                                 extraparams = NULL,
+#'                                 weight = 0.5)
 #'                    )
 #'                  )
 epi_self_match <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05){
