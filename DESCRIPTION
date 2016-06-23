@@ -4,11 +4,16 @@ Version: 0.0.0.9000
 Authors@R: c(person("Katie", "Planey", email = "katherine.planey@gmail.com", role = c("aut")),
   person("John", "Lees", email = "lees.john6@gmail.com", role = c("aut")),
   person(c("Zhian","N."), "Kamvar", email = "zkamvar@gmail", role = c("aut", "cre"), comment = c("affiliations: Grunwald Lab, USDA-ARS, Oregon State University")),
-  person("Ilana", "Schafer", email = "wii3@cdc.gov", role = c("aut")))
+  person("Ilana", "Schafer", email = "wii3@cdc.gov", role = c("aut")),
+  person("Dean", "Attali", email = "daattali@gmail.com", role = c("aut")))
 Maintainer: Zhian N. Kamvar <zkamvar@gmail.com>
 Description: Matches names within a single database and across databases.
 Depends:
     R (>= 3.3.0)
+Suggests:
+    DT,
+    shiny,
+    shinyjs
 License: MIT
 Encoding: UTF-8
 LazyData: true

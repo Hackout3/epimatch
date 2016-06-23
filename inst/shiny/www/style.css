@@ -1,0 +1,133 @@
+/* General CSS */
+
+body {
+  background-color: #fcfcfc;
+  font-size: 1.6em;
+}
+
+.irs-with-grid {
+  margin-top: -5px;
+}
+
+.irs-grid {
+  display: none !important;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.navbar-header,
+.navbar-mav,
+.nav-tabs {
+  font-size: 1.2em;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  border-top: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.active>a:focus {
+  border-top-color: orange;
+}
+
+body > .container {
+  background-color: #ffffff;
+  padding: 0 25px 20px;
+  border: 1px solid #ccc;
+  margin-top: -1px;
+  margin-bottom: 30px;
+  border-radius: 0 0 3px 3px;
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+}
+
+#appTitle {
+  font-weight: bold;
+  background: #333;
+  color: #fafafa;
+  text-align: center;
+  margin: 0 -25px;
+  padding: 15px;
+  margin-bottom: 25px;
+}
+
+.btn-done-indicator {
+  color: green;
+}
+
+.btn-err {
+  margin-top: 10px;
+  color: red;
+}
+
+/* Dataset selection */
+
+#datasetSelectArea {
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+  background: #fafafa;
+  position: relative;
+}
+
+#datasetSelectToggle {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-family: monospace;
+  text-decoration: none;
+}
+
+#datasetSelectToggle:hover {
+  font-weight: bold;
+}
+
+#datasetSelectTitle {
+  background: #f0f0f0;
+  margin: 0;
+  padding: 10px 15px;
+  font-weight: bold;
+}
+
+#datasetSelectArea .shiny-input-container,
+#datasetSelectArea .shiny-file-input-progress {
+  margin-bottom: 0;
+}
+
+#datasetSelectInner {
+  border-top: 1px solid #e0e0e0;
+  padding: 15px 15px 10px;
+}
+
+#dataset1Toggle,
+#dataset2Toggle {
+  font-size: 0.9em;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.datasetTableTitle {
+  text-align: center;
+}
+
+#datasetSelectArea table {
+  border: 1px solid #111;
+}
+
+#datasetSelectArea thead {
+  background: #ececec;
+}
+
+#datasetSelectArea .dataTables_length {
+  margin-top: 10px;
+}
+
+.datasetUploadNumTitle {
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  display: inline-block;
+}
