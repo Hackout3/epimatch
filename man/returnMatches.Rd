@@ -17,4 +17,11 @@ and 2 (d2) that correspond to the same person
 \description{
 return matching indices
 }
+\examples{
+set.seed(9)
+x <- data.frame(x = letters, y = LETTERS, z = 1:26)
+x <- x[sample(nrow(x), 10, replace = TRUE), ]
+y <- nameDists(x)
+returnMatches(nrow(x), NULL, y, 0.8)
+}
 

@@ -7,6 +7,11 @@
 #' @export
 #'
 #' @examples
+#' set.seed(9)
+#' x <- data.frame(x = letters, y = LETTERS, z = 1:26)
+#' x <- x[sample(nrow(x), 10, replace = TRUE), ]
+#' y <- nameDists(x)
+#' returnMatches(nrow(x), NULL, y, 0.8)
 returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
   rowCount <- 1
   numMatchClust <- 0
