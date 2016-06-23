@@ -32,7 +32,7 @@ Datasets
 =======
 Original fake datasets (before errors were induced):
 
-CaseInformationForm:  case ID here links to the case ID in the laboratory form. 
+CaseInformationForm.csv:  case ID here links to the case ID in the laboratory form. 
 
 LaboratoryResultsForm7.csv:  will have multiple rows per patient (patients had multiple labs). All of these patients will be found in CaseInformationForm.csv. The case id here links to the caseInformationForm case ID.
 
