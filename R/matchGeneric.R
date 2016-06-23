@@ -27,7 +27,7 @@ genericDists <- function(dat1, dat2 = NULL, strings = FALSE){
   {
     n <- seq_len(nrow(dat1))
     id <- expand.grid(n, n)
-    dists <- matrix(rowSums(dat1[id[,1],] == dat1[id[,2],]), ncol=length(n))
+    dists <- matrix(rowSums(dat1[id[,1], ,drop = FALSE] != dat1[id[,2], ,drop = FALSE]), ncol=length(n))
     diag(dists) <- 0
   }
   return(dists/max(dists))

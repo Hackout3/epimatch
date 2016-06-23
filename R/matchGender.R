@@ -14,7 +14,7 @@
 #' test <- data.frame(c("male", "f", "m"), stringsAsFactors = F)
 #' genderDists(test)
 genderDists <- function(dat1, dat2=NULL,
-                      m=c("m", "male", "mal"), f=c("f", "female", "fem"))
+                      m=c("m", "male", "mal", "1"), f=c("f", "female", "fem", "2"))
 {
   # Convert to zeros and ones
   dat1 <- cleanString(dat1)
