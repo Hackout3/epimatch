@@ -47,7 +47,7 @@ epi_self_match(dat1 = x[[1]],
                                 fun = "nameDists",
                                 extraparams = NULL,
                                 weight = 0.5)
-                   )
-                 )
+                   ),
+                 thresh = 0.5)
 }
 

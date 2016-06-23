@@ -25,12 +25,12 @@
 #'                                 fun = "nameDists",
 #'                                 extraparams = NULL,
 #'                                 weight = 0.5)
-#'                    )
-#'                  )
+#'                    ),
+#'                  thresh = 0.5)
 epi_self_match <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05){
   the_matrices <- process_matching(dat1, dat2, funlist)
   the_weights  <- unlist(lapply(funlist, function(i) i$weights))
   MASTER_MAT   <- collapseDistMatrices(the_matrices, the_weights)
-  out          <- returnMatches(dat1, dat2, MASTER_MAT, thresh)
+  out          <- returnMatches(nrow(dat1), nrow(dat2), MASTER_MAT, thresh)
   return(out)
 }
