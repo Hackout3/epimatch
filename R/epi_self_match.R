@@ -42,7 +42,7 @@ matchEpiData <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05, giv
   # as a named index vector or the indices themselves
   if (!giveWeight){
     names(out) <- NULL
-    out <- lapply(x, lapply, function(i) as.integer(names(i)))
+    out <- lapply(out, lapply, function(i) as.integer(names(i)))
   }
   return(out)
 }
