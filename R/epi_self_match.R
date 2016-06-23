@@ -1,7 +1,7 @@
 #' Find duplicates in single data set
 #'
 #'
-#' @inheritParams process_matching
+#' @inheritParams processFunctionList
 #' @details this function will take in one or two data sets and also a
 #'
 #' @return something
@@ -12,7 +12,7 @@
 #' indata <- dir(indata, full.names = TRUE)
 #' x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
 #'
-#' epi_self_match(dat1 = x[[1]],
+#' matchEpiData(dat1 = x[[1]],
 #'                  dat2 = NULL,
 #'                  funlist = list(
 #'                    ID = list(d1vars = "Outbreak.ID.",
@@ -27,8 +27,8 @@
 #'                                 weight = 0.5)
 #'                    ),
 #'                  thresh = 0.5)
-epi_self_match <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05){
-  the_matrices <- process_matching(dat1, dat2, funlist)
+matchEpiData <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05){
+  the_matrices <- processFunctionList(dat1, dat2, funlist)
   the_weights  <- unlist(lapply(funlist, function(i) i$weights))
   MASTER_MAT   <- collapseDistMatrices(the_matrices, the_weights)
   out          <- returnMatches(nrow(dat1), nrow(dat2), MASTER_MAT, thresh)

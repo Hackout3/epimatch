@@ -12,7 +12,7 @@
 #'  \item d2vars - variable names for dataset 2
 #'  \item fun - function name to process on these variables
 #'  \item extraparams - extra parameters that need to be applied with the function.
-#'  \item weights - a weight vector to scale each matrix (not used in process_matching).
+#'  \item weights - a weight vector to scale each matrix (not used in processFunctionList).
 #' }
 #'
 #' @return a list of distance matrices scaled by weight
@@ -22,25 +22,25 @@
 #' @examples
 #' indata <- system.file("data", package = "epimatch")
 #' indata <- dir(indata, full.names = TRUE)
-#' x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
+#' x      <- lapply(indata, read.csv, stringsAsFactors = FALSE)
 #'
-#' process_matching(dat1 = x[[1]],
+#' processFunctionList(dat1 = x[[1]],
 #'                  dat2 = NULL,
 #'                  funlist = list(
 #'                    ID = list(d1vars = "Outbreak.ID.",
-#'                                    d2vars = NULL,
-#'                                    fun = "nameDists",
-#'                                    extraparams = NULL,
-#'                                    weight = 0.5),
+#'                              d2vars = NULL,
+#'                              fun = "nameDists",
+#'                              extraparams = NULL,
+#'                              weight = 0.5),
 #'                    names = list(d1vars = "Name..as.given.",
-#'                                    d2vars = NULL,
-#'                                    fun = "nameDists",
-#'                                    extraparams = NULL,
-#'                                    weight = 0.5)
+#'                                 d2vars = NULL,
+#'                                 fun = "nameDists",
+#'                                 extraparams = NULL,
+#'                                 weight = 0.5)
 #'                    )
 #'                  )
 #'
-process_matching <- function(dat1, dat2 = NULL, funlist = list()){
+processFunctionList <- function(dat1, dat2 = NULL, funlist = list()){
   if (length(funlist) == 0){
     stop("Please provide a list for the funlist parameter")
   }
