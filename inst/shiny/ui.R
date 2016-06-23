@@ -116,8 +116,8 @@ fixedPage(
     actionButton("findMatchesBtn", strong("4. Find matches"), class = "btn-primary btn-lg")
   ),
 
-  div(id = "resultsSection",
+  hidden(div(id = "resultsSection",
       h2(id = "resultsTitle", "Results"),
       uiOutput("results")
-  )
+  ))
 )

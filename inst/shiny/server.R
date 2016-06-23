@@ -10,8 +10,8 @@
 # indata <- dir(indata, full.names = TRUE)
 # x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
 #
-# kkk<-matchEpiData(dat1 = x[[1]],
-#              dat2 = x[[1]],
+# kkk<-matchEpiData(dat1 = x[[6]],
+#              dat2 = x[[6]],
 #              funlist = list(
 #                ID = list(d1vars = "Outbreak.ID.",
 #                          d2vars = "Outbreak.ID.",
@@ -230,6 +230,8 @@ function(input, output, session) {
       funlist = funlist,
       thresh = input$threshold
     )
+
+    show("resultsSection")
   })
 
   output$results <- renderUI({
