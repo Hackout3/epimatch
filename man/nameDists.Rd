@@ -22,7 +22,7 @@ punctuation with an underscore
 \examples{
 set.seed(9)
 x <- data.frame(x = letters, y = LETTERS, z = 1:26)
-x <- sample(nrow(x), 10, replace = TRUE)
+x <- x[sample(nrow(x), 10, replace = TRUE), ]
 nameDists(x)
 }
 
