@@ -29,6 +29,6 @@ ageDists <- function(dat1, dat2 = NULL, e = 1,
   }
   age_diff <- dist(dat, method = "manhattan")
   age_diff[age_diff <= e] <- 0
-  age_diff <- age_diff/max(age_diff)
+  age_diff <- age_diff/max(age_diff, na.rm = TRUE)
   return(age_diff)
 }
