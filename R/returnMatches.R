@@ -30,8 +30,7 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
     indices <- which(distMatrix[, rowCount] < thresh)
     scoreSum <- sum(distMatrix[indices, rowCount], na.rm = TRUE)
     if(length(indices) >= 1){
-      if(length(indices)>=1){
-    #  if(!missing(nRowD2)){ #dealing with 2 datasets?
+      if(!missing(nRowD2)){ #dealing with 2 datasets?
           matchIndices[[rowCount]] <- vector("list",2)
           names(matchIndices[[rowCount]]) <- c("d1", "d2")
           names(matchIndices)[rowCount] <- scoreSum

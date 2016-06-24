@@ -1,3 +1,4 @@
 "","GlobalRecordId","ContactSurname","ContactOtherNames","ContactGender","ContactAge","ContactAgeUnit","ContactHeadHouse","ContactDistrict","ContactSC","ContactParish","ContactVillage","LC1","ContactPhone","ContactHCW","ContactHCWFacility","Team","Risklevel","FinalOutcome","DistrictCodeContact"
 "13","4446ac76-d59c-40b5-843b-f83f352c84d7","Lilly","Chase",2,17,"Years","Carter Chase","Kibaale","Matale","Kitaba","Kitaba",NA,NA,1,"Kitaba Clinic",NA,NA,2,NA
-"10","349bd5ae-807f-4ead-b5e4-0a49f9b01666","Wagner","Billy",1,32,"Years","Charlie Wagner","Kibaale","Matale","Kitaba","Nkondo",NA,NA,2,"",NA,NA,1,NA
+"5","18c98287-7ed2-41b0-8dd0-3cb63500f23a","Wagner","Archibald",1,29,"Years","Charlie Wagner","Kibaale","Matale","Kitaba","Nkondo",NA,NA,1,"Nkondo Clinic",NA,NA,1,NA
+"131","4446ac76-d59c-40b5-843b-f83f352c84d7","Lilly","Chase",2,17,"Years","Carter Chase","Kibaale","Matale","Kitaba","Kitaba",NA,NA,1,"Kitaba Clinic",NA,NA,2,NA
