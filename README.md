@@ -6,6 +6,11 @@ This package was produced at the [Hackout3 in conjunction with rOpenSci](http://
 
 Another group at Hackout3 focused on higher-level data cleaning for the modeler/data scientist who receives all of the datasets from all field workers in different locations, as these steps concern aggregate analyses as opposed to data verification. The field worker is the ideal candidate to determine if a patient is represented multiple times in datasets due to the on-the-ground nature of their job.
 
+Try it out
+============
+
+You can either install the package on your own computer and run it yourself (instructions below), or you can use the app [hosted online](http://daattali.com/shiny/epimatch/)
+
 Installation
 ============
 
