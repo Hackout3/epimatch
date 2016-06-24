@@ -186,6 +186,11 @@ body > .container {
   margin-bottom: 40px;
 }
 
+#findMatchesError {
+  color: red;
+  margin-bottom: 20px;
+}
+
 /* Results section */
 
 #resultsTitle {

@@ -113,11 +113,18 @@ fixedPage(
   )),
 
   hidden(
-    actionButton("findMatchesBtn", strong("4. Find matches"), class = "btn-primary btn-lg")
+    actionButton("findMatchesBtn", strong("4. Find matches"), class = "btn-primary btn-lg"),
+    hidden(
+      img(src = "ajax-loader-bar.gif", id = "findMatchesLoading"),
+      icon("check", class = "btn-done-indicator findMatchesDone")
+    ),
+    hidden(div(id = "findMatchesError",
+               icon("exclamation-circle"),
+               strong("Error: "), span(id = "findMatchesErrorMsg")))
   ),
 
-  div(id = "resultsSection",
+  hidden(div(id = "resultsSection",
       h2(id = "resultsTitle", "Results"),
       uiOutput("results")
-  )
+  ))
 )

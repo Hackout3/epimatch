@@ -19,7 +19,7 @@ collapseDistMatrices <- function(distMatrixList,weightVector = NULL){
   if(is.null(weightVector) || length(weightVector != matlen)){
     weightVector <- rep.int(1/(matlen), times = matlen)
   }
-  weightVector <- 1 - weightVector
+  weightVector <- 1 - weightVector + (.Machine$double.eps)^0.5
   for(m in 1:matlen){
     #replace NAs with zeros
     missing_data <- is.na(distMatrixList[[m]])
