@@ -19,9 +19,10 @@ Compare locations
 }
 \examples{
 test <- data.frame(country=c("Uganda", "Uganda", "Kenya"),
-                   city=c("Kampala", "Kampala", "Kilifi"), stringsAsFactors = F)
+                   city=c("Kampala", "Kampala", "Kilifi"),
+                   stringsAsFactors = FALSE)
 test2 <- data.frame(location=c("uganda,kampala", "uganda,kampala", "kenya"),
-stringsAsFactors = F)
+                    stringsAsFactors = FALSE)
 locationDists(test, test2)
 }
 
