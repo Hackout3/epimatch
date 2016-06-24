@@ -4,7 +4,8 @@
 \alias{collapseDistMatrices}
 \title{Collapse/sum matrices using weights}
 \usage{
-collapseDistMatrices(distMatrixList, weightVector = NULL)
+collapseDistMatrices(distMatrixList, weightVector = NULL,
+ NAweight = 0.5)
 }
 \arguments{
 \item{distMatrixList}{list of distances matrices and a vector of
@@ -12,7 +13,10 @@ corresponding weights default: all equal weights for each input matrix}
 
 \item{weightVector}{a vector of weights for each matrix. If \code{NULL}, then
 each matrix will be weighted equally.}
+
+\item{NAweight}{The weight that will be assigned to NA values in a distance matrix.}
 }
+
 \value{
 a single weighted distance matrix
 }
