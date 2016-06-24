@@ -4,31 +4,8 @@
 # age fuziness/date fuziness names
 # helper texts
 # REMOVE ROW
-# table widths
 
-
-# indata <- system.file("data", package = "epimatch")
-# indata <- dir(indata, full.names = TRUE)
-# x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
-#
-# kkk<-matchEpiData(dat1 = x[[6]],
-#              dat2 = x[[6]],
-#              funlist = list(
-#                ID = list(d1vars = "Outbreak.ID.",
-#                          d2vars = "Outbreak.ID.",
-#                          fun = "nameDists",
-#                          extraparams = NULL,
-#                          weight = 0.5),
-#                names = list(d1vars = "Name..as.given.",
-#                             d2vars = "Name..as.given.",
-#                             fun = "nameDists",
-#                             extraparams = NULL,
-#                             weight = 0.5)
-#              ),
-#              thresh = 0.5)
-# kkk <- kkk[5:6]
-
-
+# TODO(daattali) values$debug is currently always TRUE while developing
 
 library(shinyjs)
 
@@ -40,7 +17,7 @@ mysort <- function(x) {
 function(input, output, session) {
 
   values <- reactiveValues(
-    debug = FALSE,  # debug mode on/off
+    debug = TRUE,  # debug mode on/off
     data1 = NULL, data2 = NULL,  # the datasets
     twodatas = FALSE,  # whether or not the user is loading two datasets
     numMatchRules = 0,
@@ -146,7 +123,9 @@ function(input, output, session) {
       class = 'stripe',
       options = list(
         dom = "iftlp",
-        list(scrollX = TRUE)
+        scrollX = TRUE,
+        scrollY = "600px",
+        scrollCollapse = TRUE
       )
 
     )
@@ -157,7 +136,10 @@ function(input, output, session) {
       selection = "none",
       class = 'stripe',
       options = list(
-        dom = "iftlp"
+        dom = "iftlp",
+        scrollX = TRUE,
+        scrollY = "600px",
+        scrollCollapse = TRUE
       )
     )
   })
