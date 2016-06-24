@@ -33,11 +33,19 @@ library(shinyjs)
 function(input, output, session) {
 
   values <- reactiveValues(
+    debug = FALSE,  # debug mode on/off
     data1 = NULL, data2 = NULL,  # the datasets
     twodatas = FALSE,  # whether or not the user is loading two datasets
     numMatchRules = 0,
     results = NULL     # the results from epimatch
   )
+
+  observe({
+    query <- parseQueryString(session$clientData$url_search)
+    if (!is.null(query[['debug']])) {
+      values$debug <- TRUE
+    }
+  })
 
   # Store a dataset when a file is chosen
   observeEvent(input$dataset1Input, {
@@ -224,6 +232,10 @@ function(input, output, session) {
         ret
       })
 
+    if (values$debug) {
+      cat(str(funlist), "\n")
+    }
+
     disable("findMatchesBtn")
     show("findMatchesLoading")
     hide(selector = ".findMatchesDone")
@@ -260,21 +272,23 @@ function(input, output, session) {
 
       if (length(result$d1) > 0) {
         resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 1</strong></h4>")
-        tableHtml <- print(
+        tableHtml <- capture.output(print(
           xtable::xtable(values$data1[result$d1, ]),
           type = "html",
           html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
-        )
+        ))
+        tableHtml <- paste(tableHtml, collapse = "")
         resultHtml <- paste0(resultHtml, tableHtml)
       }
       if (length(result$d2) > 0) {
         resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 2</strong></h4>")
-        tableHtml <- print(
+        tableHtml <- capture.output(print(
           xtable::xtable(values$data2[result$d2, ]),
           type = "html",
 
           html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
-        )
+        ))
+        tableHtml <- paste(tableHtml, collapse = "")
         resultHtml <- paste0(resultHtml, tableHtml)
       }
       resultHtml <- paste0(resultHtml, "</div>")
