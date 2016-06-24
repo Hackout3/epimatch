@@ -17,7 +17,8 @@ genericDists <- function(dat1, dat2 = NULL, strings = FALSE){
 
   if (!is.null(dat2))
 	{
-	  dat1 <- rbind(dat1, cleanString(dat2))
+    names(dat1) <- "var"
+	  dat1 <- rbind(dat1, setNames(cleanString(dat2), "var"))
 	}
 
   # String distance matching
