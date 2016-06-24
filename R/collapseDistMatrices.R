@@ -23,7 +23,7 @@ collapseDistMatrices <- function(distMatrixList,weightVector = NULL,
   #don't want a weight vector of zeros if they are initially all one
   #this would result in all distances being zero.
   weightVector <- 1 - weightVector + (.Machine$double.eps)^0.5
-  numMatrices <- length(distMatrixList[[m]])
+  numMatrices <- length(distMatrixList)
   for(m in 1:matlen){
     if(length(dim(distMatrixList[[m]])) != 2){
       numMatrices <-  numMatrices -1
