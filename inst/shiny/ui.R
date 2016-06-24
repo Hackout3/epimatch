@@ -8,7 +8,7 @@ helpPopup <- function(content, title = NULL) {
     `data-title` = title,
     `data-content` = content,
     `data-html` = "true",
-    `data-trigger` = "click",
+    `data-trigger` = "hover",
     icon("question-circle")
   )
 }
