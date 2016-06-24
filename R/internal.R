@@ -1,3 +1,5 @@
+#' @importFrom stats dist
+#' @importFrom utils adist
 clean_age <- function(dat, extra_column = c(mo = c("months", "MO", "m"), yr = c("years"))){
   if (ncol(dat) > 1 && !is.null(extra_column)){
     ages <- ifelse(dat[[2]] %in% extra_column["mo"], dat[[1]]*(1/12), dat[[1]])

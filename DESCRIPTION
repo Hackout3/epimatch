@@ -11,6 +11,8 @@ Description: Matches names within a single database and across databases.
 Depends:
     R (>= 3.3.0)
 Imports:
+    stats,
+    utils,
     lubridate,
     DT,
     shiny (>= 0.13.2.9001),
