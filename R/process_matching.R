@@ -55,16 +55,16 @@ processFunctionList <- function(dat1, dat2 = NULL, funlist = list()){
   funs <- vapply(funlist, function(i) i$fun, "FUN!")
   if ("" %in% funs){
     badfun <- which(funs == "")
-    s <- if (length(badfun) > 1) "s" else ""
+    s <- if (length(badfun) > 1) "s:" else ":"
     badfunmsg <- paste("Please specify the variable type in",
-                       paste0("column", s), paste0(badfun, collapse = ", "))
+                       paste0("row", s), paste0(badfun, collapse = ", "))
     stop(badfunmsg, call. = FALSE)
   }
   null_d1 <- vapply(funlist, function(i) is.null(i$d1vars), TRUE)
   if (any(null_d1)){
-    s <- if (sum(null_d1) > 1) "s" else ""
+    s <- if (sum(null_d1) > 1) "s:" else ":"
     msg <- paste("For data set 1, please fill out the missing",
-                 paste0("variable", s), "in the following", paste0("column", s),
+                 paste0("variable", s), "in the following", paste0("row", s),
                  "\n", paste(which(null_d1), collapse = ", "))
     stop(msg, call. = FALSE)
   }
@@ -73,7 +73,7 @@ processFunctionList <- function(dat1, dat2 = NULL, funlist = list()){
     if (any(null_d2)){
       s <- if (sum(null_d2) > 1) "s" else ""
     msg <- paste("For data set 2, please fill out the missing",
-                 paste0("variable", s), "in the following", paste0("column", s),
+                 paste0("variable", s), "in the following", paste0("row", s),
                  "\n", paste(which(null_d2), collapse = ", "))
       stop(msg, call. = FALSE)
     }
