@@ -34,7 +34,7 @@ collapseDistMatrices <- function(distMatrixList,weightVector = NULL,
       missing_data <- is.na(dM)
       #set internal penalty of 0.5 for a missing value.
       if(any(missing_data)){
-        dM[missing_data] <- numMatrices
+        dM[missing_data] <- NAweight
       }
     }
     if (m == 1){
