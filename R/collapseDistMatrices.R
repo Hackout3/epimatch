@@ -19,6 +19,8 @@ collapseDistMatrices <- function(distMatrixList,weightVector = NULL){
   if(is.null(weightVector) || length(weightVector != matlen)){
     weightVector <- rep.int(1/(matlen), times = matlen)
   }
+  #don't want a weight vector of zeros if they are initially all one
+  #this would result in all distances being zero.
   weightVector <- 1 - weightVector + (.Machine$double.eps)^0.5
   for(m in 1:matlen){
     #replace NAs with zeros
