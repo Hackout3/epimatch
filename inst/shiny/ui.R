@@ -2,6 +2,7 @@ library(shinyjs)
 
 fixedPage(
   useShinyjs(),
+  extendShinyjs(file.path("www", "shinyjs-funcs.js"), functions = c()),
   tags$head(
     tags$link(href = "style.css", rel = "stylesheet")
   ),
@@ -128,5 +129,8 @@ fixedPage(
          textOutput("numResults",
                     inline = TRUE), "Results"),
       uiOutput("results")
-  ))
+  )),
+
+  div(id = "author", "Tool is publicly available online at",
+      a("http://daattali.com/shiny/epimatch/", href = "http://daattali.com/shiny/epimatch/"))
 )
