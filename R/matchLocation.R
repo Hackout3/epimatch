@@ -14,9 +14,10 @@
 #'
 #' @examples
 #' test <- data.frame(country=c("Uganda", "Uganda", "Kenya"),
-#'                    city=c("Kampala", "Kampala", "Kilifi"), stringsAsFactors = F)
+#'                    city=c("Kampala", "Kampala", "Kilifi"),
+#'                    stringsAsFactors = FALSE)
 #' test2 <- data.frame(location=c("uganda,kampala", "uganda,kampala", "kenya"),
-#' stringsAsFactors = F)
+#'                     stringsAsFactors = FALSE)
 #' locationDists(test, test2)
 locationDists <- function(dat1, dat2 = NULL){
   # split commas
@@ -65,11 +66,11 @@ locationDists <- function(dat1, dat2 = NULL){
       # Return the closest match
       if (!is.null(nrow(dists))) # This happens when only one row is left
       {
-        mat[i,j] <- sum(apply(dists, 1, min, na.rm=T))/poss
+        mat[i,j] <- sum(apply(dists, 1, min, na.rm=TRUE))/poss
       }
       else
       {
-        mat[i,j] <- sum(min(dists))/poss
+        mat[i,j] <- sum(min(dists, na.rm = TRUE))/poss
       }
       mat[j,i] <- mat[i,j]
     }

@@ -9,6 +9,13 @@ clean_age <- function(dat, extra_column = c(mo = c("months", "MO", "m"), yr = c(
   return(ages)
 }
 
+loadTestSets <- function(){
+  indata <- system.file("files", package = "epimatch")
+  indata <- dir(indata, full.names = TRUE, pattern = "^test")
+  x      <- lapply(indata, read.csv, stringsAsFactors = FALSE)
+  names(x) <- c("test1", "test2")
+  return(x)
+}
 
 # returns a vector of names
 clean_names <- function(dat){
