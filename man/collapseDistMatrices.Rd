@@ -12,6 +12,9 @@ corresponding weights default: all equal weights for each input matrix}
 
 \item{weightVector}{a vector of weights for each matrix. If \code{NULL}, then
 each matrix will be weighted equally.}
+
+\item{NAweight}{a custom parameter specifying the score to be assigned for
+missing data.}
 }
 \value{
 a single weighted distance matrix
