@@ -10,8 +10,8 @@
 # indata <- dir(indata, full.names = TRUE)
 # x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
 #
-# kkk<-matchEpiData(dat1 = x[[1]],
-#              dat2 = x[[1]],
+# kkk<-matchEpiData(dat1 = x[[6]],
+#              dat2 = x[[6]],
 #              funlist = list(
 #                ID = list(d1vars = "Outbreak.ID.",
 #                          d2vars = "Outbreak.ID.",
@@ -225,15 +225,31 @@ function(input, output, session) {
         ret
       })
 
-    epimatch::matchEpiData(
-      dat1 = values$data1, dat2 = values$data2,
-      funlist = funlist,
-      thresh = input$threshold
-    )
+    disable("findMatchesBtn")
+    show("findMatchesLoading")
+    hide(selector = ".findMatchesDone")
+    hide("findMatchesError")
+    on.exit({
+      enable("findMatchesBtn")
+      hide("findMatchesLoading")
+    })
+    tryCatch({
+      values$results <- epimatch::matchEpiData(
+        dat1 = values$data1, dat2 = values$data2,
+        funlist = funlist,
+        thresh = input$threshold
+      )
+      show(selector = ".findMatchesDone")
+      delay(3000, hide(selector = ".findMatchesDone", anim = TRUE, animType = "fade",
+                       time = 0.5))
+      show("resultsSection")
+    }, error = function(err) {
+      html("findMatchesErrorMsg", html = err$message)
+      show("findMatchesError", anim = TRUE, animType = "fade")
+    })
   })
 
   output$results <- renderUI({
-    values$results <- kkk
     resultHtml <- ""
 
     for (result in values$results) {
