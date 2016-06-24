@@ -6,10 +6,11 @@
 #' @examples
 #' distFuns()
 distFuns <- function(){
-  epidists      <- ls("package:epimatch")
-  epidist_funs  <- grep("Dists", epidists, value = TRUE)
-  epidist_names <- strsplit(epidist_funs, "Dists")
-  epidist_names <- unlist(epidist_names)
-  names(epidist_funs) <- epidist_names
+  epidist_funs <- c(age = 'ageDists',
+                    date = 'dateDists',
+                    gender = 'genderDists',
+                    generic = 'genericDists',
+                    location = 'locationDists',
+                    name = 'nameDists')
   return(epidist_funs)
 }
