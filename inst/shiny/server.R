@@ -261,7 +261,7 @@ function(input, output, session) {
       if (length(result$d1) > 0) {
         resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 1</strong></h4>")
         tableHtml <- print(
-          xtable::xtable(x[[1]][result$d1, ]),
+          xtable::xtable(values$data1[result$d1, ]),
           type = "html",
           html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
         )
@@ -270,7 +270,7 @@ function(input, output, session) {
       if (length(result$d2) > 0) {
         resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 2</strong></h4>")
         tableHtml <- print(
-          xtable::xtable(x[[1]][result$d2, ]),
+          xtable::xtable(values$data2[result$d2, ]),
           type = "html",
 
           html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
