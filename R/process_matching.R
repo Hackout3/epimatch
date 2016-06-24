@@ -56,7 +56,7 @@ processFunctionList <- function(dat1, dat2 = NULL, funlist = list()){
   if ("" %in% funs){
     badfun <- which(funs == "")
     s <- if (length(badfun) > 1) "s" else ""
-    badfunmsg <- paste("Please specify the matching variable type in",
+    badfunmsg <- paste("Please specify the variable type in",
                        paste0("column", s), paste0(badfun, collapse = ", "))
     stop(badfunmsg, call. = FALSE)
   }
