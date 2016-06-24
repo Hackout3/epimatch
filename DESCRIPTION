@@ -9,7 +9,7 @@ Authors@R: c(person("Katie", "Planey", email = "katherine.planey@gmail.com", rol
 Maintainer: Zhian N. Kamvar <zkamvar@gmail.com>
 Description: Matches names within a single database and across databases.
 Depends:
-    R (>= 3.3.0)
+    R (>= 3.2.0)
 Imports:
     stats,
     utils,
