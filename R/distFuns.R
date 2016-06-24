@@ -6,11 +6,11 @@
 #' @examples
 #' distFuns()
 distFuns <- function(){
-  epidist_funs <- c(age = 'ageDists',
-                    date = 'dateDists',
-                    gender = 'genderDists',
-                    generic = 'genericDists',
-                    location = 'locationDists',
-                    name = 'nameDists')
+  epidist_funs <- c(`Age` = 'ageDists',
+                    `Date` = 'dateDists',
+                    `Gender` = 'genderDists',
+                    `Generic (text or numeric)` = 'genericDists',
+                    `Location` = 'locationDists',
+                    `Name (or ID)` = 'nameDists')
   return(epidist_funs)
 }

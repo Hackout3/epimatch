@@ -80,15 +80,15 @@ fixedPage(
         fixedRow(
           column(
             3,
-            div("Dataset 1 variable")
+            div("Dataset 1 variable(s)")
           ),
           column(
             3,
-            div("Dataset 2 variable")
+            div("Dataset 2 variable(s)")
           ),
           column(
             3,
-            div("Matching type")
+            div("Variable type")
           ),
           column(
             3,
@@ -107,9 +107,9 @@ fixedPage(
     actionLink("extraParamsToggle", ""),
     div(
       id = "extraParamsInner",
-      sliderInput("threshold", "Threshold", min = 0, max = 1, 0.5),
-      sliderInput("ageThreshold", "Age fuzziness", min = 0, max = 50, 0),
-      sliderInput("dateThreshold", "Date fuzziness", min = 0, max = 365, 0)
+      sliderInput("threshold", "Threshold of matching uncertainty", min = 0, max = 1, 0.5),
+      sliderInput("ageThreshold", "Age uncertainty (+/- years)", min = 0, max = 25, 0),
+      sliderInput("dateThreshold", "Date uncertainty (+/- days)", min = 0, max = 365, 0)
     )
   )),
 
