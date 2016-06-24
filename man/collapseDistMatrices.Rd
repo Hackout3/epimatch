@@ -4,8 +4,7 @@
 \alias{collapseDistMatrices}
 \title{Collapse/sum matrices using weights}
 \usage{
-collapseDistMatrices(distMatrixList, weightVector = NULL,
- NAweight = 0.5)
+collapseDistMatrices(distMatrixList, weightVector = NULL, NAweight = 0.5)
 }
 \arguments{
 \item{distMatrixList}{list of distances matrices and a vector of
@@ -14,13 +13,14 @@ corresponding weights default: all equal weights for each input matrix}
 \item{weightVector}{a vector of weights for each matrix. If \code{NULL}, then
 each matrix will be weighted equally.}
 
-\item{NAweight}{The weight that will be assigned to NA values in a distance matrix.}
+\item{NAweight}{a custom parameter specifying the score to be assigned for
+missing data.}
 }
-
 \value{
 a single weighted distance matrix
 }
 \description{
+<<<<<<< HEAD
 This function collapses/sums the individual matrices from different feature columns
 together.
 
@@ -32,6 +32,9 @@ The matrices are simply summed together and then
 divided by the total number of matrices fed in to provide a single output distance matrix,
 where each index is on a scale of 0 to 1, with 0 being a perfect match (zero distance
 between the two rows.)
+=======
+Collapse/sum matrices using weights
+>>>>>>> e9ec32565fc57bd219a4153ba10fc4b356a18f3e
 }
 \examples{
 # just sum two of the same matrices:
@@ -40,4 +43,5 @@ m1 <- nameDists(caseIDVector)
 m2 <- nameDists(caseIDVector)
 summedDistMatrix <- collapseDistMatrices(list(m1, m2), c(0.5, 0.5))
 }
+
 
