@@ -71,8 +71,8 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
     rowCount <- rowCount + 1
   }
 
-  matchIndices <- matchIndices[!is.na(names(matchIndices))]
   if(length(matchIndices) > 0){
+    matchIndices <- matchIndices[!is.na(names(matchIndices))]
     #order with lowest scoreSum (closest match) first
     matchIndices <- matchIndices[sort.int(as.numeric(names(matchIndices)),
                                                    decreasing = FALSE,
