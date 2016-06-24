@@ -35,5 +35,8 @@ genericDists <- function(dat1, dat2 = NULL, strings = FALSE){
     dists <- matrix(rowSums(compare1 != compare2), ncol=length(n))
     diag(dists) <- 0
   }
-  return(dists/max(dists, na.rm = TRUE))
+	if (sum(dists > 0)){
+	  dists <- dists/max(dists, na.rm = TRUE)
+	}
+  return(dists)
 }
