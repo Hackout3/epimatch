@@ -9,9 +9,7 @@ returnMatches(nRowD1, nRowD2, distMatrix, thresh)
 \arguments{
 \item{nRowD1, nRowD2}{the number of rows for both datasets (ordered as they have been for all functions)}
 
-\item{distMatrix}{a distance matrix. If this analysis involves two datasets, the
-number of rows and columns in this dataset is the sum of the number of rows from both
-datasets.}
+\item{distMatrix}{a distance matrix}
 
 \item{thresh}{distance threshold (smaller means more conservative matches)}
 }
@@ -20,17 +18,7 @@ list where each index are the row indices for data rows in dataset 1 (d1),
 and 2 (d2) that correspond to the same person
 }
 \description{
-This function loops over the rows in the distance matrix until there are no more
-rows below the set match threshold, or all rows have been matched.  The basic algorithm is:
-for row n, find all other rows x... that have a match score below the set threshold with respect to
-row n.  Return the indices for all of these rows n and x... from the specific dataset
-they each came from, dataset 1 or dataset 2 (this is why it's important to input the nRowD1
-and nRowD1 in the same order as you fed in dataset 1 and dataset 2 for all other
-previous epimatch functions.)
-
-Once these row matches are saved as an index in an output list, then they are removed
-from further matching analyses. Then we move on to the next row n + 1 that has not
-been analyzed, and repeat the process until the stop criteria detailed earlier.
+return matching indices
 }
 \examples{
 # in this example, we will match one data set with the name distances
