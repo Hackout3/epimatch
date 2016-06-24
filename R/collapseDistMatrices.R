@@ -29,9 +29,9 @@ collapseDistMatrices <- function(distMatrixList,weightVector = NULL){
       distMatrixList[[m]][missing_data] <- 0
     }
     if (m == 1){
-      finalMatrix <- distMatrixList[[m]]*weightVector[m]
+      finalMatrix <- distMatrixList[[m]] #*weightVector[m]
     } else {
-      finalMatrix <- finalMatrix + (distMatrixList[[m]]*weightVector[m])
+      finalMatrix <- finalMatrix + (distMatrixList[[m]]) #*weightVector[m])
     }
   }
   return(finalMatrix)
