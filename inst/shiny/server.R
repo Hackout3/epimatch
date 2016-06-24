@@ -108,13 +108,13 @@ function(input, output, session) {
                     condition = input$matchParamsToggle %% 2 == 0)
   })
   observeEvent(input$extraParamsToggle, ignoreNULL = FALSE, {
-    if (input$extraParamsToggle %% 2 == 0) {
+    if (input$extraParamsToggle %% 2 == 1) {
       shinyjs::html("extraParamsToggle", "[-]")
     } else {
       shinyjs::html("extraParamsToggle", "[+]")
     }
     shinyjs::toggle("extraParamsInner", anim = TRUE, time = 0.25,
-                    condition = input$extraParamsToggle %% 2 == 0)
+                    condition = input$extraParamsToggle %% 2 == 1)
   })
 
   # Show the "show dataset" links
@@ -239,7 +239,7 @@ function(input, output, session) {
         thresh = input$threshold
       )
       show(selector = ".findMatchesDone")
-      delay(2000, hide(selector = ".findMatchesDone", anim = TRUE, animType = "fade",
+      delay(1000, hide(selector = ".findMatchesDone", anim = TRUE, animType = "fade",
                        time = 0.5))
       show("resultsSection")
     }, error = function(err) {
@@ -261,7 +261,7 @@ function(input, output, session) {
       if (length(result$d1) > 0) {
         resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 1</strong></h4>")
         tableHtml <- print(
-          xtable::xtable(x[[1]][result$d1, ]),
+          xtable::xtable(values$data1[result$d1, ]),
           type = "html",
           html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
         )
@@ -270,7 +270,7 @@ function(input, output, session) {
       if (length(result$d2) > 0) {
         resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 2</strong></h4>")
         tableHtml <- print(
-          xtable::xtable(x[[1]][result$d2, ]),
+          xtable::xtable(values$data2[result$d2, ]),
           type = "html",
 
           html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
