@@ -7,9 +7,7 @@
 genericDists(dat1, dat2 = NULL, strings = FALSE)
 }
 \arguments{
-\item{dat1}{a vector of data to determine matching}
-
-\item{dat2}{a vector of data to determine matching}
+\item{dat1, dat2}{data frames of data to match}
 
 \item{strings}{whether to use the edit distance rather than exact matches}
 }
@@ -20,6 +18,10 @@ a pairwise matrix of scores from 0 (exact match) to 1 (no match)
 generic function for exact matching single columns
 }
 \examples{
-genericDists(1:3)
+set.seed(9)
+x <- data.frame(dat = sample(10, replace = TRUE))
+x$let <- letters[x$dat]
+genericDists(x["dat"])
+genericDists(x["let"], strings = TRUE)
 }
 

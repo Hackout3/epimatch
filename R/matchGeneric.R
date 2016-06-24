@@ -1,14 +1,17 @@
 #' generic function for exact matching single columns
 #'
-#' @param dat1 a vector of data to determine matching
-#' @param dat2 a vector of data to determine matching
+#' @param dat1,dat2 data frames of data to match
 #' @param strings whether to use the edit distance rather than exact matches
 #'
 #' @return a pairwise matrix of scores from 0 (exact match) to 1 (no match)
 #' @export
 #'
 #' @examples
-#' genericDists(1:3)
+#' set.seed(9)
+#' x <- data.frame(dat = sample(10, replace = TRUE))
+#' x$let <- letters[x$dat]
+#' genericDists(x["dat"])
+#' genericDists(x["let"], strings = TRUE)
 genericDists <- function(dat1, dat2 = NULL, strings = FALSE){
 	dat1 <- cleanString(dat1)
 
