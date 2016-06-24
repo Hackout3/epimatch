@@ -20,31 +20,33 @@
 #' @export
 #'
 #' @examples
+#' ## Loading Data
 #' indata <- system.file("files", package = "epimatch")
 #' indata <- dir(indata, full.names = TRUE)
-#' x      <- lapply(indata, read.csv, stringsAsFactors = FALSE)
+#' x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
+#' names(x) <- basename(indata)
 #'
-#' processFunctionList(dat1 = x[[1]],
-#'                  dat2 = NULL,
-#'                  funlist = list(
-#'                    ID = list(d1vars = "Outbreak.ID.",
-#'                              d2vars = NULL,
-#'                              fun = "nameDists",
-#'                              extraparams = NULL,
-#'                              weight = 0.5),
-#'                    names = list(d1vars = "Name..as.given.",
-#'                                 d2vars = NULL,
+#' # We will use one data set from the case information and lab results
+#' case <- x[["CaseInformationForm.csv"]]
+#' lab <- x[["LaboratoryResultsForm7.csv"]]
+#'
+#' # This will get all of the indices that match the ID and Names with a
+#' # threshold of 0.25
+#' res <- processFunctionList(dat1 = case,
+#'                            dat2 = lab,
+#'                            funlist = list(
+#'                            list(d1vars = "ID",
+#'                                 d2vars = "ID",
 #'                                 fun = "nameDists",
 #'                                 extraparams = NULL,
-#'                                 weight = 0.5),
-#'                    list(d1vars = c("Age", "AgeUnit"),
-#'                         d2vars = NULL,
-#'                         fun = "ageDists",
-#'                         extraparams = list(e = 5),
-#'                         weight = 0.5)
-#'                    )
-#'                  )
-#'
+#'                                 weight = 1),
+#'                            list(d1vars = c("Surname", "OtherNames"),
+#'                                 d2vars = c("SurnameLab", "OtherNameLab"),
+#'                                 fun = "nameDists",
+#'                                 extraparams = NULL,
+#'                                 weight = 0.5)
+#'                            ))
+#' res # distance matrices
 processFunctionList <- function(dat1, dat2 = NULL, funlist = list()){
   if (length(funlist) == 0){
     stop("Please provide a list for the funlist parameter")
