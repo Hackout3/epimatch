@@ -39,4 +39,11 @@ Original fake datasets, i.e. before errors were induced, contain exact patient m
 
  - **ContactEntryForm8.csv**: one row per patient. Some, but not all patients in this file will also appear in CaseInformationForm.csv. There is no type of id to link the patients to the LaboratoryResultsForm7.csv and CaseInformationForm.csv files.
 
-The global record id will be different for the same person in the case, laboratory and contact forms, because the id is created for each form type.
+The global record id will be different for the same person in the case, laboratory and contact forms, because the id is created for each form type.  Datasets with these prefixes but an additional "_messy" postfix contain induced errors (like mispellings, slightly different records ages, etc.) for the same patient across different records, to explore how the application would find patient matches in a more realistic context.
+
+Future work:
+-Color row matches returned on a scale that indicates the quality of the match (the match scores, where 0 is a perfect match)
+-More extensive ambiguous name string matching
+-Date comparison: select multiple dates in each dataset to compare to each other (such as comparing both date onset and date of hospitalization to those datasets in a second dataset, and checking that any of those dates are within a certain range)
+
+Suggestions? Write it as a github issue to this [repo](https://github.com/Hackout3/epimatch/issues/new).
