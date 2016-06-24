@@ -46,7 +46,7 @@ collapseDistMatrices <- function(distMatrixList,weightVector = NULL,
   if(numMatrices >0){
     finalMatrix <- finalMatrix/numMatrices
   }else{
-    warning("No distance matrices returned in collapseDistMatrices function.")
+    warning("No distance matrices found in collapseDistMatrices function.")
   }
   return(finalMatrix)
 }
