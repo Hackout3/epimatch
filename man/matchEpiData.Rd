@@ -41,41 +41,24 @@ this function will take in one or two data sets, a list of functions
   weights for each sample that matched below the threshold.
 }
 \examples{
-## Loading Data
-indata <- system.file("files", package = "epimatch")
+indata <- system.file("data", package = "epimatch")
 indata <- dir(indata, full.names = TRUE)
 x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
-names(x) <- basename(indata)
 
-# We will use one data set from the case information and lab results
-case <- x[["CaseInformationForm.csv"]]
-lab <- x[["LaboratoryResultsForm7.csv"]]
-
-# This will get all of the indices that match the ID and Names with a
-# threshold of 0.25
-res <- matchEpiData(dat1 = case,
-                    dat2 = lab,
-                    funlist = list(
-                    list(d1vars = "ID",
-                         d2vars = "ID",
-                         fun = "nameDists",
-                         extraparams = NULL,
-                         weight = 1),
-                    list(d1vars = c("Surname", "OtherNames"),
-                         d2vars = c("SurnameLab", "OtherNameLab"),
-                         fun = "nameDists",
-                         extraparams = NULL,
-                         weight = 0.5)
-                    ),
-                    thresh = 0.25)
-# List of indices
-res
-
-# Printing out the matching names in decreasing order of matching
-invisible(lapply(res, function(i) {
-   print(case[i$d1, c("Surname", "OtherNames")])
-   print(lab[i$d2, c("SurnameLab", "OtherNameLab")])
-   cat("\\n\\t--------\\n")
- }))
+matchEpiData(dat1 = x[[1]],
+                 dat2 = NULL,
+                 funlist = list(
+                   ID = list(d1vars = "Outbreak.ID.",
+                             d2vars = NULL,
+                             fun = "nameDists",
+                             extraparams = NULL,
+                             weight = 0.5),
+                   names = list(d1vars = "Name..as.given.",
+                                d2vars = NULL,
+                                fun = "nameDists",
+                                extraparams = NULL,
+                                weight = 0.5)
+                   ),
+                 thresh = 0.5)
 }
 

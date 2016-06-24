@@ -21,9 +21,7 @@
 #' ageDists(dat, extra_column = c(mo = "MONTH", yr = "YEAR"))
 #' ageDists(x[1], y, extra_column = c(mo = "MONTH", yr = "YEAR"))
 ageDists <- function(dat1, dat2 = NULL, e = 1,
-                     extra_column = c(mo = c("months", "month", "mon", "m"),
-                                      yr = c("years", "year", "yrs", "yr", "y"),
-                                      day = c("days", "day", "d"))){
+                     extra_column = c(mo = "months", yr = "years")){
   dat <- clean_age(dat1, extra_column)
   if (!is.null(dat2)){
     dat2 <- clean_age(dat2, extra_column)

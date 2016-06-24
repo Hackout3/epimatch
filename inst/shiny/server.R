@@ -1,11 +1,6 @@
 #TODO
-# date format data1
-# date format data2
 # age fuziness/date fuziness names
 # helper texts
-# REMOVE ROW
-
-# TODO(daattali) values$debug is currently always TRUE while developing
 
 library(shinyjs)
 
@@ -17,11 +12,12 @@ mysort <- function(x) {
 function(input, output, session) {
 
   values <- reactiveValues(
-    debug = TRUE,  # debug mode on/off
+    debug = TRUE,       # debug mode on/off
     data1 = NULL, data2 = NULL,  # the datasets
-    twodatas = FALSE,  # whether or not the user is loading two datasets
+    twodatas = FALSE,   # whether or not the user is loading two datasets
     numMatchRules = 0,
-    results = NULL     # the results from epimatch
+    results = NULL,     # the results from epimatch
+    removedRows = NULL  # row numbers of deleted rows
   )
 
   observe({
@@ -72,6 +68,7 @@ function(input, output, session) {
         values$twodatas <- TRUE
       }
       removeUI(selector = ".matchParamsRow", multiple = TRUE)
+      values$removedRows <- c()
       values$numMatchRules <- 0
       addMatchRuleRow()
     }, error = function(err) {
@@ -123,9 +120,7 @@ function(input, output, session) {
       class = 'stripe',
       options = list(
         dom = "iftlp",
-        scrollX = TRUE,
-        scrollY = "600px",
-        scrollCollapse = TRUE
+        list(scrollX = TRUE)
       )
 
     )
@@ -136,10 +131,7 @@ function(input, output, session) {
       selection = "none",
       class = 'stripe',
       options = list(
-        dom = "iftlp",
-        scrollX = TRUE,
-        scrollY = "600px",
-        scrollCollapse = TRUE
+        dom = "iftlp"
       )
     )
   })
@@ -159,7 +151,10 @@ function(input, output, session) {
       }
     }
 
-    ui <- div(class = "matchParamsRow",
+    ui <- div(
+      class = "matchParamsRow",
+      `data-row-num` = num,
+      span(class = "removeRowBtn", "x", title = "Remove row"),
       fluidRow(
         column(
           3,
@@ -195,12 +190,20 @@ function(input, output, session) {
     addMatchRuleRow()
   })
 
+  # User clicked on the delete row button
+  observeEvent(input$deleteRow, {
+    row <- input$deleteRow[]
+    removeUI(selector = sprintf(".matchParamsRow[data-row-num=%s]", row))
+    values$removedRows <- c(values$removedRows, row)
+  })
+
   # "Find matches" button is clicked
   observeEvent(input$findMatchesBtn, {
+    rowNums <- setdiff(seq(values$numMatchRules), values$removedRows)
 
-    # build the functions lits
+    # build the functions list
     funlist <-
-      lapply(seq(values$numMatchRules), function(num) {
+      lapply(rowNums, function(num) {
         fxn <- input[[paste0("matchFx", num)]]
         ret <-
           list(

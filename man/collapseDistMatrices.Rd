@@ -20,7 +20,21 @@ missing data.}
 a single weighted distance matrix
 }
 \description{
+<<<<<<< HEAD
+This function collapses/sums the individual matrices from different feature columns
+together.
+
+Right now, the weights are not actually implemented (multiplying
+each matrix by 1 minus its weight did not give distances that clearly stratified
+between true and false patient matches.)
+
+The matrices are simply summed together and then
+divided by the total number of matrices fed in to provide a single output distance matrix,
+where each index is on a scale of 0 to 1, with 0 being a perfect match (zero distance
+between the two rows.)
+=======
 Collapse/sum matrices using weights
+>>>>>>> e9ec32565fc57bd219a4153ba10fc4b356a18f3e
 }
 \examples{
 # just sum two of the same matrices:
@@ -29,4 +43,5 @@ m1 <- nameDists(caseIDVector)
 m2 <- nameDists(caseIDVector)
 summedDistMatrix <- collapseDistMatrices(list(m1, m2), c(0.5, 0.5))
 }
+
 

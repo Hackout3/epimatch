@@ -4,9 +4,8 @@
 \alias{ageDists}
 \title{Create distance from age column}
 \usage{
-ageDists(dat1, dat2 = NULL, e = 1, extra_column = c(mo = c("months",
-  "month", "mon", "m"), yr = c("years", "year", "yrs", "yr", "y"), day =
-  c("days", "day", "d")))
+ageDists(dat1, dat2 = NULL, e = 1, extra_column = c(mo = "months", yr =
+  "years"))
 }
 \arguments{
 \item{dat1}{a data frame of ages}

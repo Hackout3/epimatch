@@ -1,11 +1,8 @@
 #' @importFrom stats dist
 #' @importFrom utils adist
-#' @importFrom utils read.csv
-clean_age <- function(dat, extra_column = c(mo = c("month"), yr = c("year"), day = "day")){
+clean_age <- function(dat, extra_column = c(mo = c("months", "MO", "m"), yr = c("years"))){
   if (ncol(dat) > 1 && !is.null(extra_column)){
-    ages <- ifelse(dat[[2]] %in% extra_column["mo"], dat[[1]]*(1/12),
-                   ifelse(dat[[2]] %in% extra_column["day"], dat[[1]]*(1/365),
-                          dat[[1]]))
+    ages <- ifelse(dat[[2]] %in% extra_column["mo"], dat[[1]]*(1/12), dat[[1]])
   } else {
     ages <- dat[[1]]
   }

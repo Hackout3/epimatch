@@ -1,8 +1,6 @@
 epimatch: find matching patient records across tabular datasets
 =======================
 
-[![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/epimatch)](http://www.r-pkg.org/pkg/epimatch)
-
 This package was produced at the [Hackout3 in conjunction with rOpenSci](http://hackout3.ropensci.org/). It is a package for displaying and recording suggested patient row matches across datasets for epidemiology workers in the field.  It was specifically designed for field workers who will be attempting to find duplicated patient records within a single or multiple tabular datasets, such as csv files. Several fields, such as the location, name and age, can cause ambiguity due to mispellings or different data formats in different datasets. This package finds the closest matches, but rather than directly altering the datasets to reflect the new matches, returns the suggested matches to the field worker so that he/she can decide if indeed the suggested data rows all pertain to the same patient. That field worker can then manually update the dataset rows as he/she sees fit, depending on the context.
 
 
@@ -11,7 +9,7 @@ Another group at Hackout3 focused on higher-level data cleaning for the modeler/
 Try it out
 ============
 
-You can either install the package on your own computer and run it yourself (instructions below), or you can use the app [hosted online](http://daattali.com/shiny/epimatch/)
+You can either install the package on your own computer and run it yourself (instructions below), or you can use the app [hosted online](http://daattali.com/shiny/epimatch/).
 
 Installation
 ============
@@ -35,8 +33,6 @@ library('epimatch')
 launch()
 ```
 
-For helpful debugging: once the webpage is launched, add ?debug after the http address and then step through the web app as normal.
-
 Datasets
 =======
 
@@ -51,13 +47,9 @@ Original fake datasets, i.e. before errors were induced, contain exact patient m
 The global record id will be different for the same person in the case, laboratory and contact forms, because the id is created for each form type.  Datasets with these prefixes but an additional "_messy" postfix contain induced errors (like mispellings, slightly different records ages, etc.) for the same patient across different records, to explore how the application would find patient matches in a more realistic context.
 
 Future work:
-
- - Incorporate column/feature-specific weights.  Initially multiplying a feature-specific distance matrix by (1-weight) resulted in distance matrices whose values were too close together and returned too many false positive matches.
-
- - Color row matches returned on a scale that indicates the quality of the match (the match scores, where 0 is a perfect match)
- 
- - More extensive ambiguous name string matching
- 
- - Date comparison: select multiple dates in each dataset to compare to each other (such as comparing both date onset and date of hospitalization to those datasets in a second dataset, and checking that any of those dates are within a certain range)
+-Incorporate column/feature-specific weights.  Initially multiplying a feature-specific distance matrix by (1-weight) resulted in distance matrices whose values were too close together and returned too many false positive matches.
+-Color row matches returned on a scale that indicates the quality of the match (the match scores, where 0 is a perfect match)
+-More extensive ambiguous name string matching
+-Date comparison: select multiple dates in each dataset to compare to each other (such as comparing both date onset and date of hospitalization to those datasets in a second dataset, and checking that any of those dates are within a certain range)
 
 Suggestions? Write it as a github issue to this [repo](https://github.com/Hackout3/epimatch/issues/new).
