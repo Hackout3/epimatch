@@ -73,6 +73,10 @@ function(input, output, session) {
     })
   }
 
+  observe({
+    toggle("dateFormat2", condition = values$twodatas)
+  })
+
   # Minimize/maximize UI sections
   observeEvent(input$datasetSelectToggle, ignoreNULL = FALSE, {
     if (input$datasetSelectToggle %% 2 == 0) {
@@ -219,8 +223,17 @@ function(input, output, session) {
         if (fxn == "ageDists") {
           ret[['extraparams']] <- list(e = input$ageThreshold)
         }
+
         if (fxn == "dateDists") {
-          ret[['extraparams']] <- list(threshold = input$dateThreshold)
+          extraparams <- list()
+          extraparams[['threshold']] <- input$dateThreshold
+          if (!is.null(input$dateFormat1)) {
+            extraparams[['dat1Format']] <- paste0(input$dateFormat1, collapse = "")
+          }
+          if (!is.null(input$dateFormat2)) {
+            extraparams[['dat2Format']] <- paste0(input$dateFormat2, collapse = "")
+          }
+          ret[['extraparams']] <- extraparams
         }
         ret
       })
@@ -253,10 +266,12 @@ function(input, output, session) {
     })
   })
 
+  # update number of results
   output$numResults <- renderText({
     length(values$results)
   })
 
+  # build the results tables HTML
   output$results <- renderUI({
     values$results
     isolate({

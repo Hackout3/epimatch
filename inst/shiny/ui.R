@@ -87,7 +87,7 @@ fixedPage(
 
   hidden(div(
     id = "matchParamsArea",
-    h3(id = "matchParamsTitle", "2. Variables to match"),
+    h3(id = "matchParamsTitle", "2. Variable for record matching"),
     actionLink("matchParamsToggle", ""),
     div(
       id = "matchParamsInner",
@@ -107,7 +107,7 @@ fixedPage(
           column(
             3,
             div("Variable type",
-                helpPopup("Designiate the type of variable you are comparing within dataset 1, or between datasets 1 and 2."))
+                helpPopup("Designate the type of variable you are comparing within dataset 1, or between datasets 1 and 2."))
           ),
           column(
             3,
@@ -144,7 +144,26 @@ fixedPage(
                     "Date uncertainty (+/- days)",
                     helpPopup("Set the number of days +/- the date being matched to that you would like to search for record matches within.")
                   ),
-                  min = 0, max = 365, 0)
+                  min = 0, max = 365, 0),
+      fixedRow(
+        column(6,
+          selectInput("dateFormat1",
+                      div(
+                        "Date format for Dataset 1",
+                        helpPopup("Identify the date format used in this dataset by selecting each date component (day, month, year) in the order it appears.")
+                      ),
+                      choices = c("Day" = "d", "Month" = "m", "Year" = "y"),
+                      multiple = TRUE
+          )
+        ),
+        column(6,
+          selectInput("dateFormat2",
+                      "Date format for Dataset 2",
+                      choices = c("Day" = "d", "Month" = "m", "Year" = "y"),
+                      multiple = TRUE
+          )
+        )
+      )
     )
   )),
 
