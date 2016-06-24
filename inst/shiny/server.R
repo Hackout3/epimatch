@@ -128,9 +128,12 @@ function(input, output, session) {
       values$data2,
       selection = "none",
       class = 'stripe',
-      scrollX = TRUE,
-      scrollY = "600px",
-      scrollCollapse = TRUE
+      options = list(
+        dom = "iftlp",
+        scrollX = TRUE,
+        scrollY = "600px",
+        scrollCollapse = TRUE
+      )
     )
   })
 
@@ -255,36 +258,41 @@ function(input, output, session) {
   })
 
   output$results <- renderUI({
-    resultHtml <- ""
+    values$results
+    isolate({
+      resultHtml <- ""
 
-    for (result in values$results) {
-      resultHtml <- paste0(resultHtml, "<div class='results-one-section'>")
+      for (result in values$results) {
+        resultHtml <- paste0(resultHtml, "<div class='results-one-section'>")
 
-      if (length(result$d1) > 0) {
-        resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 1</strong></h4>")
-        tableHtml <- capture.output(print(
-          xtable::xtable(values$data1[result$d1, ]),
-          type = "html",
-          html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
-        ))
-        tableHtml <- paste(tableHtml, collapse = "")
-        resultHtml <- paste0(resultHtml, tableHtml)
+        if (length(result$d1) > 0) {
+          if (values$twodatas) {
+            resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 1</strong></h4>")
+          }
+          tableHtml <- capture.output(print(
+            xtable::xtable(values$data1[result$d1, ]),
+            type = "html",
+            html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
+          ))
+          tableHtml <- paste(tableHtml, collapse = "")
+          resultHtml <- paste0(resultHtml, tableHtml)
+        }
+        if (length(result$d2) > 0) {
+          resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 2</strong></h4>")
+          tableHtml <- capture.output(print(
+            xtable::xtable(values$data2[result$d2, ]),
+            type = "html",
+
+            html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
+          ))
+          tableHtml <- paste(tableHtml, collapse = "")
+          resultHtml <- paste0(resultHtml, tableHtml)
+        }
+        resultHtml <- paste0(resultHtml, "</div>")
       }
-      if (length(result$d2) > 0) {
-        resultHtml <- paste0(resultHtml, "<h4><strong>Dataset 2</strong></h4>")
-        tableHtml <- capture.output(print(
-          xtable::xtable(values$data2[result$d2, ]),
-          type = "html",
 
-          html.table.attributes = 'class="data table table-bordered table-striped table-condensed"'
-        ))
-        tableHtml <- paste(tableHtml, collapse = "")
-        resultHtml <- paste0(resultHtml, tableHtml)
-      }
-      resultHtml <- paste0(resultHtml, "</div>")
-    }
-
-    HTML(resultHtml)
+      HTML(resultHtml)
+    })
   })
 
   hide("loading-content", TRUE, "fade")

@@ -1,5 +1,18 @@
 library(shinyjs)
 
+# Create a little question mark link that shows a help popup on hover
+helpPopup <- function(content, title = NULL) {
+  a(href = "#",
+    class = "popover-link",
+    `data-toggle` = "popover",
+    `data-title` = title,
+    `data-content` = content,
+    `data-html` = "true",
+    `data-trigger` = "click",
+    icon("question-circle")
+  )
+}
+
 fixedPage(
   useShinyjs(),
   extendShinyjs(file.path("www", "shinyjs-funcs.js"), functions = c()),
@@ -16,6 +29,9 @@ fixedPage(
     hidden(actionLink("datasetSelectToggle", "")),
     div(
       id = "datasetSelectInner",
+      div(class = "sectionInstructions",
+          "Upload either one dataset to be examined for internal record matches, or two dataset to compare for record matches."
+          ),
       fixedRow(
         column(
           6,
@@ -80,19 +96,23 @@ fixedPage(
         fixedRow(
           column(
             3,
-            div("Dataset 1 variable(s)")
+            div("Dataset 1 variable(s)",
+                helpPopup("Select the variable(s) you would like to match in your first dataset. You can select multiple variables."))
           ),
           column(
             3,
-            div("Dataset 2 variable(s)")
+            div("Dataset 2 variable(s)",
+                helpPopup("Select the variable(s) you would like to match in your second dataset, corresponding to the one selected in your first data set. You can select multiple variables."))
           ),
           column(
             3,
-            div("Variable type")
+            div("Variable type",
+                helpPopup("Designiate the type of variable you are comparing within dataset 1, or between datasets 1 and 2."))
           ),
           column(
             3,
-            div("Weight")
+            div("Weight",
+                helpPopup("Designate the weight you would like to be applied to this variable match compared to the other variable (1 = highest weight)"))
           )
         )
       ),
@@ -107,9 +127,24 @@ fixedPage(
     actionLink("extraParamsToggle", ""),
     div(
       id = "extraParamsInner",
-      sliderInput("threshold", "Threshold of matching uncertainty", min = 0, max = 1, 0.5),
-      sliderInput("ageThreshold", "Age uncertainty (+/- years)", min = 0, max = 25, 0),
-      sliderInput("dateThreshold", "Date uncertainty (+/- days)", min = 0, max = 365, 0)
+      sliderInput("threshold",
+                  div(
+                    "Threshold of matching uncertainty",
+                    helpPopup("Designate the amount of uncertainty for overall record matches (taking into account all variables) that you are willing to accept: 0 is a perfect match, 1 matches records with the most uncertainty.")
+                  ),
+                  min = 0, max = 1, 0.5),
+      sliderInput("ageThreshold",
+                  div(
+                    "Age uncertainty (+/- years)",
+                    helpPopup("Set the number of years +/- the age value being matched to that you would like to search for record matches within.")
+                  ),
+                  min = 0, max = 25, 0),
+      sliderInput("dateThreshold",
+                  div(
+                    "Date uncertainty (+/- days)",
+                    helpPopup("Set the number of days +/- the date being matched to that you would like to search for record matches within.")
+                  ),
+                  min = 0, max = 365, 0)
     )
   )),
 

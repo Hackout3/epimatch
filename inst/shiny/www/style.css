@@ -85,6 +85,32 @@ body > .container {
   color: red;
 }
 
+.sectionInstructions {
+  margin-bottom: 5px;
+  font-style: italic;
+  font-size: 1.1em;
+  color: #555;
+}
+
+/* Help popup */
+
+.popover {
+  width: 500px;
+}
+
+.popover-title {
+  font-weight: bold;
+}
+
+.popover-link {
+  color: #444;
+  font-size: 16px;
+}
+
+.popover-link > i.fa {
+  vertical-align: top;
+}
+
 /* Dataset selection */
 
 #datasetSelectArea,
