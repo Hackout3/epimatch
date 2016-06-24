@@ -25,12 +25,13 @@ collapseDistMatrices <- function(distMatrixList,weightVector = NULL,
   weightVector <- 1 - weightVector + (.Machine$double.eps)^0.5
   numMatrices <- length(distMatrixList)
   for(m in 1:matlen){
+    distMatrixList[[m]] <- as.matrix(distMatrixList[[m]])
     if(length(dim(distMatrixList[[m]])) != 2){
       numMatrices <-  numMatrices -1
       dM <- 0 #just make zero in case m==1; can add to other matrices later then.
       warning(paste0("Distance matrix number ", m , " is not two-dimensional in the collapseDistMatrices function."))
     }else{  #replace NAs with zeros
-      dM <- as.matrix(distMatrixList[[m]])
+      dM <- distMatrixList[[m]]
       missing_data <- is.na(dM)
       #set internal penalty of 0.5 for a missing value.
       if(any(missing_data)){
