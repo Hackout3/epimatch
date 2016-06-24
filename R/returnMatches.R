@@ -65,7 +65,8 @@ returnMatches <- function(nRowD1, nRowD2, distMatrix, thresh){
         names(matchIndices[[rowCount]]) <- c("d1")
       }
       #NA these out so that we don't compare them again
-      distMatrix[indices, indices] <- NA
+      distMatrix[indices, ] <- NA
+      distMatrix[, indices] <- NA
     }
     rowCount <- rowCount + 1
   }
