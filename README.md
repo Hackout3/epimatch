@@ -28,6 +28,8 @@ library('epimatch')
 launch()
 ```
 
+For helpful debugging: once the webpage is launched, add ?debug after the http address and then step through the web app as normal.
+
 Datasets
 =======
 
