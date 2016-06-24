@@ -124,7 +124,9 @@ fixedPage(
   ),
 
   hidden(div(id = "resultsSection",
-      h2(id = "resultsTitle", "Results"),
+      h2(id = "resultsTitle",
+         textOutput("numResults",
+                    inline = TRUE), "Results"),
       uiOutput("results")
   ))
 )

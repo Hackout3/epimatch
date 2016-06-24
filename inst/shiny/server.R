@@ -1,7 +1,6 @@
 #TODO
 # date format data1
 # date format data2
-# errors when any params are NULL
 # age fuziness/date fuziness names
 # helper texts
 
@@ -240,13 +239,17 @@ function(input, output, session) {
         thresh = input$threshold
       )
       show(selector = ".findMatchesDone")
-      delay(3000, hide(selector = ".findMatchesDone", anim = TRUE, animType = "fade",
+      delay(2000, hide(selector = ".findMatchesDone", anim = TRUE, animType = "fade",
                        time = 0.5))
       show("resultsSection")
     }, error = function(err) {
       html("findMatchesErrorMsg", html = err$message)
       show("findMatchesError", anim = TRUE, animType = "fade")
     })
+  })
+
+  output$numResults <- renderText({
+    length(values$results)
   })
 
   output$results <- renderUI({
