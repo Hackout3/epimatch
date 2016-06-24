@@ -1,9 +1,12 @@
+
 #' Collapse/sum matrices using weights
 #'
 #' @param distMatrixList list of distances matrices and a vector of
 #'   corresponding weights default: all equal weights for each input matrix
 #' @param weightVector a vector of weights for each matrix. If \code{NULL}, then
 #'   each matrix will be weighted equally.
+#' @param NAweight a custom parameter specifying the score to be assigned for
+#'   missing data.
 #' @return a single weighted distance matrix
 #' @export
 #'
@@ -13,7 +16,6 @@
 #' m1 <- nameDists(caseIDVector)
 #' m2 <- nameDists(caseIDVector)
 #' summedDistMatrix <- collapseDistMatrices(list(m1, m2), c(0.5, 0.5))
-
 collapseDistMatrices <- function(distMatrixList,weightVector = NULL,
                                  NAweight = 0.5){
   matlen <- length(distMatrixList)
