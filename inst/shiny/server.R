@@ -1,7 +1,3 @@
-#TODO
-# age fuziness/date fuziness names
-# helper texts
-
 library(shinyjs)
 
 mysort <- function(x) {
@@ -12,12 +8,12 @@ mysort <- function(x) {
 function(input, output, session) {
 
   values <- reactiveValues(
-    debug = TRUE,       # debug mode on/off
+    debug = TRUE,      # debug mode on/off
     data1 = NULL, data2 = NULL,  # the datasets
-    twodatas = FALSE,   # whether or not the user is loading two datasets
+    twodatas = FALSE,  # whether or not the user is loading two datasets
     numMatchRules = 0,
-    results = NULL,     # the results from epimatch
-    removedRows = NULL  # row numbers of deleted rows
+    results = NULL,    # the results from epimatch
+    removedRows = NULL # row numbers of deleted rows
   )
 
   observe({
@@ -68,8 +64,8 @@ function(input, output, session) {
         values$twodatas <- TRUE
       }
       removeUI(selector = ".matchParamsRow", multiple = TRUE)
-      values$removedRows <- c()
       values$numMatchRules <- 0
+      values$removedRows <- c()
       addMatchRuleRow()
     }, error = function(err) {
       html(html = err$message, selector = errMsgEl)
@@ -120,7 +116,9 @@ function(input, output, session) {
       class = 'stripe',
       options = list(
         dom = "iftlp",
-        list(scrollX = TRUE)
+        scrollX = TRUE,
+        scrollY = "600px",
+        scrollCollapse = TRUE
       )
 
     )
@@ -130,9 +128,9 @@ function(input, output, session) {
       values$data2,
       selection = "none",
       class = 'stripe',
-      options = list(
-        dom = "iftlp"
-      )
+      scrollX = TRUE,
+      scrollY = "600px",
+      scrollCollapse = TRUE
     )
   })
 
@@ -185,16 +183,16 @@ function(input, output, session) {
     insertUI(selector = "#matchingVarsOutput", where = "beforeEnd", ui = ui)
   }
 
-  # Add another row of matching parameters
-  observeEvent(input$addMatchRowBtn, {
-    addMatchRuleRow()
-  })
-
   # User clicked on the delete row button
   observeEvent(input$deleteRow, {
     row <- input$deleteRow[]
     removeUI(selector = sprintf(".matchParamsRow[data-row-num=%s]", row))
     values$removedRows <- c(values$removedRows, row)
+  })
+
+  # Add another row of matching parameters
+  observeEvent(input$addMatchRowBtn, {
+    addMatchRuleRow()
   })
 
   # "Find matches" button is clicked

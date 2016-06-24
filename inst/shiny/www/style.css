@@ -235,6 +235,7 @@ body > .container {
   margin-bottom: 30px;
   padding: 15px 15px 0;
   border: 1px solid #999;
+  overflow-x: scroll;
 }
 
 .results-one-section:hover {
