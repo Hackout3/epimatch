@@ -36,7 +36,7 @@
 #'                  thresh = 0.5)
 matchEpiData <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05, giveWeight = FALSE){
   the_matrices <- processFunctionList(dat1, dat2, funlist)
-  the_weights  <- unlist(lapply(funlist, function(i) i$weights))
+  the_weights  <- unlist(lapply(funlist, function(i) i$weight))
   MASTER_MAT   <- collapseDistMatrices(the_matrices, the_weights)
   out          <- returnMatches(nrow(dat1), nrow(dat2), MASTER_MAT, thresh)
   # For processing in the shiny app, it's useful to display either the weights

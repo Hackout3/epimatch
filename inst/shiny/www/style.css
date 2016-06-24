@@ -182,13 +182,14 @@ body > .container {
   margin-bottom: -15px;
 }
 
-#findMatchesBtn {
-  margin-bottom: 40px;
-}
-
 #findMatchesError {
   color: red;
   margin-bottom: 20px;
+}
+
+.findMatchesDone {
+  font-size: 3em;
+  vertical-align: middle;
 }
 
 /* Results section */
@@ -196,7 +197,7 @@ body > .container {
 #resultsTitle {
   font-weight: bold;
   border-top: 1px solid #aaa;
-  margin: 0 -25px;
+  margin: 40px -25px 0;
   padding: 20px 25px;
 }
 
