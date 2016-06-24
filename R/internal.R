@@ -11,7 +11,7 @@ clean_age <- function(dat, extra_column = c(mo = c("months", "MO", "m"), yr = c(
 # returns a vector of names
 clean_names <- function(dat){
   if (ncol(dat) > 1){
-    dat <- apply(x, 1, paste, collapse = " ")
+    dat <- apply(dat, 1, paste, collapse = " ")
   } else {
     dat <- dat[[1]]
   }
