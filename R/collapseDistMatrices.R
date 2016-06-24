@@ -22,16 +22,18 @@ collapseDistMatrices <- function(distMatrixList,weightVector = NULL){
   #don't want a weight vector of zeros if they are initially all one
   #this would result in all distances being zero.
   weightVector <- 1 - weightVector + (.Machine$double.eps)^0.5
+
   for(m in 1:matlen){
     #replace NAs with zeros
-    missing_data <- is.na(distMatrixList[[m]])
+    dM <- as.matrix(distMatrixList[[m]])
+    missing_data <- is.na(dM)
     if(any(missing_data)){
-      distMatrixList[[m]][missing_data] <- 0
+      dM[missing_data] <- 0
     }
     if (m == 1){
-      finalMatrix <- distMatrixList[[m]] #*weightVector[m]
+      finalMatrix <- dM #*weightVector[m]
     } else {
-      finalMatrix <- finalMatrix + (distMatrixList[[m]]) #*weightVector[m])
+      finalMatrix <- finalMatrix + (dM) #*weightVector[m])
     }
   }
   return(finalMatrix)
