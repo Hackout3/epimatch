@@ -3,6 +3,8 @@
 # date format data2
 # age fuziness/date fuziness names
 # helper texts
+# REMOVE ROW
+# table widths
 
 
 # indata <- system.file("data", package = "epimatch")
@@ -29,6 +31,11 @@
 
 
 library(shinyjs)
+
+mysort <- function(x) {
+  if (is.null(x)) NULL
+  else sort(x)
+}
 
 function(input, output, session) {
 
@@ -175,21 +182,21 @@ function(input, output, session) {
         column(
           3,
           selectInput(paste0("matchData1Vars", num),
-                      NULL, colnames(values$data1), selected = NULL,
+                      NULL, mysort(colnames(values$data1)), selected = NULL,
                       multiple = TRUE)
         ),
         column(
           3,
           disableParams2(
             selectInput(paste0("matchData2Vars", num),
-                      NULL, colnames(values$data2), selected = NULL,
+                      NULL, mysort(colnames(values$data2)), selected = NULL,
                       multiple = TRUE)
           )
         ),
         column(
           3,
           selectInput(paste0("matchFx", num),
-                      NULL, c("", epimatch::distFuns()), selected = "")
+                      NULL, c("", mysort(epimatch::distFuns())), selected = "")
         ),
         column(
           3,
