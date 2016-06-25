@@ -8,13 +8,10 @@ dateDists(dat1, dat2 = NULL, dat1Format = "mdy", dat2Format = "mdy",
   threshold = NULL)
 }
 \arguments{
-\item{dat1}{a vector of dates to match}
+\item{dat1, dat2}{a vector of dates to match}
 
-\item{dat2}{a vector of dates to match}
-
-\item{dat1Format}{format of dat1 dates to pass to \pkg{lubridate}}
-
-\item{dat2Format}{format of dat2 dates to pass to \pkg{lubridate}}
+\item{dat1Format, dat2Format}{format of dates to pass to \pkg{lubridate} in
+the form of "mdy" or "ymd" etc.}
 
 \item{threshold}{in days, otherwise returns scaled values}
 }

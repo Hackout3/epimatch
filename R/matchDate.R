@@ -1,9 +1,8 @@
 #' date function for matching
 #'
-#' @param dat1 a vector of dates to match
-#' @param dat2 a vector of dates to match
-#' @param dat1Format format of dat1 dates to pass to \pkg{lubridate}
-#' @param dat2Format format of dat2 dates to pass to \pkg{lubridate}
+#' @param dat1,dat2 a vector of dates to match
+#' @param dat1Format,dat2Format format of dates to pass to \pkg{lubridate} in
+#'   the form of "mdy" or "ymd" etc.
 #' @param threshold in days, otherwise returns scaled values
 #'
 #' @details The formats for dates are passed to \pkg{lubridate}'s function

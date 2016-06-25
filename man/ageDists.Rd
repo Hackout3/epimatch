@@ -4,8 +4,9 @@
 \alias{ageDists}
 \title{Create distance from age column}
 \usage{
-ageDists(dat1, dat2 = NULL, e = 1, extra_column = c(mo = "months", yr =
-  "years"))
+ageDists(dat1, dat2 = NULL, e = 1, extra_column = list(mo = c("months",
+  "month", "mon", "m"), yr = c("years", "year", "yrs", "yr", "y"), day =
+  c("days", "day", "d")))
 }
 \arguments{
 \item{dat1, dat2}{a data frame of ages}
@@ -13,7 +14,7 @@ ageDists(dat1, dat2 = NULL, e = 1, extra_column = c(mo = "months", yr =
 \item{e}{the number of years difference allowed for two entries to be the
 same}
 
-\item{extra_column}{a named vector specifying the type of age represented}
+\item{extra_column}{a named list specifying the type of age represented}
 }
 \value{
 a distance matrix of binary values where 0 indicates that two ages
@@ -34,12 +35,12 @@ dat <- rbind(x, y)
 ageDists(dat[1])
 
 # Specify year and month
-ageDists(dat, extra_column = c(mo = "MONTH", yr = "YEAR"))
+ageDists(dat, extra_column = list(mo = "MONTH", yr = "YEAR"))
 
 # Input two data sets
-ageDists(x[1], y, extra_column = c(mo = "MONTH", yr = "YEAR"))
+ageDists(x[1], y, extra_column = list(mo = "MONTH", yr = "YEAR"))
 
 # allow ages within three years of each other to match
-ageDists(dat, e = 3, extra_column = c(mo = "MONTH", yr = "YEAR"))
+ageDists(dat, e = 3, extra_column = list(mo = "MONTH", yr = "YEAR"))
 }
 
