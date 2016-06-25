@@ -3,7 +3,7 @@
 #' @param dat1,dat2 a data frame of ages
 #' @param e the number of years difference allowed for two entries to be the
 #'   same
-#' @param extra_column a named vector specifying the type of age represented
+#' @param extra_column a named list specifying the type of age represented
 #'
 #' @description This function will take one or two data frames containing ages
 #'   and create a distance matrix based off of the manhattan distance. Data can
@@ -22,15 +22,15 @@
 #' ageDists(dat[1])
 #'
 #' # Specify year and month
-#' ageDists(dat, extra_column = c(mo = "MONTH", yr = "YEAR"))
+#' ageDists(dat, extra_column = list(mo = "MONTH", yr = "YEAR"))
 #'
 #' # Input two data sets
-#' ageDists(x[1], y, extra_column = c(mo = "MONTH", yr = "YEAR"))
+#' ageDists(x[1], y, extra_column = list(mo = "MONTH", yr = "YEAR"))
 #'
 #' # allow ages within three years of each other to match
-#' ageDists(dat, e = 3, extra_column = c(mo = "MONTH", yr = "YEAR"))
+#' ageDists(dat, e = 3, extra_column = list(mo = "MONTH", yr = "YEAR"))
 ageDists <- function(dat1, dat2 = NULL, e = 1,
-                     extra_column = c(mo = c("months", "month", "mon", "m"),
+                     extra_column = list(mo = c("months", "month", "mon", "m"),
                                       yr = c("years", "year", "yrs", "yr", "y"),
                                       day = c("days", "day", "d"))){
   dat <- clean_age(dat1, extra_column)
