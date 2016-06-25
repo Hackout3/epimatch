@@ -23,4 +23,5 @@ LazyData: true
 RoxygenNote: 5.0.1
 Remotes:
     rstudio/shiny
-Suggests: testthat
+Suggests: testthat,
+    covr
