@@ -8,16 +8,16 @@ ageDists(dat1, dat2 = NULL, e = 1, extra_column = c(mo = "months", yr =
   "years"))
 }
 \arguments{
-\item{dat1}{a data frame of ages}
+\item{dat1, dat2}{a data frame of ages}
 
-\item{dat2}{a data frame of ages}
-
-\item{e}{the number of years difference allowed for two entries to be the same}
+\item{e}{the number of years difference allowed for two entries to be the
+same}
 
 \item{extra_column}{a named vector specifying the type of age represented}
 }
 \value{
-a distance matrix of differences in age.
+a distance matrix of binary values where 0 indicates that two ages
+  are within the given threshold of each other and 1 indicates not.
 }
 \description{
 This function will take one or two data frames containing ages
@@ -30,8 +30,16 @@ set.seed(999)
 x <- data.frame(age = rpois(5, 30), age_class = "YEAR")
 y <- data.frame(age = rpois(5, 18), age_class = "MONTH")
 dat <- rbind(x, y)
+# Assume everything is in years
 ageDists(dat[1])
+
+# Specify year and month
 ageDists(dat, extra_column = c(mo = "MONTH", yr = "YEAR"))
+
+# Input two data sets
 ageDists(x[1], y, extra_column = c(mo = "MONTH", yr = "YEAR"))
+
+# allow ages within three years of each other to match
+ageDists(dat, e = 3, extra_column = c(mo = "MONTH", yr = "YEAR"))
 }
 
