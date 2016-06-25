@@ -97,7 +97,7 @@ fixedPage(
           column(
             3,
             div("Dataset 1 variable(s)",
-                helpPopup("Select the variable(s) you would like to match in your first dataset. You can select multiple variables."))
+                helpPopup("Select the variable(s) you would like to match in your first dataset. You can select multiple variables per comparison."))
           ),
           column(
             3,
