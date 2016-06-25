@@ -7,27 +7,28 @@
 returnMatches(nRowD1, nRowD2, distMatrix, thresh)
 }
 \arguments{
-\item{nRowD1, nRowD2}{the number of rows for both datasets (ordered as they have been for all functions)}
+\item{nRowD1, nRowD2}{the number of rows for both datasets (ordered as they
+have been for all functions)}
 
 \item{distMatrix}{a distance matrix}
 
 \item{thresh}{distance threshold (smaller means more conservative matches)}
 }
 \value{
-list where each index are the row indices for data rows in dataset 1 (d1),
-and 2 (d2) that correspond to the same person
+list where each index are the row indices for data rows in dataset 1
+  (d1), and 2 (d2) that correspond to the same person
 }
 \description{
-This function collapses/sums the individual matrices from different feature columns
-together.
+This function collapses/sums the individual matrices from
+different feature columns together.
 
-Right now, the weights are not actually implemented (multiplying
-each matrix by 1 minus its weight did not give distances that clearly stratified
-between true and false patient matches.)
+Right now, the weights are not actually implemented (multiplying each matrix
+by 1 minus its weight did not give distances that clearly stratified between
+true and false patient matches.)
 
-The matrices are simply summed together and then
-divided by the total number of matrices fed in to provide a single output distance matrix,
-where each index is on a scale of 0 to 1, with 0 being a perfect match (zero distance
+The matrices are simply summed together and then divided by the total number
+of matrices fed in to provide a single output distance matrix, where each
+index is on a scale of 0 to 1, with 0 being a perfect match (zero distance
 between the two rows.)
 }
 \examples{

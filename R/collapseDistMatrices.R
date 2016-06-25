@@ -8,6 +8,17 @@
 #' @param NAweight a custom parameter specifying the score to be assigned for
 #'   missing data.
 #' @return a single weighted distance matrix
+#' @description This function collapses/sums the individual matrices from
+#' different feature columns together.
+#'
+#' Right now, the weights are not actually implemented (multiplying each matrix
+#' by 1 minus its weight did not give distances that clearly stratified between
+#' true and false patient matches.)
+#'
+#' The matrices are simply summed together and then divided by the total number
+#' of matrices fed in to provide a single output distance matrix, where each
+#' index is on a scale of 0 to 1, with 0 being a perfect match (zero distance
+#' between the two rows.)
 #' @export
 #'
 #' @examples
