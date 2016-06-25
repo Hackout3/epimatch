@@ -20,6 +20,7 @@
 #' ageDists(dat[1])
 #' ageDists(dat, extra_column = c(mo = "MONTH", yr = "YEAR"))
 #' ageDists(x[1], y, extra_column = c(mo = "MONTH", yr = "YEAR"))
+#' ageDists(dat, e = 3, extra_column = c(mo = "MONTH", yr = "YEAR"))
 ageDists <- function(dat1, dat2 = NULL, e = 1,
                      extra_column = c(mo = "months", yr = "years")){
   dat <- clean_age(dat1, extra_column)
@@ -29,6 +30,7 @@ ageDists <- function(dat1, dat2 = NULL, e = 1,
   }
   age_diff <- dist(dat, method = "manhattan")
   age_diff[age_diff <= e] <- 0
-  age_diff <- age_diff/max(age_diff, na.rm = TRUE)
+  age_diff[age_diff > e]  <- 1
+  # age_diff <- age_diff/max(age_diff, na.rm = TRUE)
   return(age_diff)
 }
