@@ -1,6 +1,7 @@
 #' @importFrom stats dist
 #' @importFrom utils adist
 #' @importFrom utils read.csv
+#' @importFrom stats setNames
 clean_age <- function(dat, extra_column = list(mo = "month", yr = "year", day = "day")){
   if (ncol(dat) > 1 && !is.null(extra_column)){
     dat[[2]] <- trimws(tolower(dat[[2]]))
