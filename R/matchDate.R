@@ -19,10 +19,8 @@
 #'
 #' # match dates within 11 days of each other
 #' dateDists(test, threshold = 11)
-dateDists <- function(dat1, dat2=NULL, dat1Format="mdy", dat2Format="mdy",
-                      threshold=NULL)
-{
-
+dateDists <- function(dat1, dat2 = NULL, dat1Format = "mdy", dat2Format = "mdy",
+                      threshold = NULL){
   date_col <- lubridate::parse_date_time(dat1[[1]], dat1Format)
   # Read in a column, with defined format. If necessary combine with dat2
   if (!is.null(dat2))
@@ -37,7 +35,7 @@ dateDists <- function(dat1, dat2=NULL, dat1Format="mdy", dat2Format="mdy",
 
   if (!is.null(threshold))
   {
-    dists <- diststime >= as.difftime(threshold, units = "days")
+    dists <- diststime > as.difftime(threshold, units = "days")
     mode(dists) <- "integer"
   }
   else
