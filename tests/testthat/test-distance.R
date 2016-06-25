@@ -33,8 +33,16 @@ test_that("ageDists returns expected values", {
   expect_equal(starfleet, dist_xy)
 })
 test_that("dateDists returns expected values", {
-  # dateDists()
+  test <- c("Jan-21-01", "Jan-25-02", "Jan-21-01", "Jan-31-01")
+  test <- data.frame(test, stringsAsFactors = FALSE)
+
+  eleven_days <- dateDists(test, threshold = 11)
+  zero_days   <- dateDists(test, threshold = 0)
+  expect_equal(sum(eleven_days), 6)
+  expect_equal(sum(zero_days), (nrow(test)*nrow(test)) - 6)
+
 })
+
 test_that("genderDists returns expected values", {
   # genderDists()
 })
