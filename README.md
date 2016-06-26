@@ -64,9 +64,9 @@ The global record id will be different for the same person in the case, laborato
 Future work
 ===========
 
--Incorporate column/feature-specific weights.  Initially multiplying a feature-specific distance matrix by (1-weight) resulted in distance matrices whose values were too close together and returned too many false positive matches.
--Color row matches returned on a scale that indicates the quality of the match (the match scores, where 0 is a perfect match)
--More extensive ambiguous name string matching
--Date comparison: select multiple dates in each dataset to compare to each other (such as comparing both date onset and date of hospitalization to those datasets in a second dataset, and checking that any of those dates are within a certain range)
+ - Incorporate column/feature-specific weights.  Initially multiplying a feature-specific distance matrix by (1-weight) resulted in distance matrices whose values were too close together and returned too many false positive matches.
+ - Color row matches returned on a scale that indicates the quality of the match (the match scores, where 0 is a perfect match)
+ - More extensive ambiguous name string matching
+ - Date comparison: select multiple dates in each dataset to compare to each other (such as comparing both date onset and date of hospitalization to those datasets in a second dataset, and checking that any of those dates are within a certain range)
 
 Suggestions? Write it as a github issue to this [repo](https://github.com/Hackout3/epimatch/issues/new).
