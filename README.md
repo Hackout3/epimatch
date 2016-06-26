@@ -15,11 +15,11 @@ Contributors
 
 In alphabetical order by first name:
 
- - Dean Attali ( @daattali ) [front end UI]
- - Ilana Schafer ( @ilanajs ) [data, consultation]
- - John Lees ( @johnlees ) [distances]
- - Katie Planey ( @kplaney ) [matrix merging and clustering, distances, documentation]
- - Zhian N. Kamvar ( @zkamvar ) [back end UI, distances, documentation]
+ - Dean Attali ((@daattali)[https://github.com/daattali]) [front end UI]
+ - Ilana Schafer ((@ilanajs)[https://github.com/ilanajs]) [data, consultation]
+ - John Lees ((@johnlees)[https://github.com/johnlees]) [distances]
+ - Katie Planey ((@kplaney)[https://github.com/kplaney]) [matrix merging and clustering, distances, documentation]
+ - Zhian N. Kamvar ((@zkamvar)[https://github.com/zkamvar]) [back end UI, distances, documentation]
 
 Try it out
 ============
