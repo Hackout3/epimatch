@@ -5,7 +5,7 @@
 \title{date function for matching}
 \usage{
 dateDists(dat1, dat2 = NULL, dat1Format = "mdy", dat2Format = "mdy",
-  threshold = NULL)
+  threshold = 0L)
 }
 \arguments{
 \item{dat1, dat2}{a vector of dates to match}
@@ -27,10 +27,22 @@ The formats for dates are passed to \pkg{lubridate}'s function
   "ymd", etc.
 }
 \examples{
-test <- c("Jan-21-01", "Jan-25-02", "Jan-21-01", "Jan-31-01")
-test <- data.frame(test, stringsAsFactors = FALSE)
+
+# Two data sets in Month-Day-Year and Year-Month-Day format, respectively.
+# Note that the way the dates can vary within data sets, but it's assumed
+# that the order within a data set is consistant.
+
+test1 <- data.frame(x = c("Jan-21-01", "01-25-02"), stringsAsFactors = FALSE)
+test2 <- data.frame(x = c("01-JAN-21", "2001-Jan-31"), stringsAsFactors = FALSE)
 
 # match dates within 11 days of each other
-dateDists(test, threshold = 11)
+dateDists(test1, test2, dat1Format = "mdy", dat2Format = "ymd", threshold = 11)
+
+# exact match of dates
+dateDists(test1, test2, dat1Format = "mdy", dat2Format = "ymd")
+
+# relative distance of dates by setting threshold to NULL
+dateDists(test1, test2, dat1Format = "mdy", dat2Format = "ymd", threshold = NULL)
+
 }
 
