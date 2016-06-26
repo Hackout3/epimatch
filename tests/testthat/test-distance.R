@@ -1,4 +1,4 @@
-context("Distance Tests")
+context("distFuns Test")
 
 test_that("distFuns returns the distances", {
   d      <- distFuns()
@@ -7,6 +7,8 @@ test_that("distFuns returns the distances", {
   expect_equal(length(d), 6)
   expect_equivalent(tolower(dnames), strtrim(d, nchar(dnames)))
 })
+
+context("ageDist Test")
 
 test_that("ageDists returns expected values", {
   x <- data.frame(age = c(28L, 22L, 23L, 28L, 26L), age_class = "YEAR")
@@ -32,6 +34,9 @@ test_that("ageDists returns expected values", {
                           extra_column = list(yr = "geordi", mo = "laforge"))
   expect_equal(starfleet, dist_xy)
 })
+
+context("dateDist Test")
+
 test_that("dateDists returns expected values", {
 
   test1 <- data.frame(x = c("Jan-21-01", "01-25-02"), stringsAsFactors = FALSE)
@@ -42,12 +47,20 @@ test_that("dateDists returns expected values", {
                                     threshold = 11)
 
   eleven_days <- dateDists(test1, test2, dat2Format = "ymd", threshold = 11)
-  zero_days   <- dateDists(test1, test2, dat2Format = "ymd", threshold = 0)
+  zero_days   <- dateDists(test1, test2, dat2Format = "ymd")
+  rel_days    <- dateDists(test1, test2, dat2Format = "ymd", threshold = NULL)
 
+  # combined and separate data sets work
   expect_identical(eleven_days_combined, eleven_days)
+  # the threshold works
   expect_equal(sum(eleven_days), 6)
+  # exact matching works
   expect_equal(sum(zero_days), (2*nrow(test1))^2 - 6)
-
+  # relative matching works
+  expect_gt(sum(zero_days), sum(rel_days))
+  expect_lt(sum(eleven_days), sum(rel_days))
+  # The default distance is binary
+  expect_equal(sort(unique(zero_days[TRUE])), c(0L, 1L))
 })
 
 test_that("genderDists returns expected values", {
