@@ -10,6 +10,17 @@ This package was produced at the [Hackout3 in conjunction with rOpenSci](http://
 
 Another group at Hackout3 focused on higher-level data cleaning for the modeler/data scientist who receives all of the datasets from all field workers in different locations, as these steps concern aggregate analyses as opposed to data verification. The field worker is the ideal candidate to determine if a patient is represented multiple times in datasets due to the on-the-ground nature of their job.
 
+Contributors
+------------
+
+In alphabetical order by first name:
+
+ - Dean Attali (@daattali) [front end UI]
+ - Ilana Schafer (@ilanajs) [data, consultation]
+ - John Lees (@johnlees) [distances]
+ - Katie Planey (@kplaney) [matrix merging and clustering, distances, documentation]
+ - Zhian N. Kamvar (@zkamvar) [back end UI, distances, documentation]
+
 Try it out
 ============
 
@@ -50,7 +61,9 @@ Original fake datasets, i.e. before errors were induced, contain exact patient m
 
 The global record id will be different for the same person in the case, laboratory and contact forms, because the id is created for each form type.  Datasets with these prefixes but an additional "_messy" postfix contain induced errors (like mispellings, slightly different records ages, etc.) for the same patient across different records, to explore how the application would find patient matches in a more realistic context.
 
-Future work:
+Future work
+===========
+
 -Incorporate column/feature-specific weights.  Initially multiplying a feature-specific distance matrix by (1-weight) resulted in distance matrices whose values were too close together and returned too many false positive matches.
 -Color row matches returned on a scale that indicates the quality of the match (the match scores, where 0 is a perfect match)
 -More extensive ambiguous name string matching
