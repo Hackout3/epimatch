@@ -33,13 +33,20 @@ test_that("ageDists returns expected values", {
   expect_equal(starfleet, dist_xy)
 })
 test_that("dateDists returns expected values", {
-  test <- c("Jan-21-01", "Jan-25-02", "Jan-21-01", "Jan-31-01")
-  test <- data.frame(test, stringsAsFactors = FALSE)
 
-  eleven_days <- dateDists(test, threshold = 11)
-  zero_days   <- dateDists(test, threshold = 0)
+  test1 <- data.frame(x = c("Jan-21-01", "01-25-02"), stringsAsFactors = FALSE)
+  test2 <- data.frame(x = c("01-Jan-21", "2001-Jan-31"), stringsAsFactors = FALSE)
+
+  eleven_days_combined <- dateDists(rbind(test1, test2),
+                                    dat1Format = c("mdy", "ymd"),
+                                    threshold = 11)
+
+  eleven_days <- dateDists(test1, test2, dat2Format = "ymd", threshold = 11)
+  zero_days   <- dateDists(test1, test2, dat2Format = "ymd", threshold = 0)
+
+  expect_identical(eleven_days_combined, eleven_days)
   expect_equal(sum(eleven_days), 6)
-  expect_equal(sum(zero_days), (nrow(test)*nrow(test)) - 6)
+  expect_equal(sum(zero_days), (2*nrow(test1))^2 - 6)
 
 })
 
