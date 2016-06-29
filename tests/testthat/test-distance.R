@@ -53,31 +53,43 @@ test_that("extra_column can take any value", {
 
 context("dateDist Test")
 
-test_that("dateDists returns expected values", {
+test1 <- data.frame(x = c("Jan-21-01", "01-25-02"), stringsAsFactors = FALSE)
+test2 <- data.frame(x = c("01-Jan-21", "2001-Jan-31"), stringsAsFactors = FALSE)
 
-  test1 <- data.frame(x = c("Jan-21-01", "01-25-02"), stringsAsFactors = FALSE)
-  test2 <- data.frame(x = c("01-Jan-21", "2001-Jan-31"), stringsAsFactors = FALSE)
+eleven_days_combined <- dateDists(rbind(test1, test2),
+                                  dat1Format = c("mdy", "ymd"),
+                                  threshold = 11)
 
-  eleven_days_combined <- dateDists(rbind(test1, test2),
-                                    dat1Format = c("mdy", "ymd"),
-                                    threshold = 11)
+eleven_days <- dateDists(test1, test2, dat2Format = "ymd", threshold = 11)
+zero_days   <- dateDists(test1, test2, dat2Format = "ymd")
+rel_days    <- dateDists(test1, test2, dat2Format = "ymd", threshold = NULL)
 
-  eleven_days <- dateDists(test1, test2, dat2Format = "ymd", threshold = 11)
-  zero_days   <- dateDists(test1, test2, dat2Format = "ymd")
-  rel_days    <- dateDists(test1, test2, dat2Format = "ymd", threshold = NULL)
-
-  # combined and separate data sets work
-  expect_identical(eleven_days_combined, eleven_days)
-  # the threshold works
-  expect_equal(sum(eleven_days), 6)
-  # exact matching works
-  expect_equal(sum(zero_days), (2*nrow(test1))^2 - 6)
-  # relative matching works
-  expect_gt(sum(zero_days), sum(rel_days))
-  expect_lt(sum(eleven_days), sum(rel_days))
-  # The default distance is binary
+test_that("the default distance for dateDists is binary", {
   expect_equal(sort(unique(zero_days[TRUE])), c(0L, 1L))
 })
+
+test_that("combined and separate data sets work", {
+  expect_identical(eleven_days_combined, eleven_days)
+})
+
+test_that("the threshold works", {
+  expect_equal(sum(eleven_days), 6)
+})
+
+test_that("exact matching works", {
+  expect_equal(sum(zero_days), (2*nrow(test1))^2 - 6)
+})
+
+test_that("relative matching works", {
+  expect_gt(sum(zero_days), sum(rel_days))
+  expect_lt(sum(eleven_days), sum(rel_days))
+  expect_gt(length(sort(unique(rel_days[TRUE]))), 2L)
+})
+
+
+
+
+
 
 test_that("genderDists returns expected values", {
   # genderDists()
