@@ -10,30 +10,46 @@ test_that("distFuns returns the distances", {
 
 context("ageDist Test")
 
-test_that("ageDists returns expected values", {
-  x <- data.frame(age = c(28L, 22L, 23L, 28L, 26L), age_class = "YEAR")
-  y <- data.frame(age = c(27L, 21L, 21L, 11L, 18L), age_class = "MONTH")
-  xy <- rbind(x, y)
-  expect_is(ageDists(x), "dist")
+x <- data.frame(age = c(28L, 22L, 23L, 28L, 26L), age_class = "YEAR")
+y <- data.frame(age = c(27L, 21L, 21L, 11L, 18L), age_class = "MONTH")
+xy <- rbind(x, y)
 
-  dist_x_y <- ageDists(x, y)
-  dist_xy  <- ageDists(xy)
+
+dist_x_y <- ageDists(x, y)
+dist_xy  <- ageDists(xy)
+
+test_that("ageDists returns expected values", {
+
+  expect_is(dist_xy, "dist")
   expect_equal(unique(dist_xy), c(1, 0))
-  # Show that the combined data set and separate work
+})
+
+test_that("the combined data set and separate work", {
   expect_equal(dist_x_y, dist_xy)
-  # Comparing year conversion
+})
+
+test_that("month to year conversion works", {
   expect_equal(ageDists(data.frame(y$age*(1/12))), ageDists(y))
-  # Comparing threshold
+})
+
+test_that("a zero year threshold returns the expected value", {
   expect_equal(45 - sum(ageDists(xy, e = 0)), sum(duplicated(xy$age)))
-  # Assess that the conversion to month matters
+})
+
+test_that("the conversion to month matters", {
   expect_gt(sum(ageDists(xy["age"])), sum(dist_xy))
-  # extra_column can take any value
+})
+
+test_that("extra_column can take any value", {
   x$age_class <- "Geordi"
   y$age_class <- "Laforge"
   starfleet   <- ageDists(rbind(x, y),
                           extra_column = list(yr = "geordi", mo = "laforge"))
   expect_equal(starfleet, dist_xy)
 })
+
+
+
 
 context("dateDist Test")
 
