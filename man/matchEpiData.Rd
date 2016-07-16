@@ -51,22 +51,23 @@ names(x) <- basename(indata)
 case <- x[["CaseInformationForm.csv"]]
 lab <- x[["LaboratoryResultsForm7.csv"]]
 
+funlist <- list(
+             list(d1vars = "ID",
+                  d2vars = "ID",
+                  fun = "nameDists",
+                  extraparams = NULL,
+                  weight = 1),
+             list(d1vars = c("Surname", "OtherNames"),
+                  d2vars = c("SurnameLab", "OtherNameLab"),
+                  fun = "nameDists",
+                  extraparams = NULL,
+                  weight = 0.5)
+           )
 # This will get all of the indices that match the ID and Names with a
 # threshold of 0.25
 res <- matchEpiData(dat1 = case,
                     dat2 = lab,
-                    funlist = list(
-                    list(d1vars = "ID",
-                         d2vars = "ID",
-                         fun = "nameDists",
-                         extraparams = NULL,
-                         weight = 1),
-                    list(d1vars = c("Surname", "OtherNames"),
-                         d2vars = c("SurnameLab", "OtherNameLab"),
-                         fun = "nameDists",
-                         extraparams = NULL,
-                         weight = 0.5)
-                    ),
+                    funlist = funlist,
                     thresh = 0.25)
 # List of indices
 res
