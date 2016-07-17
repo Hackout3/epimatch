@@ -78,6 +78,7 @@ splitComma <- function(dat)
 #'
 #' @return an unnamed list of lists of indices
 #' @keywords internal
+#' @noRd
 #' @examples
 #' ## Loading Data
 #' indata <- system.file("files", package = "epimatch")
@@ -114,4 +115,28 @@ getIndexList <- function(matchList){
   out <- lapply(matchList, lapply, function(i) as.integer(names(i)))
   names(out) <- NULL
   return(out)
+}
+
+#' Collapse columns of a data frame into one
+#'
+#' @param df a data frame with one or more columns
+#' @param sep a separator to collapse the columns with
+#'
+#' @return a single column data frame
+#' @keywords internal
+#' @noRd
+#'
+#' @examples
+#' dat <- data.frame(a = letters, b = sample(100, 26), c = LETTERS)
+#' collapseValues(dat)
+collapseValues <- function(df, sep = "_"){
+  if (!is.data.frame(df)){
+    stop("a data frame is needed")
+  }
+  if (length(df) > 1){
+    dfnames <- paste(names(df), collapse = sep)
+    df <- data.frame(apply(df, 1, paste, collapse = sep), stringsAsFactors = FALSE)
+    names(df) <- dfnames
+  }
+  return(df)
 }
