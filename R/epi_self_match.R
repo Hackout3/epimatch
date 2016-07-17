@@ -42,16 +42,12 @@
 #' res <- matchEpiData(dat1 = case,
 #'                     dat2 = lab,
 #'                     funlist = funlist,
-#'                     thresh = 0.25)
+#'                     thresh = 0.25,
+#'                     giveWeight = FALSE)
 #' # List of indices
 #' res
 #'
-#' # Printing out the matching names in decreasing order of matching
-#' invisible(lapply(res, function(i) {
-#'    print(case[i$d1, c("Surname", "OtherNames")])
-#'    print(lab[i$d2, c("SurnameLab", "OtherNameLab")])
-#'    cat("\n\t--------\n")
-#'  }))
+#' tablesFromMatch(case, lab, funlist, matchList = res)
 matchEpiData <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05, giveWeight = FALSE){
   the_matrices <- processFunctionList(dat1, dat2, funlist)
   the_weights  <- unlist(lapply(funlist, function(i) i$weight))
