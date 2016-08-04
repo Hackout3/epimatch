@@ -5,13 +5,17 @@
 #'   \code{NULL}, a threshold can be supplied instead to calculate the list on
 #'   the fly.
 #' @param collapse When \code{TRUE}, the list of data frames will be collapsed
-#'   into one data frame with three extra columns specifying:
-#'   \itemize{
-#'       \item match group
-#'       \item data set
-#'       \item index in data set
+#'   into one data frame with three or four extra columns specifying:
+#'   \describe{
+#'       \item{groups}{ match group in decreasing order of score}
+#'       \item{dataset}{ data set of origin}
+#'       \item{index}{ index in data set}
+#'       \item{score}{ the score of the matches to the first item in the group.}
 #'   }
 #'
+#' @details This will collect all of the data from \code{\link{matchEpiData}}
+#'   and present it in table format. It will collapse them into tidy tables and,
+#'   if provided, the score of the matches will be provided.
 #' @return a list of data frames sorted in decreasing order of matching-ness.
 #' @export
 #'
@@ -46,7 +50,7 @@
 #'                     funlist = funlist,
 #'                     thresh = 0.25,
 #'                     giveWeight = TRUE)
-#' tablesFromMatch(case, lab, funlist, matchList = res)
+#' tablesFromMatch(case, lab, funlist, matchList = res, collapse = FALSE)
 #' tablesFromMatch(case, lab, funlist, matchList = 0.25)
 tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
                             matchList = NULL, collapse = TRUE){
@@ -60,11 +64,17 @@ tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
   if (is.null(matchList) || length(matchList) == 0){
     stop("no matches found!")
   }
-  # If the matchList is a threshold parameter, pass it to the matchEpiData function.
+  # If the matchList is a threshold parameter, pass it to the matchEpiData
+  # function.
   if (is.numeric(matchList) && length(matchList) == 1){
-    matchList <- matchEpiData(dat1, dat2, funlist = funlist, thresh = matchList)
-  } else if (!is.integer(unlist(matchList))){
-    matchList <- getIndexList(matchList)
+    matchList <- matchEpiData(dat1, dat2, funlist = funlist, thresh = matchList,
+                              giveWeight = TRUE)
+  }
+  # If the incoming list contains numeric values, collect the thresholds and
+  # convert the list to indices.
+  if (!is.integer(unlist(matchList))){
+    theThresholds <- unlist(matchList)
+    matchList     <- getIndexList(matchList)
   }
 
   # Grab the tested variables from dat1
@@ -116,6 +126,11 @@ tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
     outlist$groups  <- groups
     outlist$dataset <- data_source
     outlist$index   <- indices
+
+    ## If the incoming list are thresholds, add them as a column ----
+    if (exists("theThresholds", inherits = FALSE)){
+      outlist$score <- theThresholds
+    }
   }
 
   return(outlist)

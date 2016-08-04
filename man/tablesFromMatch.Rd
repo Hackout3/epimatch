@@ -26,11 +26,12 @@ tablesFromMatch(dat1, dat2 = NULL, funlist = list(), matchList = NULL,
 the fly.}
 
 \item{collapse}{When \code{TRUE}, the list of data frames will be collapsed
-into one data frame with three extra columns specifying:
-\itemize{
-    \item match group
-    \item data set
-    \item index in data set
+into one data frame with three or four extra columns specifying:
+\describe{
+    \item{groups}{ match group in decreasing order of score}
+    \item{dataset}{ data set of origin}
+    \item{index}{ index in data set}
+    \item{score}{ the score of the matches to the first item in the group.}
 }}
 }
 \value{
@@ -38,6 +39,11 @@ a list of data frames sorted in decreasing order of matching-ness.
 }
 \description{
 Generate a list of tables aggregating the matched values
+}
+\details{
+This will collect all of the data from \code{\link{matchEpiData}}
+  and present it in table format. It will collapse them into tidy tables and,
+  if provided, the score of the matches will be provided.
 }
 \examples{
 ## Loading Data
@@ -70,7 +76,7 @@ res <- matchEpiData(dat1 = case,
                     funlist = funlist,
                     thresh = 0.25,
                     giveWeight = TRUE)
-tablesFromMatch(case, lab, funlist, matchList = res)
+tablesFromMatch(case, lab, funlist, matchList = res, collapse = FALSE)
 tablesFromMatch(case, lab, funlist, matchList = 0.25)
 }
 
