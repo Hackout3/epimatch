@@ -25,6 +25,7 @@
 #'   \itemize{
 #'      \item \code{\link{processFunctionList}}
 #'      \item \code{\link{matchEpiData}}
+#'      \item \code{\link{tablesFromMatch}}
 #'   }
 #'
 #' @section Dissimilarity Functions: Each dissimilarity function returns a

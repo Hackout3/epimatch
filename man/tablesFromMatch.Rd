@@ -4,7 +4,8 @@
 \alias{tablesFromMatch}
 \title{Generate a list of tables aggregating the matched values}
 \usage{
-tablesFromMatch(dat1, dat2 = NULL, funlist = list(), matchList = NULL)
+tablesFromMatch(dat1, dat2 = NULL, funlist = list(), matchList = NULL,
+  collapse = TRUE)
 }
 \arguments{
 \item{dat1}{An input linelist}
@@ -23,6 +24,14 @@ tablesFromMatch(dat1, dat2 = NULL, funlist = list(), matchList = NULL)
 \item{matchList}{a list derived from \code{\link{matchEpiData}}. If this is
 \code{NULL}, a threshold can be supplied instead to calculate the list on
 the fly.}
+
+\item{collapse}{When \code{TRUE}, the list of data frames will be collapsed
+into one data frame with three extra columns specifying:
+\itemize{
+    \item match group
+    \item data set
+    \item index in data set
+}}
 }
 \value{
 a list of data frames sorted in decreasing order of matching-ness.
