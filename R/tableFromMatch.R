@@ -95,12 +95,23 @@ tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
   }
 
   if (collapse){
+    # This is where we make the data tidy by placing everything in a single data
+    # frame and adding three extra columns that contain the information that was
+    # in the result from `matchEpiData()`.
+
+    ## Give the indices of the highest list -------------------------
     groups <- lapply(lapply(matchList, unlist), length)
     groups <- rep(seq_along(matchList), groups)
-    indices <- unlist(matchList)
+
+    ## Give the source of the data ----------------------------------
     data_length <- unlist(lapply(matchList, lapply, length))
     data_source <- rep(c("d1", "d2"), length(matchList))
     data_source <- rep(data_source, data_length)
+
+    ## Give the indices within each data set ------------------------
+    indices <- unlist(matchList)
+
+    ## Create the resulting tidy data frame and add information -----
     outlist <- do.call("rbind", outlist)
     outlist$groups  <- groups
     outlist$dataset <- data_source
