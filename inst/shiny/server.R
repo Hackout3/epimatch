@@ -251,11 +251,13 @@ function(input, output, session) {
       hide("findMatchesLoading")
     })
     tryCatch({
-      values$results <- epimatch::matchEpiData(
+      theMatches <- epimatch::matchEpiData(
         dat1 = values$data1, dat2 = values$data2,
         funlist = funlist,
-        thresh = input$threshold
+        thresh = input$threshold,
+        giveWeight = TRUE
       )
+      values$results <- epimatch::getIndexList(theMatches)
       show(selector = ".findMatchesDone")
       delay(1000, hide(selector = ".findMatchesDone", anim = TRUE, animType = "fade",
                        time = 0.5))
