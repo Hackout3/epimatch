@@ -29,6 +29,7 @@ column names, and function parameters, and return a list of matrices by
 function.
 }
 \examples{
+library('epimatch')
 ## Loading Data
 indata <- system.file("files", package = "epimatch")
 indata <- dir(indata, full.names = TRUE)

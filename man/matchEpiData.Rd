@@ -42,6 +42,7 @@ this function will take in one or two data sets, a list of functions
 }
 \examples{
 ## Loading Data
+library('epimatch')
 indata <- system.file("files", package = "epimatch")
 indata <- dir(indata, full.names = TRUE)
 x <- lapply(indata, read.csv, stringsAsFactors = FALSE)

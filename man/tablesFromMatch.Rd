@@ -32,6 +32,7 @@ Generate a list of tables aggregating the matched values
 }
 \examples{
 ## Loading Data
+library('epimatch')
 indata <- system.file("files", package = "epimatch")
 indata <- dir(indata, full.names = TRUE)
 x <- lapply(indata, read.csv, stringsAsFactors = FALSE)

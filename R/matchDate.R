@@ -14,6 +14,7 @@
 #' @importFrom lubridate parse_date_time
 #'
 #' @examples
+#' library('epimatch')
 #'
 #' # Two data sets in Month-Day-Year and Year-Month-Day format, respectively.
 #' # Note that the way the dates can vary within data sets, but it's assumed

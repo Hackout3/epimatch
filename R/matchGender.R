@@ -11,6 +11,7 @@
 #' @export
 #'
 #' @examples
+#' library('epimatch')
 #' test <- data.frame(c("male", "f", "m"), stringsAsFactors = FALSE)
 #' genderDists(test)
 genderDists <- function(dat1, dat2=NULL,

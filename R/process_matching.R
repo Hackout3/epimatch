@@ -20,6 +20,7 @@
 #' @export
 #'
 #' @examples
+#' library('epimatch')
 #' ## Loading Data
 #' indata <- system.file("files", package = "epimatch")
 #' indata <- dir(indata, full.names = TRUE)

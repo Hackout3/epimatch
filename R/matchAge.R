@@ -14,6 +14,7 @@
 #' @export
 #'
 #' @examples
+#' library('epimatch')
 #' set.seed(999)
 #' x <- data.frame(age = rpois(5, 30), age_class = "YEAR")
 #' y <- data.frame(age = rpois(5, 18), age_class = "MONTH")
