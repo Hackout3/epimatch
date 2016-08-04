@@ -72,6 +72,7 @@ matchEpiData <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05, giv
 #'
 #' @return an unnamed list of lists of indices
 #' @keywords internal utilities
+#' @export
 #' @examples
 #' ## Loading Data
 #' library('epimatch')

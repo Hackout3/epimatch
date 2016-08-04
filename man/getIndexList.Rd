@@ -51,6 +51,6 @@ res <- matchEpiData(dat1 = case,
 res               # List of weights
 getIndexList(res) # List of indices
 }
-\keyword{internal,}
+\keyword{internal}
 \keyword{utilities}
 
