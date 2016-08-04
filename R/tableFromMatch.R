@@ -4,6 +4,13 @@
 #' @param matchList a list derived from \code{\link{matchEpiData}}. If this is
 #'   \code{NULL}, a threshold can be supplied instead to calculate the list on
 #'   the fly.
+#' @param collapse When \code{TRUE}, the list of data frames will be collapsed
+#'   into one data frame with three extra columns specifying:
+#'   \itemize{
+#'       \item match group
+#'       \item data set
+#'       \item index in data set
+#'   }
 #'
 #' @return a list of data frames sorted in decreasing order of matching-ness.
 #' @export
@@ -41,7 +48,8 @@
 #'                     giveWeight = TRUE)
 #' tablesFromMatch(case, lab, funlist, matchList = res)
 #' tablesFromMatch(case, lab, funlist, matchList = 0.25)
-tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(), matchList = NULL){
+tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
+                            matchList = NULL, collapse = TRUE){
 
   # Check if incoming data are cromulent
   dat2exists <- !is.null(dat2) && is.data.frame(dat2)
@@ -85,5 +93,19 @@ tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(), matchList = NUL
       outlist[[i]] <- d1[indices$d1, ]
     }
   }
+
+  if (collapse){
+    groups <- lapply(lapply(matchList, unlist), length)
+    groups <- rep(seq_along(matchList), groups)
+    indices <- unlist(matchList)
+    data_length <- unlist(lapply(matchList, lapply, length))
+    data_source <- rep(c("d1", "d2"), length(matchList))
+    data_source <- rep(data_source, data_length)
+    outlist <- do.call("rbind", outlist)
+    outlist$groups  <- groups
+    outlist$dataset <- data_source
+    outlist$index   <- indices
+  }
+
   return(outlist)
 }
