@@ -27,7 +27,7 @@ This function will take one or two data frames containing ages
   data frame with a specifier for months or year in the second column.
 }
 \examples{
-library('epimatch')
+
 set.seed(999)
 x <- data.frame(age = rpois(5, 30), age_class = "YEAR")
 y <- data.frame(age = rpois(5, 18), age_class = "MONTH")

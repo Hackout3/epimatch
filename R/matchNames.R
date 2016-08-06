@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-#' library('epimatch')
+#' 
 #' set.seed(9)
 #' x <- data.frame(x = letters, y = LETTERS, z = 1:26)
 #' x <- x[sample(nrow(x), 10, replace = TRUE), ]

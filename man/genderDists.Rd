@@ -27,7 +27,7 @@ A thin wrapper around generic, which converts some known male and female
 codes to binary
 }
 \examples{
-library('epimatch')
+
 test <- data.frame(c("male", "f", "m"), stringsAsFactors = FALSE)
 genderDists(test)
 }

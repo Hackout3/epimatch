@@ -47,7 +47,7 @@ This will collect all of the data from \code{\link{matchEpiData}}
 }
 \examples{
 ## Loading Data
-library('epimatch')
+
 indata <- system.file("files", package = "epimatch")
 indata <- dir(indata, full.names = TRUE)
 x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
