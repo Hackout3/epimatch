@@ -5,23 +5,25 @@
 #'   \code{NULL}, a threshold can be supplied instead to calculate the list on
 #'   the fly.
 #' @param collapse When \code{TRUE}, the list of data frames will be collapsed
-#'   into one data frame with three or four extra columns specifying:
-#'   \describe{
-#'       \item{groups}{ match group in decreasing order of score}
-#'       \item{dataset}{ data set of origin}
-#'       \item{index}{ index in data set}
-#'       \item{score}{ the score of the matches to the first item in the group.}
-#'   }
+#'   into one data frame an extra column specifying the group appended.
 #'
 #' @details This will collect all of the data from \code{\link{matchEpiData}}
 #'   and present it in table format. It will collapse them into tidy tables and,
 #'   if provided, the score of the matches will be provided.
-#' @return a list of data frames sorted in decreasing order of matching-ness.
+#' @return a list of data frames sorted in decreasing order of matching-ness
+#'   with three extra columns:
+#'   \describe{
+#'       \item{source}{ data set of origin}
+#'       \item{index}{ index in data set}
+#'       \item{score}{ the score of the matches to the first item in the group.}
+#'   }
+#'   When \code{collapse = TRUE}, a fourth column, \code{groups} is appended.
+#'
 #' @export
 #'
 #' @examples
 #' ## Loading Data
-#' 
+#'
 #' indata <- system.file("files", package = "epimatch")
 #' indata <- dir(indata, full.names = TRUE)
 #' x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
@@ -73,7 +75,7 @@ tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
   # If the incoming list contains numeric values, collect the thresholds and
   # convert the list to indices.
   if (!is.integer(unlist(matchList))){
-    theThresholds <- unlist(matchList)
+    theThresholds <- matchList
     matchList     <- getIndexList(matchList)
   }
 
@@ -93,15 +95,26 @@ tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
     names(d2) <- names(d1)
   }
 
-  # The output is a list of data frames subset in decreasing order of matching.
+  ## The output is a list of data frames subset in decreasing order of matching.
   outlist <- vector(length = length(matchList), mode = "list")
   for (i in seq(matchList)){
     indices <- matchList[[i]]
     if (dat2exists){
-      outlist[[i]] <- rbind(d1[indices$d1, ], d2[indices$d2, ])
+      outdat <- rbind(d1[indices$d1, ], d2[indices$d2, ])
     } else {
-      outlist[[i]] <- d1[indices$d1, ]
+      outdat <- d1[indices$d1, ]
     }
+    ## Give the indices within each data set ------------------------
+    outdat$index <- unlist(indices, use.names = FALSE)
+
+    ## Give the source of the data ----------------------------------
+    outdat$source <- rep(c("d1", "d2"), lapply(indices, length))
+
+    ## If the incoming list are thresholds, add them as a column ----
+    if (exists("theThresholds", inherits = FALSE)){
+      outdat$score <- unlist(theThresholds[[i]])
+    }
+    outlist[[i]] <- outdat
   }
 
   if (collapse){
@@ -113,24 +126,9 @@ tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
     groups <- lapply(lapply(matchList, unlist), length)
     groups <- rep(seq_along(matchList), groups)
 
-    ## Give the source of the data ----------------------------------
-    data_length <- unlist(lapply(matchList, lapply, length))
-    data_source <- rep(c("d1", "d2"), length(matchList))
-    data_source <- rep(data_source, data_length)
-
-    ## Give the indices within each data set ------------------------
-    indices <- unlist(matchList)
-
     ## Create the resulting tidy data frame and add information -----
     outlist <- do.call("rbind", outlist)
     outlist$groups  <- groups
-    outlist$dataset <- data_source
-    outlist$index   <- indices
-
-    ## If the incoming list are thresholds, add them as a column ----
-    if (exists("theThresholds", inherits = FALSE)){
-      outlist$score <- theThresholds
-    }
   }
 
   return(outlist)

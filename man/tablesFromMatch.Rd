@@ -26,16 +26,17 @@ tablesFromMatch(dat1, dat2 = NULL, funlist = list(), matchList = NULL,
 the fly.}
 
 \item{collapse}{When \code{TRUE}, the list of data frames will be collapsed
-into one data frame with three or four extra columns specifying:
-\describe{
-    \item{groups}{ match group in decreasing order of score}
-    \item{dataset}{ data set of origin}
-    \item{index}{ index in data set}
-    \item{score}{ the score of the matches to the first item in the group.}
-}}
+into one data frame an extra column specifying the group appended.}
 }
 \value{
-a list of data frames sorted in decreasing order of matching-ness.
+a list of data frames sorted in decreasing order of matching-ness
+  with three extra columns:
+  \describe{
+      \item{source}{ data set of origin}
+      \item{index}{ index in data set}
+      \item{score}{ the score of the matches to the first item in the group.}
+  }
+  When \code{collapse = TRUE}, a fourth column, \code{groups} is appended.
 }
 \description{
 Generate a list of tables aggregating the matched values
