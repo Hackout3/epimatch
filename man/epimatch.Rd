@@ -37,6 +37,7 @@ Find matching patient records across tabular datasets
   \itemize{
      \item \code{\link{processFunctionList}}
      \item \code{\link{matchEpiData}}
+     \item \code{\link{tablesFromMatch}}
   }
 }
 

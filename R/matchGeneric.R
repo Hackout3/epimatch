@@ -7,6 +7,7 @@
 #' @export
 #'
 #' @examples
+#' 
 #' set.seed(9)
 #' x <- data.frame(dat = sample(10, replace = TRUE))
 #' x$let <- letters[x$dat]

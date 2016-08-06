@@ -18,6 +18,7 @@ a pairwise matrix of scores from 0 (exact match) to 1 (no match)
 generic function for exact matching single columns
 }
 \examples{
+
 set.seed(9)
 x <- data.frame(dat = sample(10, replace = TRUE))
 x$let <- letters[x$dat]

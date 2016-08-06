@@ -16,6 +16,7 @@
 #'
 #' @examples
 #' ## Loading Data
+#' 
 #' indata <- system.file("files", package = "epimatch")
 #' indata <- dir(indata, full.names = TRUE)
 #' x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
@@ -25,32 +26,29 @@
 #' case <- x[["CaseInformationForm.csv"]]
 #' lab <- x[["LaboratoryResultsForm7.csv"]]
 #'
+#' funlist <- list(
+#'              list(d1vars = "ID",
+#'                   d2vars = "ID",
+#'                   fun = "nameDists",
+#'                   extraparams = NULL,
+#'                   weight = 1),
+#'              list(d1vars = c("Surname", "OtherNames"),
+#'                   d2vars = c("SurnameLab", "OtherNameLab"),
+#'                   fun = "nameDists",
+#'                   extraparams = NULL,
+#'                   weight = 0.5)
+#'            )
 #' # This will get all of the indices that match the ID and Names with a
 #' # threshold of 0.25
 #' res <- matchEpiData(dat1 = case,
 #'                     dat2 = lab,
-#'                     funlist = list(
-#'                     list(d1vars = "ID",
-#'                          d2vars = "ID",
-#'                          fun = "nameDists",
-#'                          extraparams = NULL,
-#'                          weight = 1),
-#'                     list(d1vars = c("Surname", "OtherNames"),
-#'                          d2vars = c("SurnameLab", "OtherNameLab"),
-#'                          fun = "nameDists",
-#'                          extraparams = NULL,
-#'                          weight = 0.5)
-#'                     ),
-#'                     thresh = 0.25)
+#'                     funlist = funlist,
+#'                     thresh = 0.25,
+#'                     giveWeight = FALSE)
 #' # List of indices
 #' res
 #'
-#' # Printing out the matching names in decreasing order of matching
-#' invisible(lapply(res, function(i) {
-#'    print(case[i$d1, c("Surname", "OtherNames")])
-#'    print(lab[i$d2, c("SurnameLab", "OtherNameLab")])
-#'    cat("\n\t--------\n")
-#'  }))
+#' tablesFromMatch(case, lab, funlist, matchList = res)
 matchEpiData <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05, giveWeight = FALSE){
   the_matrices <- processFunctionList(dat1, dat2, funlist)
   the_weights  <- unlist(lapply(funlist, function(i) i$weight))
@@ -59,8 +57,57 @@ matchEpiData <- function(dat1, dat2 = NULL, funlist = list(), thresh = 0.05, giv
   # For processing in the shiny app, it's useful to display either the weights
   # as a named index vector or the indices themselves
   if (!giveWeight){
-    names(out) <- NULL
-    out <- lapply(out, lapply, function(i) as.integer(names(i)))
+    out <- getIndexList(out)
   }
+  return(out)
+}
+
+#' return a list of indices from matchEpiData
+#'
+#' The output of matchEpiData can either be a list of indices or a named list of
+#' weights. If it's a named list of weights, this function will return the list
+#' of indices.
+#'
+#' @param matchList a list of lists of weights
+#'
+#' @return an unnamed list of lists of indices
+#' @keywords internal utilities
+#' @export
+#' @examples
+#' ## Loading Data
+#' 
+#' indata <- system.file("files", package = "epimatch")
+#' indata <- dir(indata, full.names = TRUE)
+#' x <- lapply(indata, read.csv, stringsAsFactors = FALSE)
+#' names(x) <- basename(indata)
+#'
+#' # We will use one data set from the case information and lab results
+#' case <- x[["CaseInformationForm.csv"]]
+#' lab <- x[["LaboratoryResultsForm7.csv"]]
+#'
+#' funlist <- list(
+#'              list(d1vars = "ID",
+#'                   d2vars = "ID",
+#'                   fun = "nameDists",
+#'                   extraparams = NULL,
+#'                   weight = 1),
+#'              list(d1vars = c("Surname", "OtherNames"),
+#'                   d2vars = c("SurnameLab", "OtherNameLab"),
+#'                   fun = "nameDists",
+#'                   extraparams = NULL,
+#'                   weight = 0.5)
+#'            )
+#' # This will get all of the indices that match the ID and Names with a
+#' # threshold of 0.25
+#' res <- matchEpiData(dat1 = case,
+#'                     dat2 = lab,
+#'                     funlist = funlist,
+#'                     thresh = 0.25,
+#'                     giveWeight = TRUE)
+#' res               # List of weights
+#' getIndexList(res) # List of indices
+getIndexList <- function(matchList){
+  out <- lapply(matchList, lapply, function(i) as.integer(names(i)))
+  names(out) <- NULL
   return(out)
 }

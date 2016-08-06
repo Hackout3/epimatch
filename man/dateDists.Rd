@@ -28,6 +28,7 @@ The formats for dates are passed to \pkg{lubridate}'s function
 }
 \examples{
 
+
 # Two data sets in Month-Day-Year and Year-Month-Day format, respectively.
 # Note that the way the dates can vary within data sets, but it's assumed
 # that the order within a data set is consistant.
