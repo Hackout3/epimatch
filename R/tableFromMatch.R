@@ -17,7 +17,7 @@
 #'       \item{index}{ index in data set}
 #'       \item{score}{ the score of the matches to the first item in the group.}
 #'   }
-#'   When \code{collapse = TRUE}, a fourth column, \code{groups} is appended.
+#'   When \code{collapse = TRUE}, a fourth column, \code{group} is appended.
 #'
 #' @export
 #'
@@ -114,6 +114,7 @@ tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
     if (exists("theThresholds", inherits = FALSE)){
       outdat$score <- unlist(theThresholds[[i]])
     }
+    rownames(outdat) <- NULL
     outlist[[i]] <- outdat
   }
 
@@ -128,7 +129,8 @@ tablesFromMatch <- function(dat1, dat2 = NULL, funlist = list(),
 
     ## Create the resulting tidy data frame and add information -----
     outlist <- do.call("rbind", outlist)
-    outlist$groups  <- groups
+    outlist$group  <- groups
+    rownames(outlist) <- NULL
   }
 
   return(outlist)

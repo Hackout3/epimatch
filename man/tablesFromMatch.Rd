@@ -36,7 +36,7 @@ a list of data frames sorted in decreasing order of matching-ness
       \item{index}{ index in data set}
       \item{score}{ the score of the matches to the first item in the group.}
   }
-  When \code{collapse = TRUE}, a fourth column, \code{groups} is appended.
+  When \code{collapse = TRUE}, a fourth column, \code{group} is appended.
 }
 \description{
 Generate a list of tables aggregating the matched values
